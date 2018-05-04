@@ -1,0 +1,10 @@
+Package: DieTrying
+Title: Helps to run RICH economic games
+Version: 0.0.0.9000
+Authors@R: person("Cody", "Ross", email = "ctross@ucdavis.edu", role = c("aut", "cre"))
+Description: Streamlines photo standardization, suvery design, data entry, data compilation, and payout calculation.
+Depends: R (>= 3.4.2)
+License: Who knows!
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1.9000

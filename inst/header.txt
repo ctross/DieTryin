@@ -1,0 +1,15 @@
+\documentclass[7pt,twocolumn, fleqn]{scrreprt} \usepackage[ngerman]{babel} \usepackage[top=1.25cm,bottom=1.25cm,left=1.4cm, right=1.4cm]{geometry} \usepackage[latin1]{inputenc} \usepackage{paperandpencil}  \usepackage[none]{hyphenat}
+\raggedright
+\usepackage{xcolor} \usepackage{longtable} \usepackage{rotating}  \renewcommand{\arraystretch}{5.9}
+ \newcommand{\ffbox}[1]{ { \setlength{\fboxsep}{\fboxrule} \fbox{\hspace{2.2pt}\strut#1\hspace{2.2pt}} } }
+\begin{document}
+
+
+\onecolumn
+\large\textbf{University of Curiosity \\[3pt]  Form 00---Economic Games}
+\begin{fshaded}
+ Household ID \xxxbox~  Researcher ID   \xxbox~  Date: M \xxbox D \xxbox Y \xxxxbox
+\end{fshaded}
+\begin{fshaded}
+\question{\textbf Individual providing data. Mark which game this applies to.}
+\textbf{ Name~  \underline{ \hspace{1.65in}}} ID ~~ \xxxbox ~~ \ffbox{\color[HTML]{C0C0C0} Giving} \ffbox{\color[HTML]{C0C0C0} Taking}\ffbox{\color[HTML]{C0C0C0} Reducing}~~ Seed=
