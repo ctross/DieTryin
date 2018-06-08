@@ -1,12 +1,12 @@
-DieTrying
+DieTryin
 ========
 This is an R package for making it super-easy to run RICH economic games <http://journals.sagepub.com/doi/abs/10.1177/1525822X16643709?journalCode=fmxd>
 
 Here we will go through the process. First, we install by running on R:
 ```{r}
 library(devtools)
-install_github('ctross/DieTrying')
-library(DieTrying)
+install_github('ctross/DieTryin')
+library(DieTryin)
 ```
 
 Next, we set a path to where we will save all of the files related to this project:
