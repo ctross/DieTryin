@@ -24,8 +24,8 @@ setup_folders <- function(path=path){
   
   dir.create(file.path(paste0(path,"/","RICH"),"Results"))
   
-  file.copy(paste0(path.package("DieTrying"),"/","header.txt"), paste0(path,"/","RICH","/","Survey/","header.txt"))
-  file.copy(paste0(path.package("DieTrying"),"/","paperandpencil.sty"), paste0(path,"/","RICH","/","Survey/","paperandpencil.sty"))
+  file.copy(paste0(path.package("DieTryin"),"/","header.txt"), paste0(path,"/","RICH","/","Survey/","header.txt"))
+  file.copy(paste0(path.package("DieTryin"),"/","paperandpencil.sty"), paste0(path,"/","RICH","/","Survey/","paperandpencil.sty"))
 
 path <<- paste0(path,"/RICH")  
 }                                                   
