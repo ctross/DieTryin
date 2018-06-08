@@ -1,4 +1,4 @@
-Package: DieTrying
+Package: DieTryin
 Title: Helps to run RICH economic games
 Version: 0.0.0.9000
 Authors@R: person("Cody", "Ross", email = "ctross@ucdavis.edu", role = c("aut", "cre"))
