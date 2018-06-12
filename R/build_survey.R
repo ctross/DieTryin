@@ -59,5 +59,8 @@ write(Code, file = paste0(path_out,"/","Survey.tex"), append = FALSE)
    }
    } 
    
-   
-
+wd1<-getwd()   
+wd2<-paste0(path_out,"/")
+setwd(wd2)
+tools::texi2dvi("Survey.tex", pdf = TRUE, clean = TRUE)
+setwd(wd1)
