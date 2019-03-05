@@ -17,8 +17,6 @@
 #' rows Number of rows per panel. With 7cm x 10cm photos, I use five rows of photos per panel.
 #' @param 
 #' cols Number of rows per panel. With 7cm x 10cm photos, I use six to eight cols of photos per panel.
-#' @param
-#' override If NULL, then build order randomly. If a vector, use that order.
 #' @export
 #' @examples
 #' \dontrun{
@@ -26,7 +24,7 @@
 #'                    }
            
 enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3, 
-    seed = 1, frames = 4, rows = 5, cols = 8, override=NULL) 
+    seed = 1, frames = 4, rows = 5, cols = 8) 
 {
     path_in <- paste0(path, "/StandardizedPhotos")
     IDS <- substr(list.files(path_in, pattern, full.names = FALSE), 
@@ -36,7 +34,6 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
         stop("ID vector exceeds the product of frames*rows*cols")
     }
     else {
-    if(is.null(override)==TRUE){
         set.seed(seed)
         SortedIDS <- c(IDS[order(runif(length(IDS), 0, 1))])
         SortedIDS <- c(SortedIDS, rep("", (frames * rows * cols - 
@@ -57,30 +54,7 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
             data.entry(z)
             x[[i]] <<- z
         }
-             } else{
-        SortedIDS <- override
-        SortedIDS <- c(SortedIDS, rep("", (frames * rows * cols - 
-            L)))  
-         X2 <<- X <<- matrix(SortedIDS, nrow = rows, ncol = frames * 
-            cols, byrow = FALSE)
-               
-                x <<- vector("list", frames)
-        for (i in 1:frames) x[[i]] <<- X[, c(1:cols) + cols * 
-            (i - 1)]
-        AZ <- readline("New Person ?: ")
-        if (AZ == "Y") 
-            headpage <<- cbind(c("HHID", "RID", "Day", "Month", 
-                "Year", "Name", "PID", "Game", "Order", "Seed"), 
-                c(rep(NA, 9), seed))
-        data.entry(headpage)
-        for (i in 1:frames) {
-            z <<- t(x[[i]])
-            data.entry(z)
-            x[[i]] <<- z
-        }
-            }
-            
-
+             
 
         if (headpage[8, 2] == "G" || headpage[8, 2] == "L" || 
             headpage[8, 2] == "R") {
