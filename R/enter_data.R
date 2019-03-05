@@ -40,14 +40,18 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
         set.seed(seed)
         SortedIDS <- c(IDS[order(runif(length(IDS), 0, 1))])
         SortedIDS <- c(SortedIDS, rep("", (frames * rows * cols - 
-            L))) } else{
+            L))) 
+            X2 <<- X <<- matrix(SortedIDS, nrow = rows, ncol = frames * 
+            cols, byrow = FALSE)
+             } else{
         SortedIDS <- override
         SortedIDS <- c(SortedIDS, rep("", (frames * rows * cols - 
-            L)))        
+            L)))  
+         X2 <<- X <<- matrix(SortedIDS, nrow = rows, ncol = frames * 
+            cols, byrow = TRUE)
             }
             
-        X2 <<- X <<- matrix(SortedIDS, nrow = rows, ncol = frames * 
-            cols, byrow = FALSE)
+
         x <<- vector("list", frames)
         for (i in 1:frames) x[[i]] <<- X[, c(1:cols) + cols * 
             (i - 1)]
