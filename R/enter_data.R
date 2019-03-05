@@ -43,15 +43,6 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
             L))) 
             X2 <<- X <<- matrix(SortedIDS, nrow = rows, ncol = frames * 
             cols, byrow = FALSE)
-             } else{
-        SortedIDS <- override
-        SortedIDS <- c(SortedIDS, rep("", (frames * rows * cols - 
-            L)))  
-         X2 <<- X <<- matrix(SortedIDS, nrow = rows, ncol = frames * 
-            cols, byrow = TRUE)
-            }
-            
-
         x <<- vector("list", frames)
         for (i in 1:frames) x[[i]] <<- X[, c(1:cols) + cols * 
             (i - 1)]
@@ -66,6 +57,31 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
             data.entry(z)
             x[[i]] <<- z
         }
+             } else{
+        SortedIDS <- override
+        SortedIDS <- c(SortedIDS, rep("", (frames * rows * cols - 
+            L)))  
+         X2 <<- X <<- matrix(SortedIDS, nrow = rows, ncol = frames * 
+            cols, byrow = FALSE)
+               
+                x <<- vector("list", frames)
+        for (i in 1:frames) x[[i]] <<- X[, c(1:cols) + cols * 
+            (i - 1)]
+        AZ <- readline("New Person ?: ")
+        if (AZ == "Y") 
+            headpage <<- cbind(c("HHID", "RID", "Day", "Month", 
+                "Year", "Name", "PID", "Game", "Order", "Seed"), 
+                c(rep(NA, 9), seed))
+        data.entry(headpage)
+        for (i in 1:frames) {
+            z <<- t(x[[i]])
+            data.entry(z)
+            x[[i]] <<- z
+        }
+            }
+            
+
+
         if (headpage[8, 2] == "G" || headpage[8, 2] == "L" || 
             headpage[8, 2] == "R") {
             for (i in 1:frames) X2[, c(1:cols) + cols * (i - 
