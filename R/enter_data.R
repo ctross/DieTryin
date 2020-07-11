@@ -24,7 +24,7 @@
 #'                    }
            
 enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3, 
-    seed = 1, frames = 4, rows = 5, cols = 8) 
+    seed = 1, frames = 4, rows = 5, cols = 8, ordered=NULL) 
 {
     path_in <- paste0(path, "/StandardizedPhotos")
     IDS <- substr(list.files(path_in, pattern, full.names = FALSE), 
@@ -35,7 +35,15 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
     }
     else {
         set.seed(seed)
-        SortedIDS <- c(IDS[order(runif(length(IDS), 0, 1))])
+        
+  if(is.null(ordered)){
+  SortedIDS <- c(IDS[order(runif(length(IDS),0,1))])
+    }
+  
+  else{
+    SortedIDS <- ordered
+  } 
+               
         SortedIDS <- c(SortedIDS, rep("", (frames * rows * cols - 
             L))) 
             X2 <<- X <<- matrix(SortedIDS, nrow = rows, ncol = frames * 
