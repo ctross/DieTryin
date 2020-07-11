@@ -24,7 +24,7 @@
 #'                    }
   
 build_survey <- function(path=path, pattern=".jpg", start=1, stop=3,
-                         frames=4, rows=5, cols=8, seed=1, ordered = NULL ){
+                         n_frames=4, n_rows=5, n_cols=8, seed=1, ordered = NULL ){
                          
 path_out<-paste0(path,"/Survey")
 require(xtable)
@@ -33,8 +33,8 @@ IDS <- substr(list.files(paste0(path,"/","StandardizedPhotos"), pattern, full.na
 
 L <- length(IDS)
 
-if( L> frames*rows*cols){
-stop("ID vector exceeds the product of frames*rows*cols")}
+if( L> n_frames*n_rows*n_cols){
+stop("ID vector exceeds the product of n_frames*n_rows*n_cols")}
 else{      
 set.seed(seed)
 
@@ -46,13 +46,13 @@ set.seed(seed)
     SortedIDS <- ordered
   }
 
-SortedIDS<-c(SortedIDS,rep("~~~~",(frames*rows*cols - L)) )
+SortedIDS<-c(SortedIDS,rep("~~~~",(n_frames*n_rows*n_cols - L)) )
 
- X <- matrix(paste0("\\LARGE \\color{gray}",SortedIDS), nrow=rows,ncol=frames*cols,byrow=FALSE)
+ X <- matrix(paste0("\\LARGE \\color{gray}",SortedIDS), nrow=n_rows,ncol=n_frames*n_cols,byrow=FALSE)
  x <- vector("list",frames)
  
  for(i in 1:frames)
- x[[i]] <- xtable_custom(X[,c(1:cols)+cols*(i-1)])
+ x[[i]] <- xtable_custom(X[,c(1:n_cols)+n_cols*(i-1)])
  
 Code <- c()
 Code[1] <- read_file(paste0(path,"/Survey/","header.txt"))
