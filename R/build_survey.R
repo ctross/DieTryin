@@ -29,7 +29,7 @@ build_survey <- function(path=path, pattern=".jpg", start=1, stop=3,
 path_out<-paste0(path,"/Survey")
 require(xtable)
 require(readr)
-IDS <- substr(list.files(paste0(path,"/","StandardizedPhotos"), pattern, full.names=FALSE), start = start, stop = stop) # Load IDs
+IDS <- substr(list.files(paste0(path,"/","StandardizedPhotos"), pattern, full.names=FALSE), start = start, stop = stop) # Load IDs from photos
 
 L <- length(IDS)
 
