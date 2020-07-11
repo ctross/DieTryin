@@ -27,7 +27,7 @@ setup_folders <- function(path=path,add=NULL){
   
   if(! is.null(add)){
            for(i in 1:length(add))
-            dir.create(file.path(paste0(path,"/","RICH"),add[[i]]))
+            dir.create(file.path(paste0(path,"/","RICH"),add[i]))
            }
   
   dir.create(file.path(paste0(path,"/","RICH"),"Results"))
