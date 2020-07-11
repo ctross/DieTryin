@@ -23,8 +23,8 @@
 #'   build_survey(path=path,pattern=".jpg",start=1,stop=3,frames=4,seed=1, rows=5, cols=8)
 #'                    }
   
-build_survey <- function(path=path,pattern=".jpg",start=1,stop=3,
-                         frames=4, rows=5, cols=8,seed=1      ){
+build_survey <- function(path=path, pattern=".jpg", start=1, stop=3,
+                         frames=4, rows=5, cols=8, seed=1, ordered = NULL ){
                          
 path_out<-paste0(path,"/Survey")
 require(xtable)
@@ -38,7 +38,14 @@ stop("ID vector exceeds the product of frames*rows*cols")}
 else{      
 set.seed(seed)
 
-SortedIDS <- c(IDS[order(runif(length(IDS),0,1))])
+  if(is.null(ordered)){
+  SortedIDS <- c(IDS[order(runif(length(IDS),0,1))])
+    }
+  
+  else{
+    SortedIDS <- ordered
+  }
+
 SortedIDS<-c(SortedIDS,rep("~~~~",(frames*rows*cols - L)) )
 
  X <- matrix(paste0("\\LARGE \\color{gray}",SortedIDS), nrow=rows,ncol=frames*cols,byrow=FALSE)
