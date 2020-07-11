@@ -6,21 +6,29 @@
 #' @export
 #' @examples
 #' \dontrun{
-#'   path<-"C:\\Users\\Mind Is Moving\\Desktop"
+#'   path<-"C:\\Users\\BirdySanders\\Desktop"
 #'   setup_folders(path)
 #'                    }
          
-setup_folders <- function(path=path){
+setup_folders <- function(path=path,add=NULL){
   dir.create(file.path(path, "RICH"))
   
   dir.create(file.path(paste0(path,"/","RICH"),"RawPhotos"))
   dir.create(file.path(paste0(path,"/","RICH"),"StandardizedPhotos"))
+  dir.create(file.path(paste0(path,"/","RICH"),"ClassifiedPhotos"))
+  dir.create(file.path(paste0(path,"/","RICH"),"ResultsPhotos"))
+  dir.create(file.path(paste0(path,"/","RICH"),"ResultsPhotosSmall"))
   
   dir.create(file.path(paste0(path,"/","RICH"),"Survey"))
   
   dir.create(file.path(paste0(path,"/","RICH"),"GivingData"))
   dir.create(file.path(paste0(path,"/","RICH"),"LeavingData"))
   dir.create(file.path(paste0(path,"/","RICH"),"ReducingData"))
+  
+  if(! is.null(add)){
+           for(i in 1:length(add))
+            dir.create(file.path(paste0(path,"/","RICH"),add[[i]]))
+           }
   
   dir.create(file.path(paste0(path,"/","RICH"),"Results"))
   
