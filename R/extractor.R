@@ -1,7 +1,7 @@
 
 extractor <- function(image, locations, n_rows=3, n_cols=5, cell_scale=10, cell_width=7, cell_height=11){
   # extractor takes in a raw image file and corner locations, and unwarps image
-
+   library(MASS)
   ####################### First get four corners of image in order: top left, top right, bottom right, bottom left
   loc1<-locations[1,]  
   loc2<-locations[2,] 
