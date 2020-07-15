@@ -24,14 +24,14 @@
 #'                    }
            
 enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3, 
-    seed = 1, frames = 4, rows = 5, cols = 8, ordered=NULL) 
+     n_frames = 4, n_rows = 5, n_cols = 8, seed = 1, ordered=NULL, add=games_to_add) 
 {
     path_in <- paste0(path, "/StandardizedPhotos")
     IDS <- substr(list.files(path_in, pattern, full.names = FALSE), 
         start = start, stop = stop)
     L <- length(IDS)
-    if (L > frames * rows * cols) {
-        stop("ID vector exceeds the product of frames*rows*cols")
+    if (L > n_frames * n_rows * n_cols) {
+        stop("ID vector exceeds the product of n_frames*n_rows*n_cols")
     }
     else {
         set.seed(seed)
@@ -44,12 +44,12 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
     SortedIDS <- ordered
   } 
                
-        SortedIDS <- c(SortedIDS, rep("", (frames * rows * cols - 
+        SortedIDS <- c(SortedIDS, rep("", (n_frames * n_rows * n_cols - 
             L))) 
-            X2 <<- X <<- matrix(SortedIDS, nrow = rows, ncol = frames * 
-            cols, byrow = FALSE)
-        x <<- vector("list", frames)
-        for (i in 1:frames) x[[i]] <<- X[, c(1:cols) + cols * 
+            X2 <<- X <<- matrix(SortedIDS, nrow = n_rows, ncol = n_frames * 
+            n_cols, byrow = FALSE)
+        x <<- vector("list", n_frames)
+        for (i in 1:n_frames) x[[i]] <<- X[, c(1:n_cols) + n_cols * 
             (i - 1)]
         AZ <- readline("New Person ?: ")
         if (AZ == "Y") 
@@ -57,16 +57,15 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
                 "Year", "Name", "PID", "Game", "Order", "Seed"), 
                 c(rep(NA, 9), seed))
         data.entry(headpage)
-        for (i in 1:frames) {
+        for (i in 1:n_frames) {
             z <<- x[[i]]
             data.entry(z)
             x[[i]] <<- z
         }
              
 
-        if (headpage[8, 2] == "G" || headpage[8, 2] == "L" || 
-            headpage[8, 2] == "R") {
-            for (i in 1:frames) X2[, c(1:cols) + cols * (i - 
+        if (headpage[8, 2] %in% c(games_to_add, "G", "L", "R") ) {
+            for (i in 1:n_frames) X2[, c(1:n_cols) + n_cols * (i - 
                 1)] <<- x[[i]]
             x.all <<- suppressWarnings(as.numeric(c(X2)))
             x.all[is.na(x.all)] <<- 0
@@ -85,7 +84,7 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
             res.all[1, 3:4] <<- c("AlterID", "CoinsPlaced")
         }
         else {
-            stop("Game must be G, L, or R")
+            stop("Cannot find folder. Does game code match the directories added in setup_folders?")
         }
         if (res.all[8, 2] == "G") {
             path_out <- paste0(path, "/GivingData")
@@ -96,6 +95,13 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
         if (res.all[8, 2] == "R") {
             path_out <- paste0(path, "/ReducingData")
         }
+         
+        for(i in 1:length(games_to_add)){       
+        if (res.all[8, 2] == games_to_add[i]) {
+            path_out <- paste0(path, "/", games_to_add[i])
+        }   
+        }
+               
         write.table(res.all, paste0(path_out, "/", res.all[7, 
             2], ".csv"), row.names = FALSE, col.names = FALSE, 
             sep = ",")
