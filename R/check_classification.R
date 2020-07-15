@@ -24,7 +24,7 @@ check_classification <- function(path="C:/Users/Mind Is Moving/Desktop/RICH/", d
  df2$b <- as.character(df2$b) 
  df2$b[which(as.numeric(as.character(df2$f)) > 1)] <- "black"
 
- jpeg(file=paste0(path,"ClassifiedPhotos/",case,"_",focal,"_","frame_",k,".jpg"))
+ jpeg(file=paste0(path,"/ClassifiedPhotos/",case,"_",focal,"_","frame_",k,".jpg"))
   plot(Q)
  points(as.numeric(as.character(df2$x)),as.numeric(as.character(df2$y)),col="white",pch=20, cex=5)
  points(as.numeric(as.character(df2$x)),as.numeric(as.character(df2$y)),col=as.character(df2$b),pch=20, cex=4.4)
