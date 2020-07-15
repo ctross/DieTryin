@@ -51,7 +51,7 @@ SortedIDS<-c(SortedIDS,rep("~~~~",(n_frames*n_rows*n_cols - L)) )
  X <- matrix(paste0("\\LARGE \\color{gray}",SortedIDS), nrow=n_rows,ncol=n_frames*n_cols,byrow=FALSE)
  x <- vector("list",n_frames)
  
- for(i in 1:frames)
+ for(i in 1:n_frames)
  x[[i]] <- xtable_custom(X[,c(1:n_cols)+n_cols*(i-1)])
  
 Code <- c()
@@ -60,7 +60,7 @@ Code[2] <- seed
 Code[3] <- " \\\\[12pt] \\end{fshaded}"
 for(i in 1:n_frames)
 Code[3+i] <- print(x[[i]],include.rownames=FALSE,include.colnames=FALSE,hline.after=0:nrow(x[[i]]), sanitize.text.function = identity)
-Code[frames+4] <- " \\end{document}"
+Code[n_frames+4] <- " \\end{document}"
 
 write(Code, file = paste0(path_out,"/","Survey.tex"), append = FALSE)
    }
