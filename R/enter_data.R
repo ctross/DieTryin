@@ -24,7 +24,7 @@
 #'                    }
            
 enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3, 
-     n_frames = 4, n_rows = 5, n_cols = 8, seed = 1, ordered=NULL, add=games_to_add) 
+     n_frames = 4, n_rows = 5, n_cols = 8, seed = 1, ordered=NULL, add="Nothing") 
 {
     path_in <- paste0(path, "/StandardizedPhotos")
     IDS <- substr(list.files(path_in, pattern, full.names = FALSE), 
