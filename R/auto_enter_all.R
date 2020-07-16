@@ -37,3 +37,4 @@ auto_enter_all <- function(path = "C:/Users/Mind Is Moving/Desktop/RICH/", patte
      return(res)                     
 
  }
+
