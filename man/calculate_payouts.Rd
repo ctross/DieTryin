@@ -4,8 +4,8 @@
 \alias{calculate_payouts}
 \title{A function to calculate payouts for RICH economic games using the compiled edgelists}
 \usage{
-calculate_payouts(path = path, pattern = ".jpg", start = 1, stop = 3,
-  game = "GLR", GV = 1, LV = 0.5, KV = 1, RV = -4)
+calculate_payouts(path = path, pattern = ".jpg", start = 1,
+  stop = 3, game = "GLR", GV = 1, LV = 0.5, KV = 1, RV = -4)
 }
 \arguments{
 \item{path}{Full path to main folder.}

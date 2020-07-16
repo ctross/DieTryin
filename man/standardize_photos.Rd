@@ -4,9 +4,9 @@
 \alias{standardize_photos}
 \title{A function to standardize photos for RICH economic games}
 \usage{
-standardize_photos(path = path, pattern = ".JPG", start = 1, stop = 3,
-  size_out = 1000, border_size = 10, asr = 1.618, id_range = NULL,
-  id_names = NULL, spin = FALSE)
+standardize_photos(path = path, pattern = ".JPG", start = 1,
+  stop = 3, size_out = 1000, border_size = 10, asr = 1.618,
+  id_range = NULL, id_names = NULL, spin = FALSE)
 }
 \arguments{
 \item{path}{Full path to main folder.}

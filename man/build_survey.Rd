@@ -5,7 +5,7 @@
 \title{A function to build LaTeX survey tool for RICH economic games}
 \usage{
 build_survey(path = path, pattern = ".jpg", start = 1, stop = 3,
-  frames = 4, rows = 5, cols = 8, seed = 1)
+  n_frames = 4, n_rows = 5, n_cols = 8, seed = 1, ordered = NULL)
 }
 \arguments{
 \item{path}{Full path to main folder.}
@@ -16,13 +16,13 @@ build_survey(path = path, pattern = ".jpg", start = 1, stop = 3,
 
 \item{stop}{Location of end of PID in file name. ... and this is 3.}
 
+\item{seed}{A seed for the random number generator to sort the order of photos in the array.}
+
 \item{frames}{Number of frames/panels/blocks of photos to be output. I use four big panels and randomize order at each game.}
 
 \item{rows}{Number of rows per panel. With 7cm x 10cm photos, I use five rows of photos per panel.}
 
 \item{cols}{Number of rows per panel. With 7cm x 10cm photos, I use six to eight cols of photos per panel.}
-
-\item{seed}{A seed for the random number generator to sort the order of photos in the array.}
 }
 \description{
 This function allows you to speed up data collection and photo randomization. Simply set a path the main folder.  Set the number of panels, and the number of rows and cols per panel. Then run the function. This function relies on 'xtable'. See details below.

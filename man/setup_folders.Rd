@@ -4,7 +4,7 @@
 \alias{setup_folders}
 \title{A function to create directory}
 \usage{
-setup_folders(path = path)
+setup_folders(path = path, add = NULL)
 }
 \arguments{
 \item{path}{Full path to where folder will be stored.}
@@ -14,7 +14,7 @@ This function allows you to build the directories for the data
 }
 \examples{
 \dontrun{
-  path<-"C:\\\\Users\\\\Mind Is Moving\\\\Desktop"
+  path<-"C:\\\\Users\\\\BirdySanders\\\\Desktop"
   setup_folders(path)
                    }
 }

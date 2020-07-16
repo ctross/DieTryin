@@ -5,7 +5,8 @@
 \title{A function to enter data from RICH economic games}
 \usage{
 enter_data(path = path, pattern = ".jpg", start = 1, stop = 3,
-  seed = 1, frames = 4, rows = 5, cols = 8)
+  n_frames = 4, n_rows = 5, n_cols = 8, seed = 1, ordered = NULL,
+  add = "Nothing")
 }
 \arguments{
 \item{path}{Full path to main folder.}
