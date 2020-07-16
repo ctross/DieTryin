@@ -16,6 +16,6 @@ downsize <- function(path=path, scaler=2){
    imgRaw <- load.image(to_read[i])
    img <- resize(imgRaw,round(width(imgRaw)/scaler),round(height(imgRaw)/scaler))
 
-   save.image(img, paste0(path_imgs_small,to_save[i]), quality = 0.9)
+   imager::save.image(img, paste0(path_imgs_small,to_save[i]), quality = 0.9)
    }
 }
