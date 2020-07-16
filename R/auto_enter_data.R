@@ -1,3 +1,10 @@
+#' A helper function
+#'
+#' This is the main entry functions
+#' @param 
+#' x An object.
+#' @export
+
 auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3, seed = 1, n_frames = 4, n_rows = 5, n_cols = 9, 
                          lower_hue_threshold = 210, upper_hue_threshold = 230, colors = c("empty","darkred"),
                         img, locs, focal="NEW",case="N",thresh=0.25, clean=NA, ordered=NULL,
