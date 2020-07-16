@@ -1,3 +1,11 @@
+#' A helper function
+#'
+#' This is a helper function to break array into cells and check hue differences
+#' @param 
+#' x An object.
+#' @export
+
+
 shatter <- function(image, locations, n_rows = 5, n_cols = 9, lower_hue_threshold=lower_hue_threshold, 
                     upper_hue_threshold=upper_hue_threshold, lower_saturation_threshold=lower_saturation_threshold, 
                      lower_luminance_threshold=lower_luminance_threshold, 
