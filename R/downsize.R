@@ -1,3 +1,10 @@
+#' A helper function
+#'
+#' This is a helper function to batch resize
+#' @param 
+#' x An object.
+#' @export
+
 downsize <- function(path=path, scaler=2){
   library(imager)
   path_imgs_big <- paste0(path, "/ResultsPhotos/")
