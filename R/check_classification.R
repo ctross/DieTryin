@@ -1,4 +1,9 @@
-
+#' A helper function
+#'
+#' This is a helper function to plot infered connections
+#' @param 
+#' x An object.
+#' @export
 
 check_classification <- function(path="C:/Users/Mind Is Moving/Desktop/RICH/", dat, n_frames = 2, n_rows=4, n_cols=5, focal="BS1", case="Friend"){
  for(k in 1:n_frames){
