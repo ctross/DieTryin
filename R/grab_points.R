@@ -1,3 +1,10 @@
+#' A helper function
+#'
+#' This is a helper function to grab points
+#' @param 
+#' x An object.
+#' @export
+
 grab_points <- function(path_imgs){
   imgs <- vector("list",length(path_imgs))
   locs <- vector("list",length(path_imgs))
