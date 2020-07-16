@@ -1,4 +1,11 @@
- counter <- function(slice, lower_hue_threshold, upper_hue_threshold, 
+ #' A helper function
+#'
+#' This is a helper function to check hue
+#' @param 
+#' x An object.
+#' @export
+
+counter <- function(slice, lower_hue_threshold, upper_hue_threshold, 
                      lower_saturation_threshold=0.04, 
                      lower_luminance_threshold=0.04, 
                      upper_luminance_threshold=0.96, 
