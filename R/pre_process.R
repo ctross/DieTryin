@@ -1,3 +1,10 @@
+#' A helper function
+#'
+#' This is a helper function to pre-process images
+#' @param 
+#' x An object.
+#' @export
+
 pre_process <- function(path=path, ID, GID="Blank", BID=c("A","B")){
  blank_photos_to_read <- paste0(GID, "_", ID, "_",BID,".jpg")
  blank_path <- paste0(path, "/ResultsPhotosSmall/", blank_photos_to_read)
