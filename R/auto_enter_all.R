@@ -1,3 +1,9 @@
+#' A helper function
+#'
+#' This is a helper function 
+#' @param 
+#' x An object.
+#' @export
 
 auto_enter_all <- function(path = "C:/Users/Mind Is Moving/Desktop/RICH/", pattern = ".jpg", start = 1, stop = 3, 
     seed = 1, n_frames = 4, n_rows = 5, n_cols = 9, lower_hue_threshold = 210, upper_hue_threshold = 230, colors=c("empty","red"),
