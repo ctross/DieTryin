@@ -1,3 +1,10 @@
+#' A helper function
+#'
+#' This is a helper function to grab images
+#' @param 
+#' x An object.
+#' @export
+
 grab_images <- function(path_imgs){
   imgs <- vector("list",length(path_imgs))
 
