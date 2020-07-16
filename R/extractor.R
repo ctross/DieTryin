@@ -1,3 +1,9 @@
+#' A helper function
+#'
+#' This is a helper function to unskew images
+#' @param 
+#' x An object.
+#' @export
 
 extractor <- function(image, locations, n_rows=3, n_cols=5, cell_scale=70, cell_width=1, cell_height=1.5){
   # extractor takes in a raw image file and corner locations, and unwarps image
