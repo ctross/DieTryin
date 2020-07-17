@@ -12,7 +12,8 @@ auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
                      upper_luminance_threshold=upper_luminance_threshold, 
                      border_size=border_size,
                      iso_blur=iso_blur,
-                     histogram_balancing=histogram_balancing) {
+                     histogram_balancing=histogram_balancing,
+                     direction="backwards") {
     path_in <- paste0(path, "/StandardizedPhotos")
     IDS <- substr(list.files(path_in, pattern, full.names = FALSE), 
         start = start, stop = stop)
@@ -56,7 +57,8 @@ auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
                      upper_luminance_threshold=upper_luminance_threshold, 
                      border_size=border_size,
                      iso_blur=iso_blur,
-                     histogram_balancing=histogram_balancing)
+                     histogram_balancing=histogram_balancing,
+                     direction=direction)
           
         if(length(lower_hue_threshold)>=1)
         y1[[i]] <- Temp_1[[1]][,,1]
