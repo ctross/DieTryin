@@ -5,7 +5,7 @@
 #' x An object.
 #' @export
 
-extractor <- function(image, locations, n_rows=3, n_cols=5, cell_scale=70, cell_width=1, cell_height=1.5){
+extractor <- function(image, locations, histogram_balancing=TRUE, n_rows=3, n_cols=5){
   # extractor takes in a raw image file and corner locations, and unwarps image
 
   ####################### First get four corners of image in order: top left, top right, bottom right, bottom left
@@ -30,8 +30,8 @@ extractor <- function(image, locations, n_rows=3, n_cols=5, cell_scale=70, cell_
   A[,3] <- A[,3]*Y[3]
 
  ### Target image
-  W <- cell_width*n_cols*cell_scale
-  H <- cell_height*n_rows*cell_scale
+  W <- dist(locations[1:2,])
+  H <- dist(locations[2:3,])
   A2 <- matrix(NA,nrow=3,ncol=3)
   A2[3,] <- rep(1,3)
   A2[1,] <- c(0,W,W)
@@ -61,7 +61,15 @@ extractor <- function(image, locations, n_rows=3, n_cols=5, cell_scale=70, cell_
    list(x=x_new, y=y_new)
    }
 
-   img_warp <- imwarp(image, map=map, direction="backward") 
+   img_warp <- imwarp(image, map=map, direction="backward", coordinates="absolute") 
    img_cut <- imsub(img_warp, x < W, y < H) # %>% plot
+
+  #Split across colour channels,
+  if(histogram_balancing==TRUE){
+  hist.eq <- function(im) as.cimg(ecdf(im)(im),dim=dim(im))
+  cn <- imsplit(img_cut,"c")
+  cn.eq <- map_il(cn,hist.eq) #run hist.eq on each
+  img_cut <- imappend(cn.eq,"c") 
+   }
  return(img_cut)
 }
