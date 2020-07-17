@@ -70,7 +70,7 @@ compile_data <- function(path=path, game="GivingData", batch=FALSE){
     colnames(Scrap)<- c("AID","CoinsPlaced","Question")
           DataFb[[i]] <-  data.frame(PID=rep(DataF$PID[i],length(Scrap$AID)),AID=Scrap$AID,CoinsPlaced=Scrap$CoinsPlaced,Question=Scrap$Question)
                 } 
-                }
+                
        }
          
          
@@ -78,5 +78,5 @@ compile_data <- function(path=path, game="GivingData", batch=FALSE){
    
    write.csv(DataF, file=paste0(path,"/","Results/",game,"-SummaryTable.csv")) 
    write.csv(X, file=paste0(path,"/","Results/",game,"-EdgeList.csv"))
-   }              
+   }
                  
