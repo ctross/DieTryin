@@ -121,6 +121,10 @@ auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
              Res$Binary_5 <- ifelse(Res$Diff_5 > thresh[5],1,0)
              }
 
+             if(length(lower_hue_threshold)==1){
+              Color <- ifelse(Res$Binary_1==1, plot_colors[2], plot_colors[1])
+              } else{
+
             Diffs <-  Res[,which(colnames(Res) %in% c("Diff_1","Diff_2","Diff_3","Diff_4","Diff_5"))]
             Binary <- Res[,which(colnames(Res) %in% c("Binary_1","Binary_2","Binary_3","Binary_4","Binary_5"))]
             Color <- rep(NA,dim(Res)[1])  
@@ -139,7 +143,7 @@ auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
                Color[i] <- plot_colors[1 + which(Diffs[i,]==max(Diffs[i,]))]
               }
 
-           }
+               }  }
 
             Res$Case <- case
             Res$Color <- Color
