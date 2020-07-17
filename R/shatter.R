@@ -11,11 +11,12 @@ shatter <- function(image, locations, n_rows = 5, n_cols = 9, lower_hue_threshol
                      lower_luminance_threshold=lower_luminance_threshold, 
                      upper_luminance_threshold=upper_luminance_threshold, 
                      border_size=border_size,
-                     iso_blur=iso_blur){
+                     iso_blur=iso_blur,
+                     histogram_balancing=histogram_balancing){
  # shatter takes in an image file and corner locations, splits the file into individual images, 
  # runs the classifier, and exports results and images
  results <- array(NA, c(n_rows, n_cols, length(lower_hue_threshold)))
- pruned_image <- extractor(image, locations, n_rows = n_rows, n_cols = n_cols) 
+ pruned_image <- extractor(image, locations, histogram_balancing=histogram_balancing) 
  rows_image <- imsplit(pruned_image,"y",n_rows)
  for(i in 1:n_rows){
  slice_image<- imsplit(rows_image[[i]],"x",n_cols)  
