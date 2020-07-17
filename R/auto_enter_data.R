@@ -141,11 +141,11 @@ auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
 
             Res$Case <- case
             Res$Color <- Color
+             }
 
             write.csv(Res,paste0(path,"/Results/",case,"_",focal,".csv")) 
             return(list(Res, x, cleaned_imgs))
-        }
-      }
+    }
 }
 
 
