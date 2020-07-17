@@ -54,7 +54,7 @@ compile_data <- function(path=path, game="GivingData", batch=FALSE){
                      )
            
     DataFb <- vector("list",length(files))
-         if(batch=FALSE){
+         if(batch==FALSE){
     for(i in 1:length(files)){
     Scrap<-as.data.frame(cbind(Basic[[i]][[3]],Basic[[i]][[4]])[14:length(Basic[[i]][[4]]),])
     colnames(Scrap)<- c("AID","CoinsPlaced")
