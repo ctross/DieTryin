@@ -1,4 +1,11 @@
-extractor <- function(image, locations, histogram_balancing=FALSE){
+#' A helper function
+#'
+#' This is a helper function 
+#' @param 
+#' x An object.
+#' @export
+
+extractor <- function(image, locations, histogram_balancing=FALSE, direction="backward"){
   # extractor takes in a raw image file and corner locations, and unwarps image
 
   ####################### First get four corners of image in order: top left, top right, bottom right, bottom left
@@ -42,19 +49,34 @@ extractor <- function(image, locations, histogram_balancing=FALSE){
   C <- A2 %*% ginv(A)
  
  ### Define backwards map function for imager
-  map <- function(x,y){
+  map_F <- function(x,y){
   	y_new <- x_new <- rep(NA,length(x))
   	for(i in 1:length(x)){
   	q = c(x[i],y[i],1)
-  	#q2 = C %*% q
-  	q2 = solve(C,q)
+  	q2 = C %*% q
   	x_new[i]=q2[1]/q2[3]
   	y_new[i]=q2[2]/q2[3]
      }
    list(x=x_new, y=y_new)
    }
 
-   img_warp <- imwarp(image, map=map, direction="backward", coordinates="absolute") 
+  map_B <- function(x,y){
+    y_new <- x_new <- rep(NA,length(x))
+    for(i in 1:length(x)){
+    q = c(x[i],y[i],1)
+    q2 = solve(C,q)
+    x_new[i]=q2[1]/q2[3]
+    y_new[i]=q2[2]/q2[3]
+     }
+   list(x=x_new, y=y_new)
+   }
+   
+   if(direction=="backward"){
+   img_warp <- imwarp(image, map=map_B, direction="backward", coordinates="absolute") 
+                             }
+   if(direction=="forward"){
+   img_warp <- imwarp(image, map=map_F, direction="forward", coordinates="absolute") 
+                             }
    img_cut <- imsub(img_warp, x < W, y < H) # %>% plot
 
   #Split across colour channels,
@@ -66,3 +88,4 @@ extractor <- function(image, locations, histogram_balancing=FALSE){
    }
  return(img_cut)
 }
+ 
