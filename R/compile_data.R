@@ -11,7 +11,7 @@
 #'   compile_data(path=path,game="GivingData")
 #'                    }
          
-compile_data <- function(path=path,game="GivingData"){
+compile_data <- function(path=path, game="GivingData", batch=FALSE){
 
  files <- list.files(path=paste0(path,"/",game), pattern="*.csv")
  Basic <- vector("list",length(files))
@@ -54,12 +54,23 @@ compile_data <- function(path=path,game="GivingData"){
                      )
            
     DataFb <- vector("list",length(files))
+         if(batch=FALSE){
     for(i in 1:length(files)){
     Scrap<-as.data.frame(cbind(Basic[[i]][[3]],Basic[[i]][[4]])[14:length(Basic[[i]][[4]]),])
     colnames(Scrap)<- c("AID","CoinsPlaced")
           DataFb[[i]] <-  data.frame(PID=rep(DataF$PID[i],length(Scrap$AID)),AID=Scrap$AID,CoinsPlaced=Scrap$CoinsPlaced)
                 } 
-                
+                }
+       else{
+           for(i in 1:length(files)){
+    Scrap<-as.data.frame(cbind(Basic[[i]][[3]],Basic[[i]][[4]])[14:length(Basic[[i]][[4]]),],,Basic[[i]][[5]])[14:length(Basic[[i]][[4]]),])
+    colnames(Scrap)<- c("AID","CoinsPlaced","Question")
+          DataFb[[i]] <-  data.frame(PID=rep(DataF$PID[i],length(Scrap$AID)),AID=Scrap$AID,CoinsPlaced=Scrap$CoinsPlaced,Question=Scrap$Question)
+                } 
+                }
+       }
+         
+         
    X<-do.call(rbind,DataFb)
    
    write.csv(DataF, file=paste0(path,"/","Results/",game,"-SummaryTable.csv")) 
