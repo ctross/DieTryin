@@ -10,6 +10,9 @@ grab_images <- function(path_imgs){
 
  for(i in 1:length(imgs)){
   imgs[[i]] <- load.image(path_imgs[i])
+
+     if(dim(imgs[[i]])[1]>dim(imgs[[i]])[2]){
+    imgs[[i]]<-imrotate(imgs[[i]],90)}
   }
  return(imgs)
 }
