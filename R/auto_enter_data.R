@@ -4,7 +4,6 @@
 #' @param 
 #' x An object.
 #' @export
-
 auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3, seed = 1, n_frames = 4, n_rows = 5, n_cols = 9, 
                          lower_hue_threshold = 210, upper_hue_threshold = 230, colors = c("empty","darkred"),
                         img, locs, focal="NEW",case="N",thresh=c(0.25), clean=NA, ordered=NULL,
@@ -24,12 +23,12 @@ auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
     if(length(lower_hue_threshold) > 5){
       stop("DieTryin supports a max of 5 token colors")
     }
-    else {
+    else{
         set.seed(seed)
 
           if(is.null(ordered)){
       SortedIDS <- c(IDS[order(runif(length(IDS),0,1))])
-    }
+           }
   
      else{
      SortedIDS <- ordered
@@ -48,8 +47,7 @@ auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
 
          cleaned_imgs <- vector("list", n_frames)
 
-        for (i in 1:n_frames) x[[i]] <- X[, c(1:n_cols) + n_cols * 
-            (i - 1)]
+        for (i in 1:n_frames) x[[i]] <- X[, c(1:n_cols) + n_cols * (i - 1)]
 
         for(i in 1:n_frames){
         Temp_1 <- shatter(img[[i]], locs[[i]], n_rows, n_cols, lower_hue_threshold, upper_hue_threshold, 
@@ -141,12 +139,16 @@ auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
 
            }
 
-        Res$Case <- case
-        Res$Color <- Color
+            Res$Case <- case
+            Res$Color <- Color
 
             write.csv(Res,paste0(path,"/Results/",case,"_",focal,".csv")) 
             return(list(Res, x, cleaned_imgs))
         }
       }
+}
+
+
+
 
 
