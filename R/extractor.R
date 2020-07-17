@@ -1,11 +1,4 @@
-#' A helper function
-#'
-#' This is a helper function to unskew images
-#' @param 
-#' x An object.
-#' @export
-
-extractor <- function(image, locations, histogram_balancing=TRUE, n_rows=3, n_cols=5){
+extractor <- function(image, locations, histogram_balancing=FALSE){
   # extractor takes in a raw image file and corner locations, and unwarps image
 
   ####################### First get four corners of image in order: top left, top right, bottom right, bottom left
