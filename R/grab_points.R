@@ -12,6 +12,9 @@ grab_points <- function(path_imgs){
  for(i in 1:length(imgs)){
   imgs[[i]] <- load.image(path_imgs[i])
 
+     if(dim(imgs[[i]])[1]>dim(imgs[[i]])[2]){
+    imgs[[i]]<-imrotate(imgs[[i]],90)}
+
   loc1<-grabPoint(imgs[[i]])  
   loc2<-grabPoint(imgs[[i]])  
   loc3<-grabPoint(imgs[[i]])  
