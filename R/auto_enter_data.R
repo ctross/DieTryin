@@ -7,12 +7,13 @@
 
 auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3, seed = 1, n_frames = 4, n_rows = 5, n_cols = 9, 
                          lower_hue_threshold = 210, upper_hue_threshold = 230, colors = c("empty","darkred"),
-                        img, locs, focal="NEW",case="N",thresh=0.25, clean=NA, ordered=NULL,
+                        img, locs, focal="NEW",case="N",thresh=c(0.25), clean=NA, ordered=NULL,
                          lower_saturation_threshold=lower_saturation_threshold, 
                         lower_luminance_threshold=lower_luminance_threshold, 
                      upper_luminance_threshold=upper_luminance_threshold, 
                      border_size=border_size,
-                     iso_blur=iso_blur) {
+                     iso_blur=iso_blur,
+                     histogram_balancing=histogram_balancing) {
     path_in <- paste0(path, "/StandardizedPhotos")
     IDS <- substr(list.files(path_in, pattern, full.names = FALSE), 
         start = start, stop = stop)
@@ -56,7 +57,8 @@ auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
                      lower_luminance_threshold=lower_luminance_threshold, 
                      upper_luminance_threshold=upper_luminance_threshold, 
                      border_size=border_size,
-                     iso_blur=iso_blur)
+                     iso_blur=iso_blur,
+                     histogram_balancing=histogram_balancing)
           
         if(length(lower_hue_threshold)>=1)
         y1[[i]] <- Temp_1[[1]][,,1]
@@ -92,45 +94,55 @@ auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
             if(length(lower_hue_threshold)>=1){
              Res$Control_1 <- clean$Value_1
              Res$Diff_1 <- Res$Value_1-Res$Control_1
-             Res$Binary_1 <- ifelse(Res$Diff_1 > thresh,1,0)
-             Res$CheckSum <- Res$Binary_1
-             Res$Color <- colors[Res$Binary_1 + 1]
+             Res$Binary_1 <- ifelse(Res$Diff_1 > thresh[1],1,0)
              }
 
             if(length(lower_hue_threshold)>=2){
              Res$Control_2 <- clean$Value_2
              Res$Diff_2 <- Res$Value_2-Res$Control_2
-             Res$Binary_2 <- ifelse(Res$Diff_2 > thresh,1,0)
-             Res$CheckSum <- Res$Binary_1 + Res$Binary_2
-             Res$Color <- colors[Res$Binary_1 + Res$Binary_2*2 + 1]
+             Res$Binary_2 <- ifelse(Res$Diff_2 > thresh[2],1,0)
              }
 
             if(length(lower_hue_threshold)>=3){
              Res$Control_3 <- clean$Value_3
              Res$Diff_3 <- Res$Value_3-Res$Control_3
-             Res$Binary_3 <- ifelse(Res$Diff_3 > thresh,1,0)
-             Res$CheckSum <- Res$Binary_1 + Res$Binary_2 + Res$Binary_3
-             Res$Color <- colors[Res$Binary_1 + Res$Binary_2*2 + Res$Binary_3*3 + 1]
+             Res$Binary_3 <- ifelse(Res$Diff_3 > thresh[3],1,0)
              }
 
             if(length(lower_hue_threshold)>=4){
              Res$Control_4 <- clean$Value_4
              Res$Diff_4 <- Res$Value_4-Res$Control_4
-             Res$Binary_4 <- ifelse(Res$Diff_4 > thresh,1,0)
-             Res$CheckSum <- Res$Binary_1 + Res$Binary_2 + Res$Binary_3 + Res$Binary_4 
-             Res$Color <- colors[Res$Binary_1 + Res$Binary_2*2 + Res$Binary_3*3 + Res$Binary_4*4 + 1]
+             Res$Binary_4 <- ifelse(Res$Diff_4 > thresh[4],1,0)
              }
 
             if(length(lower_hue_threshold)>=5){
              Res$Control_5 <- clean$Value_5
              Res$Diff_5 <- Res$Value_5-Res$Control_5
-             Res$Binary_5 <- ifelse(Res$Diff_5 > thresh,1,0)
-             Res$CheckSum <- Res$Binary_1 + Res$Binary_2 + Res$Binary_3 + Res$Binary_4 + Res$Binary_5
-             Res$Color <- colors[Res$Binary_1 + Res$Binary_2*2 + Res$Binary_3*3 + Res$Binary_4*4 + Res$Binary_5*5 + 1]
+             Res$Binary_5 <- ifelse(Res$Diff_5 > thresh[5],1,0)
              }
+
+            Diffs <- Res[,which(colnames(Res %in% c("Diff_1","Diff_2","Diff_3","Diff_4","Diff_5"))]
+            Binary <- Res[,which(Res %in% c("Binary_1","Binary_2","Binary_3","Binary_4","Binary_5"))]
+            Color <- rep(NA,dim(Res)[1])  
+
+             for(i in 1:dim(Res)[1]){
+
+              if(sum(Binary[i,])==0){
+               Color[i] <- colors[1]
+              }
+              
+              if(sum(Binary[i,])==1){
+               Color[i] <- colors[1 + which(Binary[i,]==1)]
+              }
+
+              if(sum(Binary[i,])>1){
+               Color[i] <- colors[1 + which(Diffs[i,]==max(Diffs[i,]))]
+              }
+
            }
 
         Res$Case <- case
+        Res$Color <- Color
 
             write.csv(Res,paste0(path,"/Results/",case,"_",focal,".csv")) 
             return(list(Res, x, cleaned_imgs))
