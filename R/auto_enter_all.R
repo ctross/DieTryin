@@ -12,7 +12,8 @@ auto_enter_all <- function(path = "C:/Users/Mind Is Moving/Desktop/RICH/", patte
                      lower_luminance_threshold=0.05, 
                      upper_luminance_threshold=0.95, 
                      border_size=8,
-                     iso_blur=2){
+                     iso_blur=2,
+                     histogram_balancing=histogram_balancing){
    
    res <- vector("list",length(img)-1)
 
@@ -24,7 +25,8 @@ auto_enter_all <- function(path = "C:/Users/Mind Is Moving/Desktop/RICH/", patte
                         lower_luminance_threshold=lower_luminance_threshold, 
                      upper_luminance_threshold=upper_luminance_threshold, 
                      border_size=border_size,
-                     iso_blur=iso_blur)
+                     iso_blur=iso_blur,
+                     histogram_balancing=histogram_balancing)
 
     print(paste0("Finished processing image ", "Blank" ))
 
@@ -36,11 +38,11 @@ auto_enter_all <- function(path = "C:/Users/Mind Is Moving/Desktop/RICH/", patte
                         lower_luminance_threshold=lower_luminance_threshold, 
                      upper_luminance_threshold=upper_luminance_threshold, 
                      border_size=border_size,
-                     iso_blur=iso_blur)
+                     iso_blur=iso_blur,
+                     histogram_balancing=histogram_balancing)
      print(paste0("Finished processing image ", case[[i+1]] ))
                           }
 
      return(res)                     
 
  }
-
