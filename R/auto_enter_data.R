@@ -121,8 +121,8 @@ auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
              Res$Binary_5 <- ifelse(Res$Diff_5 > thresh[5],1,0)
              }
 
-            Diffs <- Res[,which(colnames(Res %in% c("Diff_1","Diff_2","Diff_3","Diff_4","Diff_5"))]
-            Binary <- Res[,which(Res %in% c("Binary_1","Binary_2","Binary_3","Binary_4","Binary_5"))]
+            Diffs <-  Res[,which(colnames(Res) %in% c("Diff_1","Diff_2","Diff_3","Diff_4","Diff_5"))]
+            Binary <- Res[,which(colnames(Res) %in% c("Binary_1","Binary_2","Binary_3","Binary_4","Binary_5"))]
             Color <- rep(NA,dim(Res)[1])  
 
              for(i in 1:dim(Res)[1]){
@@ -148,3 +148,5 @@ auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
             return(list(Res, x, cleaned_imgs))
         }
       }
+
+
