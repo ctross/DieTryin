@@ -59,12 +59,17 @@
 #' @export
 #' @examples
 #' \dontrun{
-#'   auto_enter_data(path, pattern=".jpg", start=1, stop=3, seed=1, n_frames=2, n_rows=4, n_cols=5, 
-#'                    lower_hue_threshold=120, upper_hue_threshold=155, plot_colors=c("empty","darkgreen"), 
-#'                    thresh=0.05, img, locs, focal="CTR", case="GameID", clean=NA, ordered=NULL,
-#'                    lower_saturation_threshold=0.05, lower_luminance_threshold=0.05, 
-#'                    upper_luminance_threshold=0.95, border_size=5, iso_blur=1, histogram_balancing=FALSE,
-#'                    direction="backward", pre_processed=FALSE)
+#' Game_all1 = auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_frames=2, n_rows=4, n_cols=5, 
+#'                             thresh=0.05, lower_hue_threshold = 120, upper_hue_threshold = 155, 
+#'                             plot_colors=c("empty","seagreen4"), img=game_images_all1, locs=game_locs_all1, focal="SK1",
+#'                             case=GID_all1, ordered=sorted_ids,
+#'                             lower_saturation_threshold=0.05, 
+#'                             lower_luminance_threshold=0.05, 
+#'                             upper_luminance_threshold=0.95,  
+#'                             border_size=5,
+#'                             iso_blur=1,
+#'                             histogram_balancing=FALSE,
+#'                             direction="backward")
 #'                    }
 
 auto_enter_all = function(path, pattern = ".jpg", start = 1, stop = 3, seed = 1, n_frames = 4, n_rows = 5, n_cols = 8, 
