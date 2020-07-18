@@ -4,7 +4,7 @@
 \alias{grab_points}
 \title{A helper function}
 \usage{
-grab_points(path_imgs)
+grab_points(path_imgs, pre_processed = FALSE)
 }
 \arguments{
 \item{x}{An object.}

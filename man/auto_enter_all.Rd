@@ -7,10 +7,12 @@
 auto_enter_all(path = "C:/Users/Mind Is Moving/Desktop/RICH/",
   pattern = ".jpg", start = 1, stop = 3, seed = 1, n_frames = 4,
   n_rows = 5, n_cols = 9, lower_hue_threshold = 210,
-  upper_hue_threshold = 230, colors = c("empty", "red"), img, locs,
-  focal = "CTR", case, thresh = 0.25, ordered = NULL,
+  upper_hue_threshold = 230, plot_colors = c("empty", "red"), img,
+  locs, focal = "CTR", case, thresh = 0.25, ordered = NULL,
   lower_saturation_threshold = 0.05, lower_luminance_threshold = 0.05,
-  upper_luminance_threshold = 0.95, border_size = 8, iso_blur = 2)
+  upper_luminance_threshold = 0.95, border_size = 8, iso_blur = 2,
+  histogram_balancing = histogram_balancing, direction = "backwards",
+  pre_processed = FALSE)
 }
 \arguments{
 \item{x}{An object.}

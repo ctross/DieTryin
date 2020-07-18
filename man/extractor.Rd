@@ -4,12 +4,12 @@
 \alias{extractor}
 \title{A helper function}
 \usage{
-extractor(image, locations, n_rows = 3, n_cols = 5, cell_scale = 70,
-  cell_width = 1, cell_height = 1.5)
+extractor(image, locations, histogram_balancing = FALSE,
+  direction = "backward")
 }
 \arguments{
 \item{x}{An object.}
 }
 \description{
-This is a helper function to unskew images
+This is a helper function
 }

@@ -4,7 +4,7 @@
 \alias{compile_data}
 \title{A function to compile CSV data from RICH economic games into an edgelist and summary table}
 \usage{
-compile_data(path = path, game = "GivingData")
+compile_data(path = path, game = "GivingData", batch = FALSE)
 }
 \arguments{
 \item{path}{Full path to main folder.}

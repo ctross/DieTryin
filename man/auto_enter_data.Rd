@@ -2,21 +2,88 @@
 % Please edit documentation in R/auto_enter_data.R
 \name{auto_enter_data}
 \alias{auto_enter_data}
-\title{A helper function}
+\title{A function to automatically enter data from RICH economic games}
 \usage{
 auto_enter_data(path = path, pattern = ".jpg", start = 1, stop = 3,
   seed = 1, n_frames = 4, n_rows = 5, n_cols = 9,
   lower_hue_threshold = 210, upper_hue_threshold = 230,
-  colors = c("empty", "darkred"), img, locs, focal = "NEW",
-  case = "N", thresh = 0.25, clean = NA, ordered = NULL,
+  plot_colors = c("empty", "darkred"), img, locs, focal = "NEW",
+  case = "N", thresh = c(0.25), clean = NA, ordered = NULL,
   lower_saturation_threshold = lower_saturation_threshold,
   lower_luminance_threshold = lower_luminance_threshold,
   upper_luminance_threshold = upper_luminance_threshold,
-  border_size = border_size, iso_blur = iso_blur)
+  border_size = border_size, iso_blur = iso_blur,
+  histogram_balancing = histogram_balancing, direction = "backwards",
+  pre_processed = FALSE)
 }
 \arguments{
-\item{x}{An object.}
+\item{path}{Full path to main folder.}
+
+\item{pattern}{File extension of photos. Should be .jpg or .JPG.}
+
+\item{start}{Location of start of PID in file name. If files are saved as XXX.jpg for example, this is 1.}
+
+\item{stop}{Location of end of PID in file name. ... and this is 3.}
+
+\item{seed}{A seed for the random number generator to sort the order of photos in the array. This should match the seed used to make the survey.}
+
+\item{n_frames}{Number of frames/panels/blocks of photos to be output. I use four big panels and randomize order at each game.}
+
+\item{n_rows}{Number of rows per panel. With 7cm x 10cm photos, I use five rows of photos per panel.}
+
+\item{n_cols}{Number of rows per panel. With 7cm x 10cm photos, I use six to eight cols of photos per panel.}
+
+\item{lower_hue_threshold}{A vector of lower hue thresholds for each token color. To use three token colors, instead of the single token in the defaults, use: e.g., c(120, 210, 330).}
+
+\item{upper_hue_threshold}{A vector of upper hue thresholds for each token color. To use three token colors, instead of the single token in the defaults, use: e.g., c(150, 250, 355).}
+
+\item{plot_colors}{A vector of labels indicating which token color was used. The first entry must say "empty", other colors can be named as desired, but must be real color names in R.}
+
+\item{img}{The image to be classified, stored in "imager" format. Supplied via the pre-processing code.}
+
+\item{locs}{Locations of the corners of the game boards in the image file. Supplied via the pre-processing code.}
+
+\item{focal}{Unique ID code of the player of the game.}
+
+\item{case}{ID code of the case or game or question.}
+
+\item{thresh}{Difference in hue density required to code a token color as present. Can be vectorized: e.g., c(0.05, 0.35, 0.05).}
+
+\item{clean}{Used to pass the hue results from the control condition into the token-treatment condition to calculate contrasts.}
+
+\item{ordered}{A vector of photo IDs can be provided to over-ride automatic sorting.}
+
+\item{lower_saturation_threshold}{Lower limit of greyness before the hue of such pixels is excluded from density calculations.}
+
+\item{lower_luminance_threshold}{Lower limit of darkness before the hue of such pixels is excluded from density calculations.}
+
+\item{upper_luminance_threshold}{Upper limit of lightness before the hue of such pixels is excluded from density calculations.}
+
+\item{border_size}{Number of pixels on the image border excluded from density calculations.}
+
+\item{iso_blur}{Width of Gaussian filter applied to image. A value of 0 turns off blurring.}
+
+\item{histogram_balancing}{Should histogram balancing be used to correct grey-out images? This sometimes helps, but sometimes hurts, classification accuracy.}
+
+\item{direction}{How image skew is corrected. "forward" is fast but lower quality. "backward" is slow but higher quality.}
+
+\item{pre_processed}{Are photographs pre-processed such that image correction steps can be skipped?}
+}
+\value{
+A list of classified ties and associated data, ID tables, and corrected images.
 }
 \description{
-This is the main entry functions
+This function allows you to significantly speed up data entry by using photographs of game boards after token allocation. 
+Simply set a path to the main folder. Then run the function. The function is the workhorse of DieTryin, but is not normally
+called directly, but rather, through auto_enter_all which organizes and simplifies the workflow.
+}
+\examples{
+\dontrun{
+  auto_enter_data(path, pattern=".jpg", start=1, stop=3, seed=1, n_frames=2, n_rows=4, n_cols=5, 
+                   lower_hue_threshold=120, upper_hue_threshold=155, plot_colors=c("empty","darkgreen"), 
+                   thresh=0.05, img, locs, focal="CTR", case="GameID", clean=NA, ordered=NULL,
+                   lower_saturation_threshold=0.05, lower_luminance_threshold=0.05, 
+                   upper_luminance_threshold=0.95, border_size=5, iso_blur=1, histogram_balancing=FALSE,
+                   direction="backward", pre_processed=FALSE)
+                   }
 }

@@ -4,7 +4,8 @@
 \alias{pre_process}
 \title{A helper function}
 \usage{
-pre_process(path = path, ID, GID = "Blank", BID = c("A", "B"))
+pre_process(path = path, ID, GID = "Blank", BID = c("A", "B"),
+  pre_processed = FALSE)
 }
 \arguments{
 \item{x}{An object.}

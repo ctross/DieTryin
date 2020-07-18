@@ -10,7 +10,9 @@ shatter(image, locations, n_rows = 5, n_cols = 9,
   lower_saturation_threshold = lower_saturation_threshold,
   lower_luminance_threshold = lower_luminance_threshold,
   upper_luminance_threshold = upper_luminance_threshold,
-  border_size = border_size, iso_blur = iso_blur)
+  border_size = border_size, iso_blur = iso_blur,
+  histogram_balancing = histogram_balancing, direction = "backward",
+  pre_processed = FALSE)
 }
 \arguments{
 \item{x}{An object.}
