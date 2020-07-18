@@ -1,16 +1,19 @@
-#' A function to create directory
+#' A function to create the main directory used in the workflow
 #'
-#' This function allows you to build the directories for the data
+#' This function allows you to build the directories for the data, and to customize which folders appear
 #' @param 
 #' path Full path to where folder will be stored.
+#' @param 
+#' add A vector of additional data storage sub-folders to add to directory.
 #' @export
 #' @examples
 #' \dontrun{
-#'   path<-"C:\\Users\\BirdySanders\\Desktop"
-#'   setup_folders(path)
+#' path = "C:/Users/BirdySanders/Desktop"
+#' games_to_add = c("FriendshipsData", "TrustData", "NetworkData", "LikertData")
+#' setup_folders(path, add=games_to_add)
 #'                    }
          
-setup_folders <- function(path=path,add=NULL){
+setup_folders = function(path=path, add=NULL){
   dir.create(file.path(path, "RICH"))
   
   dir.create(file.path(paste0(path,"/","RICH"),"RawPhotos"))
