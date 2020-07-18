@@ -1,6 +1,6 @@
 #' A function to calculate payouts for RICH economic games using the compiled edgelists
 #'
-#' This function allows you to quickly calculate payouts. See details below.
+#' This function allows you to quickly calculate payouts. See details below. Note that coins allocated to alters who do not themselves appear as focals are refunded to the donors.
 #' @param 
 #' path Full path to main folder.
 #' @param 
