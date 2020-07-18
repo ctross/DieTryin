@@ -14,7 +14,8 @@ auto_enter_all <- function(path = "C:/Users/Mind Is Moving/Desktop/RICH/", patte
                      border_size=8,
                      iso_blur=2,
                      histogram_balancing=histogram_balancing,
-                     direction="backwards"){
+                     direction="backwards",
+                     pre_processed=FALSE){
    
    res <- vector("list",length(img)-1)
 
@@ -28,7 +29,8 @@ auto_enter_all <- function(path = "C:/Users/Mind Is Moving/Desktop/RICH/", patte
                      border_size=border_size,
                      iso_blur=iso_blur,
                      histogram_balancing=histogram_balancing,
-                     direction=direction)
+                     direction=direction,
+                     pre_processed=pre_processed)
 
     print(paste0("Finished processing image ", "Blank" ))
 
@@ -42,7 +44,8 @@ auto_enter_all <- function(path = "C:/Users/Mind Is Moving/Desktop/RICH/", patte
                      border_size=border_size,
                      iso_blur=iso_blur,
                      histogram_balancing=histogram_balancing,
-                     direction=direction)
+                     direction=direction,
+                     pre_processed=pre_processed)
      print(paste0("Finished processing image ", case[[i+1]] ))
                           }
 
