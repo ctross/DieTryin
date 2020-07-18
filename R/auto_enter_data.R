@@ -5,15 +5,16 @@
 #' x An object.
 #' @export
 auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3, seed = 1, n_frames = 4, n_rows = 5, n_cols = 9, 
-                         lower_hue_threshold = 210, upper_hue_threshold = 230, plot_colors = c("empty","darkred"),
-                        img, locs, focal="NEW",case="N",thresh=c(0.25), clean=NA, ordered=NULL,
-                         lower_saturation_threshold=lower_saturation_threshold, 
-                        lower_luminance_threshold=lower_luminance_threshold, 
-                     upper_luminance_threshold=upper_luminance_threshold, 
-                     border_size=border_size,
-                     iso_blur=iso_blur,
-                     histogram_balancing=histogram_balancing,
-                     direction="backwards") {
+                             lower_hue_threshold = 210, upper_hue_threshold = 230, plot_colors = c("empty","darkred"),
+                             img, locs, focal="NEW",case="N",thresh=c(0.25), clean=NA, ordered=NULL,
+                             lower_saturation_threshold=lower_saturation_threshold, 
+                             lower_luminance_threshold=lower_luminance_threshold, 
+                             upper_luminance_threshold=upper_luminance_threshold, 
+                             border_size=border_size,
+                             iso_blur=iso_blur,
+                             histogram_balancing=histogram_balancing,
+                             direction="backwards",
+                             pre_processed=FALSE) {
     path_in <- paste0(path, "/StandardizedPhotos")
     IDS <- substr(list.files(path_in, pattern, full.names = FALSE), 
         start = start, stop = stop)
@@ -58,7 +59,8 @@ auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
                      border_size=border_size,
                      iso_blur=iso_blur,
                      histogram_balancing=histogram_balancing,
-                     direction=direction)
+                     direction=direction,
+                     pre_processed=pre_processed)
           
         if(length(lower_hue_threshold)>=1)
         y1[[i]] <- Temp_1[[1]][,,1]
@@ -149,10 +151,9 @@ auto_enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
             Res$Color <- Color
              }
 
-            #write.csv(Res,paste0(path,"/Results/",case,"_",focal,".csv")) 
+            write.csv(Res,paste0(path,"/Results/",case,"_",focal,".csv")) 
             return(list(Res, x, cleaned_imgs))
     }
 }
-
 
 
