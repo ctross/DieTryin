@@ -18,7 +18,7 @@
 #' @param 
 #' n_rows Number of rows per panel. With 7cm x 10cm photos, I use five rows of photos per panel.
 #' @param 
-#' n_cols Number of rows per panel. With 7cm x 10cm photos, I use six to eight cols of photos per panel.
+#' n_cols Number of cols per panel. With 7cm x 10cm photos, I use six to eight cols of photos per panel.
 #' @param 
 #' lower_hue_threshold A vector of lower hue thresholds for each token color. To use three token colors, instead of the single token in the defaults, use: e.g., c(120, 210, 330).
 #' @param 
