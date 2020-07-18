@@ -1,11 +1,11 @@
-#' A helper function
+#' A function to append header data to token allocation data entered via scan of photographs
 #'
 #' This is a helper function to check hue
 #' @param 
 #' x An object.
 #' @export
 
-annotate_data <- function (path = path, results, HHID, RID, day, month, year, name, PID, game, order, seed = 1){
+annotate_data <- function (path, results, HHID, RID, day, month, year, name, PID, game, order, seed){
             results <- results[[1]][[1]]
             self <- ifelse(results$Color[which(as.character(results$PID)==as.character(results$AID))]=="empty",0,1)
             checksum <- sum(results$Color!="empty") 
