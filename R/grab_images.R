@@ -1,18 +1,19 @@
 #' A helper function
 #'
-#' This is a helper function to grab images
+#' This is a helper function to grab images. Called from pre_process
 #' @param 
-#' x An object.
+#' path_imgs Path to images.
+#' @return A raw image.
 #' @export
 
-grab_images <- function(path_imgs){
-  imgs <- vector("list",length(path_imgs))
+grab_images = function(path_imgs){
+  imgs = vector("list",length(path_imgs))
 
  for(i in 1:length(imgs)){
-  imgs[[i]] <- load.image(path_imgs[i])
+  imgs[[i]] = load.image(path_imgs[i])
 
      if(dim(imgs[[i]])[1]>dim(imgs[[i]])[2]){
-    imgs[[i]]<-imrotate(imgs[[i]],90)}
+    imgs[[i]] = imrotate(imgs[[i]],90)}
   }
  return(imgs)
 }

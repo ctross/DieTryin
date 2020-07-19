@@ -1,6 +1,6 @@
-#' A function to build LaTeX survey tool for RICH economic games
+#' A function to build LaTeX survey tool for RICH economic games or related social network data collection
 #'
-#' This function allows you to speed up data collection and photo randomization. Simply set a path the main folder.  
+#' This function allows you to speed up data collection and photo randomization. Simply set a path to the main folder.  
 #' Set the number of panels, and the number of rows and cols per panel. Then run the function. This function relies on 'xtable' to create a survey tool, and compile to PDF using LaTeX.
 #' The user must have a LaTeX build on the system path.
 #' @param 
@@ -30,6 +30,7 @@
 build_survey = function(path, pattern=".jpg", start=1, stop=3, n_frames=4, n_rows=5, n_cols=8, seed=1, ordered = NULL ){
  require(xtable)
  require(readr)  
+ require(tools) 
   
  path_out = paste0(path,"/Survey")
 

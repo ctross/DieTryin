@@ -1,4 +1,4 @@
-#' A function to automatically enter social network/ RICH games data from photographs
+#' A function to automatically enter social network / RICH games data from photographs
 #'
 #' This function allows you to significantly speed up data entry by using photographs of game boards before and after token allocation. 
 #' The auto_enter_all is a workflow wrapper for the auto_enter_data function. This function lets the user process all game data by the same respondent in a single call. 

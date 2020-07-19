@@ -2,8 +2,8 @@
 #'
 #' This function allows you to speed up photo standardization. Simply set a path to the main folder. The filenames of all raw photos should have same string length.
 #' These should be the IDs of the respondents. Then run the function. Photos can be croped, rotated, and resized to a constant aspect ratio. This function relies on 'imager'. 
-#' First, if spin=TRUE click a quadrant of the photo to determine how it should be spun. Then drag a box to crop. Eyeball the aspect ratio you want, then the code will enforce it.
-#' See details below.
+#' First, if spin=TRUE click a quadrant of the photo to determine how it should be spun (See details below). Then drag a box to crop. Eyeball the aspect ratio you want, 
+#' then the program will find the closest box with the legal aspect ratio. Files are saved to the StandardizedPhotos subfolder.
 #' @param 
 #' path Full path to main folder.
 #' @param 
@@ -24,23 +24,23 @@
 #' @param 
 #' id_names Or, just give the IDs themselves: i.e., c("XX1","XX2","XY1").
 #' @param 
-#' spin If spin is set to TRUE, then a two step process is opened. First select a spin, then crop. On the first pop-up, by clicking of the upper-left corner, the photo is not spun.
-#' If one clicks on the upper-right a 90 spin is done before opening the cropping window. Bottom-right, 180. Bottom-left, 270.
+#' spin If spin is set to TRUE, then a two step process is opened. First the user selects a spin, then the user crops. On the first pop-up, by clicking in the upper-left corner, 
+#' the photo is not spun. If one clicks on the upper-right a 90 clockwise spin is done before opening the cropping window. Bottom-right, 180. Bottom-left, 270.
 #' @export
 #' @examples
 #' \dontrun{
-#' standardize_photos(path=path, pattern=".jpg", start=1, stop=3, size_out=1000, border_size=10, asr=1.6180, id_range=NULL, id_names=NULL, spin=TRUE)
+#' standardize_photos(path=path, pattern=".jpg", start=1, stop=3, size_out=1000, border_size=10, asr=1.6180, id_range=1, id_names=NULL, spin=TRUE)
 #'                    }
  
-standardize_photos <- function(path, pattern=".jpg", start=1, stop=3,
-                               size_out=1000, border_size=10, asr=1.6180,
-                               id_range=NULL, id_names=NULL, spin=FALSE){
+standardize_photos = function(path, pattern=".jpg", start=1, stop=3,
+                              size_out=1000, border_size=10, asr=1.6180,
+                              id_range=NULL, id_names=NULL, spin=FALSE){
    require(imager)
    path_in = paste0(path,"/RawPhotos")
    path_out = paste0(path,"/StandardizedPhotos")
    ids = substr(list.files(path_in, pattern, full.names=FALSE), start = start, stop = stop) # Load IDs
    
-    if(is.null(id_range) & is.null(id_names)){
+   if(is.null(id_range) & is.null(id_names)){
      idset = 1:length(ids) 
      } else {
          if(is.null(id_names)){
@@ -55,7 +55,7 @@ standardize_photos <- function(path, pattern=".jpg", start=1, stop=3,
   size = dim(img)[1:2]
   
   if(spin==TRUE){
-   img2 = img
+   img2 = img                                        # Define quadrants
   
    img2[round(dim(img2)[1]/2,0)+c(-1,0,1),,1,1] = 1
    img2[round(dim(img2)[1]/2,0)+c(-1,0,1),,1,2] = 0

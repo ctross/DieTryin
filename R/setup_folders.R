@@ -2,7 +2,7 @@
 #'
 #' This function allows you to build the directories for the data, and to customize which folders appear
 #' @param 
-#' path Full path to where folder will be stored.
+#' path Full path to where folder will be stored. This folder will be called "RICH"
 #' @param 
 #' add A vector of additional data storage sub-folders to add to directory.
 #' @export
