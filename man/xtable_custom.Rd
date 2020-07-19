@@ -10,7 +10,7 @@ xtable_custom(x, ...)
 \item{x}{An object.}
 }
 \description{
-This is just a helper function.
+This is just a helper function to reformat xtable output
 }
 \examples{
 \dontrun{

@@ -7,8 +7,11 @@
 grab_images(path_imgs)
 }
 \arguments{
-\item{x}{An object.}
+\item{path_imgs}{Path to images.}
+}
+\value{
+A raw image.
 }
 \description{
-This is a helper function to grab images
+This is a helper function to grab images. Called from pre_process
 }

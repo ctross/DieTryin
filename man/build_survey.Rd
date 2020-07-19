@@ -2,33 +2,37 @@
 % Please edit documentation in R/build_survey.R
 \name{build_survey}
 \alias{build_survey}
-\title{A function to build LaTeX survey tool for RICH economic games}
+\title{A function to build LaTeX survey tool for RICH economic games or related social network data collection}
 \usage{
-build_survey(path = path, pattern = ".jpg", start = 1, stop = 3,
+build_survey(path, pattern = ".jpg", start = 1, stop = 3,
   n_frames = 4, n_rows = 5, n_cols = 8, seed = 1, ordered = NULL)
 }
 \arguments{
 \item{path}{Full path to main folder.}
 
-\item{pattern}{File extension of photos. Should be .jpg or .JPG.}
+\item{pattern}{File extension of photos. Should be ".jpg" or ".JPG".}
 
-\item{start}{Location of start of PID in file name. If files are saved as XXX.jpg for example, this is 1.}
+\item{start}{Location of start of PID in file name. If files are saved as "XXX.jpg" for example, this is 1.}
 
-\item{stop}{Location of end of PID in file name. ... and this is 3.}
+\item{stop}{Location of end of PID in file name. If files are saved as "XXX.jpg" for example, this is 3.}
+
+\item{n_frames}{Number of frames/panels/blocks of photos to be output. I use four big panels and randomize order at each game.}
+
+\item{n_rows}{Number of rows per panel. With 7cm x 10cm photos, I use five rows of photos per panel.}
+
+\item{n_cols}{Number of cols per panel. With 7cm x 10cm photos, I use six to eight cols of photos per panel.}
 
 \item{seed}{A seed for the random number generator to sort the order of photos in the array.}
 
-\item{frames}{Number of frames/panels/blocks of photos to be output. I use four big panels and randomize order at each game.}
-
-\item{rows}{Number of rows per panel. With 7cm x 10cm photos, I use five rows of photos per panel.}
-
-\item{cols}{Number of rows per panel. With 7cm x 10cm photos, I use six to eight cols of photos per panel.}
+\item{ordered}{A list of IDs in explicit order. Can be used to overide random sorting.}
 }
 \description{
-This function allows you to speed up data collection and photo randomization. Simply set a path the main folder.  Set the number of panels, and the number of rows and cols per panel. Then run the function. This function relies on 'xtable'. See details below.
+This function allows you to speed up data collection and photo randomization. Simply set a path to the main folder.  
+Set the number of panels, and the number of rows and cols per panel. Then run the function. This function relies on 'xtable' to create a survey tool, and compile to PDF using LaTeX.
+The user must have a LaTeX build on the system path.
 }
 \examples{
 \dontrun{
-  build_survey(path=path,pattern=".jpg",start=1,stop=3,frames=4,seed=1, rows=5, cols=8)
+build_survey(path=path, pattern=".jpg", start=1, stop=3, n_frames=2, n_rows=4, n_cols=5, seed=1, ordered = sorted_ids)
                    }
 }

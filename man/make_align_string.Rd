@@ -10,7 +10,7 @@ make_align_string(x)
 \item{x}{An object.}
 }
 \description{
-This is just a helper function.
+This is just a helper function for xtable processing
 }
 \examples{
 \dontrun{

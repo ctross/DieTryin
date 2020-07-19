@@ -2,14 +2,29 @@
 % Please edit documentation in R/pre_process.R
 \name{pre_process}
 \alias{pre_process}
-\title{A helper function}
+\title{A helper function to streamline pre-processing workflow}
 \usage{
-pre_process(path = path, ID, GID = "Blank", BID = c("A", "B"),
+pre_process(path, ID, GID = "Blank", BID = c("A", "B"),
   pre_processed = FALSE)
 }
 \arguments{
-\item{x}{An object.}
+\item{path}{Full path to main folder.}
+
+\item{ID}{Unique ID of focal individual/respondent.}
+
+\item{GID}{ID for case/game/question.}
+
+\item{BID}{ID code used to distinguish photographs of the different board panels/frames from the same person and game.}
+
+\item{pre_processed}{Are photographs pre-processed such that image correction steps can be skipped? If FALSE, then user must pre-process images using DieTryings tools. If TRUE game board photographs must be cropped and unskewed. 
+Some Android and IOS apps, like Tiny Scanner, provide a means of producing such photographs of the game boards at the time of data collection.}
 }
 \description{
-This is a helper function to pre-process images
+This function is used to prepare data for automatic coding.
+}
+\examples{
+\dontrun{
+filled = vector("list", 26)
+filled[[1]] = pre_process(path=path, ID="QQQ", GID="Blank", BID=c("A","B"))
+                   }
 }

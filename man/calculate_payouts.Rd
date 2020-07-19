@@ -4,13 +4,14 @@
 \alias{calculate_payouts}
 \title{A function to calculate payouts for RICH economic games using the compiled edgelists}
 \usage{
-calculate_payouts(path = path, pattern = ".jpg", start = 1,
-  stop = 3, game = "GLR", GV = 1, LV = 0.5, KV = 1, RV = -4)
+calculate_payouts(path, pattern = ".jpg", start = 1, stop = 3,
+  game = "GLR", GV = 1, LV = 0.5, KV = 1, RV = -4)
 }
 \arguments{
 \item{path}{Full path to main folder.}
 
-\item{game}{Select the games to merge. "G" for Giving. "L" for Leaving. "R" for Reducing. "GLR" for All. Etc.}
+\item{game}{Indicates which game data will be used in payout calculations. All combinations of G for the giving/allocation game, L for the leaving/taking game, and
+R for the reduction/punishment game, are accepted: i.e., type "G", "L", "R", "GL", "GR", "LR", or "GLR".}
 
 \item{GV}{Value of coins used in giving game.}
 
@@ -21,10 +22,10 @@ calculate_payouts(path = path, pattern = ".jpg", start = 1,
 \item{RV}{Value of punishment tokens used in reducing game. Should be negative.}
 }
 \description{
-This function allows you to quickly calculate payouts. See details below.
+This function allows you to quickly calculate payouts. See details below. Note that coins allocated to alters who do not themselves appear as focals are refunded to the donors.
 }
 \examples{
 \dontrun{
-  calculate_payouts(path=path,pattern=".jpg",start=1,stop=3,game="GLR",GV=1,LV=0.5,KV=1,RV=-4)
+  calculate_payouts(path=path, pattern=".jpg", start=1, stop=3, game="GLR", GV=1, LV=0.5, KV=1, RV=-4)
                    }
 }

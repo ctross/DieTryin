@@ -2,13 +2,15 @@
 % Please edit documentation in R/downsize.R
 \name{downsize}
 \alias{downsize}
-\title{A helper function}
+\title{Batch resize}
 \usage{
 downsize(path = path, scaler = 2)
 }
 \arguments{
-\item{x}{An object.}
+\item{path}{path Full path to main folder.}
+
+\item{scaler}{Factor by which image will be shrunk.}
 }
 \description{
-This is a helper function to batch resize
+This is a helper function to batch resize raw images of game boards. Set scaler=1 to simply pass images from the raw folder into the output file folder with no scaling.
 }

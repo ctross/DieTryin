@@ -2,42 +2,41 @@
 % Please edit documentation in R/auto_enter_data.R
 \name{auto_enter_data}
 \alias{auto_enter_data}
-\title{A function to automatically enter data from RICH economic games}
+\title{A function to automatically enter social network/ RICH games data from photographs}
 \usage{
-auto_enter_data(path = path, pattern = ".jpg", start = 1, stop = 3,
-  seed = 1, n_frames = 4, n_rows = 5, n_cols = 9,
+auto_enter_data(path, pattern = ".jpg", start = 1, stop = 3,
+  seed = 1, n_frames = 4, n_rows = 5, n_cols = 8,
   lower_hue_threshold = 210, upper_hue_threshold = 230,
-  plot_colors = c("empty", "darkred"), img, locs, focal = "NEW",
-  case = "N", thresh = c(0.25), clean = NA, ordered = NULL,
-  lower_saturation_threshold = lower_saturation_threshold,
-  lower_luminance_threshold = lower_luminance_threshold,
-  upper_luminance_threshold = upper_luminance_threshold,
-  border_size = border_size, iso_blur = iso_blur,
-  histogram_balancing = histogram_balancing, direction = "backwards",
-  pre_processed = FALSE)
+  plot_colors = c("empty", "darkblue"), img, locs, focal = "CTR",
+  case = "FriendshipTies", thresh = c(0.05), clean = NA,
+  ordered = NULL, lower_saturation_threshold = 0.05,
+  lower_luminance_threshold = 0.05, upper_luminance_threshold = 0.95,
+  border_size = 5, iso_blur = 1, histogram_balancing = FALSE,
+  direction = "backwards", pre_processed = FALSE)
 }
 \arguments{
 \item{path}{Full path to main folder.}
 
-\item{pattern}{File extension of photos. Should be .jpg or .JPG.}
+\item{pattern}{File extension of photos. Should be ".jpg" or ".JPG".}
 
-\item{start}{Location of start of PID in file name. If files are saved as XXX.jpg for example, this is 1.}
+\item{start}{Location of start of PID in file name. If files are saved as "XXX.jpg" for example, this is 1.}
 
-\item{stop}{Location of end of PID in file name. ... and this is 3.}
+\item{stop}{Location of end of PID in file name. If files are saved as "XXX.jpg" for example, this is 3.}
 
 \item{seed}{A seed for the random number generator to sort the order of photos in the array. This should match the seed used to make the survey.}
 
-\item{n_frames}{Number of frames/panels/blocks of photos to be output. I use four big panels and randomize order at each game.}
+\item{n_frames}{Number of frames/panels/blocks of photos to be output. I use four big panels and randomize their order at each game.}
 
 \item{n_rows}{Number of rows per panel. With 7cm x 10cm photos, I use five rows of photos per panel.}
 
-\item{n_cols}{Number of rows per panel. With 7cm x 10cm photos, I use six to eight cols of photos per panel.}
+\item{n_cols}{Number of cols per panel. With 7cm x 10cm photos, I use six to eight cols of photos per panel.}
 
 \item{lower_hue_threshold}{A vector of lower hue thresholds for each token color. To use three token colors, instead of the single token in the defaults, use: e.g., c(120, 210, 330).}
 
 \item{upper_hue_threshold}{A vector of upper hue thresholds for each token color. To use three token colors, instead of the single token in the defaults, use: e.g., c(150, 250, 355).}
 
-\item{plot_colors}{A vector of labels indicating which token color was used. The first entry must say "empty", other colors can be named as desired, but must be real color names in R.}
+\item{plot_colors}{A vector of labels indicating which token color was used. The first entry must say "empty", other colors can be named as desired, but must be real color names in R. 
+These colors correspond to the above-listed token hues, and this vector should be one cell longer than the hue threshold vectors.}
 
 \item{img}{The image to be classified, stored in "imager" format. Supplied via the pre-processing code.}
 
@@ -45,11 +44,11 @@ auto_enter_data(path = path, pattern = ".jpg", start = 1, stop = 3,
 
 \item{focal}{Unique ID code of the player of the game.}
 
-\item{case}{ID code of the case or game or question.}
+\item{case}{ID code of the case/game/question: e.g., "Friendship" or "GaveFood".}
 
-\item{thresh}{Difference in hue density required to code a token color as present. Can be vectorized: e.g., c(0.05, 0.35, 0.05).}
+\item{thresh}{Difference in hue density between pre- and post-treatment game boards required to code a token color as present. Can be vectorized if mulple token colors are in use: e.g., c(0.05, 0.35, 0.05).}
 
-\item{clean}{Used to pass the hue results from the control condition into the token-treatment condition to calculate contrasts.}
+\item{clean}{Used to pass the hue results from the control condition into the token-treatment condition so that DieTryin can calculate contrasts.}
 
 \item{ordered}{A vector of photo IDs can be provided to over-ride automatic sorting.}
 
@@ -63,18 +62,19 @@ auto_enter_data(path = path, pattern = ".jpg", start = 1, stop = 3,
 
 \item{iso_blur}{Width of Gaussian filter applied to image. A value of 0 turns off blurring.}
 
-\item{histogram_balancing}{Should histogram balancing be used to correct grey-out images? This sometimes helps, but sometimes hurts, classification accuracy.}
+\item{histogram_balancing}{Should histogram balancing be used to correct grey-out images? This sometimes helps, but sometimes hurts, classification accuracy. This will cause token hue to shift as well, so hue thresholds will need to be revised if this is used.}
 
-\item{direction}{How image skew is corrected. "forward" is fast but lower quality. "backward" is slow but higher quality.}
+\item{direction}{How image skew is corrected. The "forward" algorithm is fast but lower quality. The "backward" algorithm is slow but higher quality. See imwarp function in imager package for technical details.}
 
-\item{pre_processed}{Are photographs pre-processed such that image correction steps can be skipped?}
+\item{pre_processed}{Are photographs pre-processed such that image correction steps can be skipped? If FALSE, then user must pre-process images using DieTryings tools. If TRUE game board photographs must be cropped and unskewed. 
+Some Android and IOS apps, like Tiny Scanner, provide a means of producing such photographs of the game boards at the time of data collection.}
 }
 \value{
 A list of classified ties and associated data, ID tables, and corrected images.
 }
 \description{
-This function allows you to significantly speed up data entry by using photographs of game boards after token allocation. 
-Simply set a path to the main folder. Then run the function. The function is the workhorse of DieTryin, but is not normally
+This function allows you to significantly speed up data entry by using photographs of game boards before and after token allocation. 
+The auto_enter_data function is the workhorse of DieTryin, but is not normally
 called directly, but rather, through auto_enter_all which organizes and simplifies the workflow.
 }
 \examples{

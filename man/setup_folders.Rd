@@ -2,19 +2,22 @@
 % Please edit documentation in R/setup_folders.R
 \name{setup_folders}
 \alias{setup_folders}
-\title{A function to create directory}
+\title{A function to create the main directory used in the workflow}
 \usage{
 setup_folders(path = path, add = NULL)
 }
 \arguments{
-\item{path}{Full path to where folder will be stored.}
+\item{path}{Full path to where folder will be stored. This folder will be called "RICH"}
+
+\item{add}{A vector of additional data storage sub-folders to add to directory.}
 }
 \description{
-This function allows you to build the directories for the data
+This function allows you to build the directories for the data, and to customize which folders appear
 }
 \examples{
 \dontrun{
-  path<-"C:\\\\Users\\\\BirdySanders\\\\Desktop"
-  setup_folders(path)
+path = "C:/Users/BirdySanders/Desktop"
+games_to_add = c("FriendshipsData", "TrustData", "NetworkData", "LikertData")
+setup_folders(path, add=games_to_add)
                    }
 }

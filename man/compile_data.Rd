@@ -9,13 +9,16 @@ compile_data(path = path, game = "GivingData", batch = FALSE)
 \arguments{
 \item{path}{Full path to main folder.}
 
-\item{game}{Select the data to merge. "GivingData" for Giving. "LeavingData" for Leaving. "ReducingData" for Reducing.}
+\item{game}{Select the data to merge. "GivingData" for Giving. "LeavingData" for Leaving. "ReducingData" for Reducing. Other folders can be compiled as well, by
+putting the folder name here: e.g., "FriendshipTies"}
+
+\item{batch}{Do the tie data come from the batched-processed image classifier? If so, set batch=TRUE, so that an extra column with game ID is added.}
 }
 \description{
 This function allows you to merge the individual-specific CSVs. Simply set a path to the main folder. Then run the function. See details below.
 }
 \examples{
 \dontrun{
-  compile_data(path=path,game="GivingData")
+  compile_data(path=path, game="GivingData")
                    }
 }

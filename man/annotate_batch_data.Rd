@@ -2,14 +2,43 @@
 % Please edit documentation in R/annotate_batch_data.R
 \name{annotate_batch_data}
 \alias{annotate_batch_data}
-\title{A helper function}
+\title{A function to append header data to token allocation data entered via batch scans of photographs}
 \usage{
-annotate_batch_data(path = path, results, HHID, RID, day, month, year,
-  name, PID, game, order, seed = 1)
+annotate_batch_data(path, results, HHID, RID, day, month, year, name, ID,
+  game, order)
 }
 \arguments{
-\item{x}{An object.}
+\item{path}{Full path to main folder.}
+
+\item{results}{A cell from the results list exported by auto_enter_all.}
+
+\item{HHID}{Household ID of focal individual/respondent.}
+
+\item{RID}{ID of researcher.}
+
+\item{day}{Day of interview.}
+
+\item{month}{Month of interview.}
+
+\item{year}{Year of interview.}
+
+\item{name}{Name of focal individual/respondent.}
+
+\item{ID}{Unique ID of focal individual/respondent.}
+
+\item{game}{ID for case/game/question.}
+
+\item{order}{Order of frames/panels of photos as presented to the respodent: e.g., with 4 frames, "ABCD", "CDBA", etc. are legal entries.}
+
+\item{seed}{A seed for the random number generator to sort the order of photos in the array. This should match the seed used to make the survey.}
 }
 \description{
-This is a helper function to check hue
+This function appends header data to automatically entered data batch-wise. The end result is a "csv" with the same structure as that
+which is exported by the standard enter_data function, but with one extra column for game ID.
+}
+\examples{
+\dontrun{
+annotate_batch_data(path = path, results=Game_all6, HHID="JKF", RID="CR", day=11, month=3, year=2020, 
+             name = "Walter W.", PID="CVD", game="LikertData", order="AB", seed = 1)
+                   }
 }

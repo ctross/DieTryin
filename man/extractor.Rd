@@ -2,14 +2,23 @@
 % Please edit documentation in R/extractor.R
 \name{extractor}
 \alias{extractor}
-\title{A helper function}
+\title{Image rotation, de-skewing, and cropping}
 \usage{
 extractor(image, locations, histogram_balancing = FALSE,
   direction = "backward")
 }
 \arguments{
-\item{x}{An object.}
+\item{image}{The image, stored in "imager" format, to be processed. Supplied via the pre-processing code.}
+
+\item{locations}{Locations of the corners of the game boards in the image file. Supplied via the pre-processing code.}
+
+\item{histogram_balancing}{Should histogram balancing be used to correct grey-out images? This sometimes helps, but sometimes hurts, classification accuracy. This will cause token hue to shift as well, so hue thresholds will need to be revised if this is used.}
+
+\item{direction}{How image skew is corrected. The "forward" algorithm is fast but lower quality. The "backward" algorithm is slow but higher quality. See imwarp function in imager package for technical details.}
+}
+\value{
+A square, cropped, and unskewed image.
 }
 \description{
-This is a helper function
+This is a helper function to extract the game board images from an arbitrary photograph.
 }
