@@ -7,7 +7,7 @@
 #' @param 
 #' dat Classification output. 
 #' @param 
-#' n_frames Number of frames/panels/blocks of photos to be output. I use four big panels and randomize their order at each game.
+#' n_panels Number of frames/panels/blocks of photos to be output. I use four big panels and randomize their order at each game.
 #' @param 
 #' n_rows Number of rows per panel. With 7cm x 10cm photos, I use five rows of photos per panel.
 #' @param 
@@ -19,11 +19,11 @@
 #' @export
 #' @examples
 #' \dontrun{
-#'  check_classification(path=path, dat[[1]], n_frames = 2, n_rows=4, n_cols=5, focal="SK1", case="FriendshipsData")
+#'  check_classification(path=path, dat[[1]], n_panels = 2, n_rows=4, n_cols=5, focal="SK1", case="FriendshipsData")
 #'                    }
 
-check_classification = function(path, dat, n_frames = 2, n_rows=4, n_cols=5, focal="BS1", case="Friend"){
- for(k in 1:n_frames){
+check_classification = function(path, dat, n_panels = 2, n_rows=4, n_cols=5, focal="BS1", case="Friend"){
+ for(k in 1:n_panels){
   Q = dat[[3]][[k]]
   P = dat[[1]]
   Z = dat[[2]][[k]]
