@@ -23,15 +23,15 @@
 #' @param 
 #' ordered A list of IDs if photograph order is to be explicilty coded. This overwrites random sorting.
 #' @param 
-#' games_to_add A vector of labels with the same names passed into setup_folders(). Used to save social network data not corresponding to the 3 RICH games.
+#' add A vector of labels with the same names passed into setup_folders(). Used to save social network data not corresponding to the 3 RICH games.
 #' @export
 #' @examples
 #' \dontrun{
-#'   enter_data(path=path, pattern=".jpg", start=1, stop=3, seed=1, frames=4, rows=5, cols=8)
+#'   enter_data(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=4, n_rows=5, n_cols=8)
 #'                    }
            
 enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3, 
-     n_panels = 4, n_rows = 5, n_cols = 8, seed = 1, ordered=NULL, games_to_add=c("Nothing")) 
+     n_panels = 4, n_rows = 5, n_cols = 8, seed = 1, ordered=NULL, add=c("Nothing")) 
 {
     path_in <- paste0(path, "/StandardizedPhotos")
     IDS <- substr(list.files(path_in, pattern, full.names = FALSE), 
@@ -71,7 +71,7 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
         }
              
 
-        if (headpage[8, 2] %in% c(games_to_add, "G", "L", "R") ) {
+        if (headpage[8, 2] %in% c(add, "G", "L", "R") ) {
             for (i in 1:n_panels) X2[, c(1:n_cols) + n_cols * (i - 
                 1)] <<- x[[i]]
             x.all <<- suppressWarnings(as.numeric(c(X2)))
@@ -103,9 +103,9 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
             path_out <- paste0(path, "/ReducingData")
         }
          
-        for(i in 1:length(games_to_add)){       
-        if (res.all[8, 2] == games_to_add[i]) {
-            path_out <- paste0(path, "/", games_to_add[i])
+        for(i in 1:length(add)){       
+        if (res.all[8, 2] == add[i]) {
+            path_out <- paste0(path, "/", add[i])
         }   
         }
                
