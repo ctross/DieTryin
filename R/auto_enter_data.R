@@ -14,7 +14,7 @@
 #' @param 
 #' seed A seed for the random number generator to sort the order of photos in the array. This should match the seed used to make the survey.
 #' @param 
-#' n_frames Number of frames/panels/blocks of photos to be output. I use four big panels and randomize their order at each game.
+#' n_panels Number of frames/panels/blocks of photos to be output. I use four big panels and randomize their order at each game.
 #' @param 
 #' n_rows Number of rows per panel. With 7cm x 10cm photos, I use five rows of photos per panel.
 #' @param 
@@ -61,14 +61,14 @@
 #' @export
 #' @examples
 #' \dontrun{
-#'   auto_enter_data(path, pattern=".jpg", start=1, stop=3, seed=1, n_frames=2, n_rows=4, n_cols=5, 
+#'   auto_enter_data(path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
 #'                    lower_hue_threshold=120, upper_hue_threshold=155, plot_colors=c("empty","darkgreen"), 
 #'                    thresh=0.05, img, locs, focal="CTR", case="GameID", clean=NA, ordered=NULL,
 #'                    lower_saturation_threshold=0.05, lower_luminance_threshold=0.05, 
 #'                    upper_luminance_threshold=0.95, border_size=5, iso_blur=1, histogram_balancing=FALSE,
 #'                    direction="backward", pre_processed=FALSE)
 #'                    }
-auto_enter_data = function (path, pattern = ".jpg", start = 1, stop = 3, seed = 1, n_frames = 4, n_rows = 5, n_cols = 8, 
+auto_enter_data = function (path, pattern = ".jpg", start = 1, stop = 3, seed = 1, n_panels = 4, n_rows = 5, n_cols = 8, 
                             lower_hue_threshold = 210, upper_hue_threshold = 230, plot_colors = c("empty","darkblue"),
                             img, locs, focal="CTR", case="FriendshipTies", thresh=c(0.05), clean=NA, ordered=NULL,
                             lower_saturation_threshold=0.05, lower_luminance_threshold=0.05, 
@@ -80,8 +80,8 @@ auto_enter_data = function (path, pattern = ".jpg", start = 1, stop = 3, seed = 
     IDS = substr(list.files(path_in, pattern, full.names = FALSE), start = start, stop = stop)
     L = length(IDS)
     
-    if(L > n_frames * n_rows * n_cols) {
-        stop("ID vector exceeds the product of n_frames*n_rows*n_cols")
+    if(L > n_panels * n_rows * n_cols) {
+        stop("ID vector exceeds the product of n_panels*n_rows*n_cols")
         }
   
     if(length(lower_hue_threshold) > 5){
@@ -99,23 +99,23 @@ auto_enter_data = function (path, pattern = ".jpg", start = 1, stop = 3, seed = 
       SortedIDS = ordered
       } 
 
-      SortedIDS = c(SortedIDS, rep("", (n_frames * n_rows * n_cols - L))) 
+      SortedIDS = c(SortedIDS, rep("", (n_panels * n_rows * n_cols - L))) 
 
-      X = matrix(SortedIDS, nrow = n_rows, ncol = n_frames * n_cols, byrow = FALSE)
-      x = vector("list", n_frames)
+      X = matrix(SortedIDS, nrow = n_rows, ncol = n_panels * n_cols, byrow = FALSE)
+      x = vector("list", n_panels)
 
-      y1 = vector("list", n_frames)
-      y2 = vector("list", n_frames)
-      y3 = vector("list", n_frames)
-      y4 = vector("list", n_frames)
-      y5 = vector("list", n_frames)
+      y1 = vector("list", n_panels)
+      y2 = vector("list", n_panels)
+      y3 = vector("list", n_panels)
+      y4 = vector("list", n_panels)
+      y5 = vector("list", n_panels)
 
-      cleaned_imgs = vector("list", n_frames)
+      cleaned_imgs = vector("list", n_panels)
 
      ########################## Then process the image data
-     for (i in 1:n_frames) x[[i]] = X[, c(1:n_cols) + n_cols * (i - 1)]
+     for (i in 1:n_panels) x[[i]] = X[, c(1:n_cols) + n_cols * (i - 1)]
 
-     for(i in 1:n_frames){
+     for(i in 1:n_panels){
       Temp_1 = shatter(img[[i]], locs[[i]], n_rows, n_cols, lower_hue_threshold, upper_hue_threshold, 
                        lower_saturation_threshold=lower_saturation_threshold, 
                        lower_luminance_threshold=lower_luminance_threshold, 
@@ -143,15 +143,15 @@ auto_enter_data = function (path, pattern = ".jpg", start = 1, stop = 3, seed = 
 
       # Compile all token color data into a single data frame      
       if(length(lower_hue_threshold)==1)
-        Res = data.frame(PID=rep(focal,n_frames*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)))
+        Res = data.frame(PID=rep(focal,n_panels*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)))
       if(length(lower_hue_threshold)==2)
-        Res = data.frame(PID=rep(focal,n_frames*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)), Value_2=c(do.call(cbind,y2)))
+        Res = data.frame(PID=rep(focal,n_panels*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)), Value_2=c(do.call(cbind,y2)))
       if(length(lower_hue_threshold)==3)
-        Res = data.frame(PID=rep(focal,n_frames*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)), Value_2=c(do.call(cbind,y2)), Value_3=c(do.call(cbind,y3)))
+        Res = data.frame(PID=rep(focal,n_panels*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)), Value_2=c(do.call(cbind,y2)), Value_3=c(do.call(cbind,y3)))
       if(length(lower_hue_threshold)==4)
-        Res = data.frame(PID=rep(focal,n_frames*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)), Value_2=c(do.call(cbind,y2)), Value_3=c(do.call(cbind,y3)), Value_4=c(do.call(cbind,y4)))
+        Res = data.frame(PID=rep(focal,n_panels*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)), Value_2=c(do.call(cbind,y2)), Value_3=c(do.call(cbind,y3)), Value_4=c(do.call(cbind,y4)))
       if(length(lower_hue_threshold)==5)
-        Res = data.frame(PID=rep(focal,n_frames*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)), Value_2=c(do.call(cbind,y2)), Value_3=c(do.call(cbind,y3)), Value_4=c(do.call(cbind,y4)), Value_5=c(do.call(cbind,y5)))
+        Res = data.frame(PID=rep(focal,n_panels*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)), Value_2=c(do.call(cbind,y2)), Value_3=c(do.call(cbind,y3)), Value_4=c(do.call(cbind,y4)), Value_5=c(do.call(cbind,y5)))
 
         Res = Res[which(Res$AID != ""),]
       
