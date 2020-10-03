@@ -35,9 +35,9 @@
 
 annotate_data = function (path, results, HHID, RID, day, month, year, name, ID, game, order, seed){
             results = results[[1]][[1]]
-            self = ifelse(results$Color[which(as.character(results$PID)==as.character(results$AID))]=="empty",0,1)
+            self = NA
             checksum = sum(results$Color!="empty") 
-            other = checksum - self
+            other = NA
             headpage = cbind(c("HHID", "RID", "Day", "Month","Year", "Name", "PID", "Game", "Order", "Seed", "CheckSum", "Self", "Other"), 
                               c(HHID, RID, day, month, year, name, ID, game, order, seed, checksum, self, other))
 
