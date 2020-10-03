@@ -66,7 +66,7 @@ Code[3] = " \\\\[12pt] \\end{fshaded}"
      
 for(i in 1:n_panels)
 Code[3+i] = print(x[[i]],include.rownames=FALSE,include.colnames=FALSE,hline.after=0:nrow(x[[i]]), sanitize.text.function = identity)
-Code[n_frames+4] = " \\end{document}"
+Code[n_panels+4] = " \\end{document}"
 
 write(Code, file = paste0(path_out,"/","Survey.tex"), append = FALSE)
    }
