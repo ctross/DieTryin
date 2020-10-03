@@ -15,11 +15,11 @@
 #' @param 
 #' seed A seed for the random number generator to sort the order of photos in the array. This should match the seed used to make the survey.
 #' @param 
-#' frames Number of frames/panels/blocks of photos to be output. I use four big panels and randomize order at each game.
+#' n_panels Number of frames/panels/blocks of photos to be output. I use four big panels and randomize order at each game.
 #' @param 
-#' rows Number of rows per panel. With 7cm x 10cm photos, I use five rows of photos per panel.
+#' n_rows Number of rows per panel. With 7cm x 10cm photos, I use five rows of photos per panel.
 #' @param 
-#' cols Number of rows per panel. With 7cm x 10cm photos, I use six to eight cols of photos per panel.
+#' n_cols Number of rows per panel. With 7cm x 10cm photos, I use six to eight cols of photos per panel.
 #' @param 
 #' ordered A list of IDs if photograph order is to be explicilty coded. This overwrites random sorting.
 #' @param 
@@ -31,14 +31,14 @@
 #'                    }
            
 enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3, 
-     n_frames = 4, n_rows = 5, n_cols = 8, seed = 1, ordered=NULL, games_to_add=c("Nothing")) 
+     n_panels = 4, n_rows = 5, n_cols = 8, seed = 1, ordered=NULL, games_to_add=c("Nothing")) 
 {
     path_in <- paste0(path, "/StandardizedPhotos")
     IDS <- substr(list.files(path_in, pattern, full.names = FALSE), 
         start = start, stop = stop)
     L <- length(IDS)
-    if (L > n_frames * n_rows * n_cols) {
-        stop("ID vector exceeds the product of n_frames*n_rows*n_cols")
+    if (L > n_panels * n_rows * n_cols) {
+        stop("ID vector exceeds the product of n_panels*n_rows*n_cols")
     }
     else {
         set.seed(seed)
@@ -51,12 +51,12 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
     SortedIDS <- ordered
   } 
                
-        SortedIDS <- c(SortedIDS, rep("", (n_frames * n_rows * n_cols - 
+        SortedIDS <- c(SortedIDS, rep("", (n_panels * n_rows * n_cols - 
             L))) 
-            X2 <<- X <<- matrix(SortedIDS, nrow = n_rows, ncol = n_frames * 
+            X2 <<- X <<- matrix(SortedIDS, nrow = n_rows, ncol = n_panels * 
             n_cols, byrow = FALSE)
-        x <<- vector("list", n_frames)
-        for (i in 1:n_frames) x[[i]] <<- X[, c(1:n_cols) + n_cols * 
+        x <<- vector("list", n_panels)
+        for (i in 1:n_panels) x[[i]] <<- X[, c(1:n_cols) + n_cols * 
             (i - 1)]
         AZ <- readline("New Person ?: ")
         if (AZ == "Y") 
@@ -64,7 +64,7 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
                 "Year", "Name", "PID", "Game", "Order", "Seed"), 
                 c(rep(NA, 9), seed))
         data.entry(headpage)
-        for (i in 1:n_frames) {
+        for (i in 1:n_panels) {
             z <<- x[[i]]
             data.entry(z)
             x[[i]] <<- z
@@ -72,7 +72,7 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
              
 
         if (headpage[8, 2] %in% c(games_to_add, "G", "L", "R") ) {
-            for (i in 1:n_frames) X2[, c(1:n_cols) + n_cols * (i - 
+            for (i in 1:n_panels) X2[, c(1:n_cols) + n_cols * (i - 
                 1)] <<- x[[i]]
             x.all <<- suppressWarnings(as.numeric(c(X2)))
             x.all[is.na(x.all)] <<- 0
