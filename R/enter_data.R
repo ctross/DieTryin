@@ -96,7 +96,7 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
                 1)] <<- x[[i]]
             x.all <<- c(X2)
             x.all[x.all %in% SortedIDS] <<- 0
-            res <<- data.frame(AID = c(X)[1:L], Allocation = as.numeric(c(x.all)[1:L]))
+            res <<- data.frame(AID = c(X)[1:L], Allocation = c(x.all)[1:L])
             headpage2 <<- rbind(headpage, cbind(c("CheckSum", 
                 "Self", "Other"), c(sum(res$Allocation), ifelse(length(which(res$AID == 
                 headpage[7, 2])) > 0, res$Allocation[which(res$AID == 
