@@ -26,3 +26,4 @@ pre_process <- function(path, ID, GID="Blank", PID=c("A","B"), pre_processed=FAL
  blank_locs = grab_points(blank_path, pre_processed=pre_processed)
  return(list(blank_images,blank_locs))
 }
+
