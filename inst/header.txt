@@ -12,4 +12,4 @@
 \end{fshaded}
 \begin{fshaded}
 \question{\textbf Individual providing data. Mark which game this applies to.}
-\textbf{ Name~  \underline{ \hspace{1.65in}}} ID ~~ \xxxbox ~~ \ffbox{\color[HTML]{C0C0C0} Giving} \ffbox{\color[HTML]{C0C0C0} Taking}\ffbox{\color[HTML]{C0C0C0} Reducing}\ffbox{\color[HTML]{C0C0C0}Other} ~~ Seed=
+\textbf{ Name~  \underline{ \hspace{1.6in}}} ID ~~ \xxxbox ~~ \ffbox{\color[HTML]{C0C0C0} Giving} \ffbox{\color[HTML]{C0C0C0} Taking}\ffbox{\color[HTML]{C0C0C0} Reducing}\ffbox{\color[HTML]{C0C0C0}Other} ~~ Seed=
