@@ -90,7 +90,7 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
                 dim(headpage2)[2]] <<- as.matrix(res)
             res.all[1, 3:4] <<- c("AlterID", "CoinsPlaced")
               }
-
+                   
            if (headpage[8, 2] %in% c(add) ){
               for (i in 1:n_panels) X2[, c(1:n_cols) + n_cols * (i - 
                 1)] <<- x[[i]]
@@ -98,11 +98,7 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
             x.all[x.all %in% SortedIDS] <<- 0
             res <<- data.frame(AID = c(X)[1:L], Allocation = c(x.all)[1:L])
             headpage2 <<- rbind(headpage, cbind(c("CheckSum", 
-                "Self", "Other"), c(sum(res$Allocation), ifelse(length(which(res$AID == 
-                headpage[7, 2])) > 0, res$Allocation[which(res$AID == 
-                headpage[7, 2])], 0), sum(res$Allocation) - ifelse(length(which(res$AID == 
-                headpage[7, 2])) > 0, res$Allocation[which(res$AID == 
-                headpage[7, 2])], 0))))
+                "Self", "Other"), c(length(which(res$Allocation !="0")), NA, NA)))
             res.all <<- matrix(NA, nrow = dim(headpage2)[1] + 
                 dim(res)[1], ncol = dim(headpage2)[2] + dim(res)[2])
             res.all[1:dim(headpage2)[1], 1:dim(headpage2)[2]] <<- headpage2
