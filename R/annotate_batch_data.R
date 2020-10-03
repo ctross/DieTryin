@@ -35,7 +35,7 @@
 
 annotate_batch_data = function (path, results, HHID, RID, day, month, year, name, ID, game, order, seed){
             
-            results$Color <- ifelse(results$Color=="empty", "0", results$Color)
+            
 
 	        N = length(results)
 	        prep = vector("list", N)
@@ -45,6 +45,7 @@ annotate_batch_data = function (path, results, HHID, RID, day, month, year, name
 	        }
 
 	        results = do.call(rbind,prep)
+	    results$Color <- ifelse(results$Color=="empty", "0", results$Color)
    
             headpage = cbind(c("HHID", "RID", "Day", "Month","Year", "Name", "PID", "Game", "Order", "Seed", "CheckSum", "Self", "Other"), 
                               c(HHID, RID, day, month, year, name, ID, game, order, seed, NA, NA, NA))
