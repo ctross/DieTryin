@@ -33,7 +33,9 @@
 #'              name = "Walter W.", PID="CVD", game="LikertData", order="AB", seed = 1)
 #'                    }
 
-annotate_batch_data = function (path, results, HHID, RID, day, month, year, name, ID, game, order){
+annotate_batch_data = function (path, results, HHID, RID, day, month, year, name, ID, game, order, seed){
+            
+            results$Color <- ifelse(results$Color=="empty", "0", results$Color)
 
 	        N = length(results)
 	        prep = vector("list", N)
