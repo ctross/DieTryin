@@ -70,8 +70,8 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
             x[[i]] <<- z
         }
              
-
         if (headpage[8, 2] %in% c(add, "G", "L", "R") ) {
+           if (headpage[8, 2] %in% c("G", "L", "R") ){
             for (i in 1:n_panels) X2[, c(1:n_cols) + n_cols * (i - 
                 1)] <<- x[[i]]
             x.all <<- suppressWarnings(as.numeric(c(X2)))
@@ -89,6 +89,27 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
             res.all[c(1:dim(res)[1]) + dim(headpage2)[1], c(1:dim(res)[2]) + 
                 dim(headpage2)[2]] <<- as.matrix(res)
             res.all[1, 3:4] <<- c("AlterID", "CoinsPlaced")
+              }
+
+           if (headpage[8, 2] %in% c(add) ){
+              for (i in 1:n_panels) X2[, c(1:n_cols) + n_cols * (i - 
+                1)] <<- x[[i]]
+            x.all <<- c(X2)
+            x.all[x.all %in% SortedIDS] <<- 0
+            res <<- data.frame(AID = c(X)[1:L], Allocation = as.numeric(c(x.all)[1:L]))
+            headpage2 <<- rbind(headpage, cbind(c("CheckSum", 
+                "Self", "Other"), c(sum(res$Allocation), ifelse(length(which(res$AID == 
+                headpage[7, 2])) > 0, res$Allocation[which(res$AID == 
+                headpage[7, 2])], 0), sum(res$Allocation) - ifelse(length(which(res$AID == 
+                headpage[7, 2])) > 0, res$Allocation[which(res$AID == 
+                headpage[7, 2])], 0))))
+            res.all <<- matrix(NA, nrow = dim(headpage2)[1] + 
+                dim(res)[1], ncol = dim(headpage2)[2] + dim(res)[2])
+            res.all[1:dim(headpage2)[1], 1:dim(headpage2)[2]] <<- headpage2
+            res.all[c(1:dim(res)[1]) + dim(headpage2)[1], c(1:dim(res)[2]) + 
+                dim(headpage2)[2]] <<- as.matrix(res)
+            res.all[1, 3:4] <<- c("AlterID", "CoinsPlaced")
+              }
         }
         else {
             stop("Cannot find folder. Does game code match the directories added in setup_folders?")
