@@ -47,7 +47,7 @@
 #' @param 
 #' upper_luminance_threshold Upper limit of lightness before the hue of such pixels is excluded from density calculations.
 #' @param 
-#' border_size Number of pixels on the image border excluded from density calculations.
+#' border_size Image border excluded from density calculations as a fraction of image size.
 #' @param 
 #' iso_blur Width of Gaussian filter applied to image. A value of 0 turns off blurring.
 #' @param 
@@ -65,14 +65,14 @@
 #'                    lower_hue_threshold=120, upper_hue_threshold=155, plot_colors=c("empty","darkgreen"), 
 #'                    thresh=0.05, img, locs, focal="CTR", case="GameID", clean=NA, ordered=NULL,
 #'                    lower_saturation_threshold=0.05, lower_luminance_threshold=0.05, 
-#'                    upper_luminance_threshold=0.95, border_size=5, iso_blur=1, histogram_balancing=FALSE,
+#'                    upper_luminance_threshold=0.95, border_size=0.25, iso_blur=1, histogram_balancing=FALSE,
 #'                    direction="backward", pre_processed=FALSE)
 #'                    }
 auto_enter_data = function (path, pattern = ".jpg", start = 1, stop = 3, seed = 1, n_panels = 4, n_rows = 5, n_cols = 8, 
                             lower_hue_threshold = 210, upper_hue_threshold = 230, plot_colors = c("empty","darkblue"),
                             img, locs, focal="CTR", case="FriendshipTies", thresh=c(0.05), clean=NA, ordered=NULL,
                             lower_saturation_threshold=0.05, lower_luminance_threshold=0.05, 
-                            upper_luminance_threshold=0.95, border_size=5, iso_blur=1,
+                            upper_luminance_threshold=0.95, border_size=0.25, iso_blur=1,
                             histogram_balancing=FALSE, direction="backwards", pre_processed=FALSE) {
   
  ########################## Sort and prepare IDs if needed
