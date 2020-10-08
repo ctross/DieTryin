@@ -76,7 +76,7 @@ auto_enter_all = function(path, pattern = ".jpg", start = 1, stop = 3, seed = 1,
                           lower_hue_threshold = 210, upper_hue_threshold = 230, plot_colors=c("empty","darkblue"),
                           img, locs, focal="CTR", case="FriendshipTies", thresh=0.05, ordered=NULL, 
                           lower_saturation_threshold=0.05, lower_luminance_threshold=0.05, 
-                          upper_luminance_threshold=0.95, border_size=8, iso_blur=2,
+                          upper_luminance_threshold=0.95, border_size=0.25, iso_blur=2,
                           histogram_balancing=histogram_balancing, direction="backwards",
                           pre_processed=FALSE){
   # Prepare storage 
