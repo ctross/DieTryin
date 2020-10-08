@@ -45,7 +45,7 @@
 #' @param 
 #' upper_luminance_threshold Upper limit of lightness before the hue of such pixels is excluded from density calculations.
 #' @param 
-#' border_size Number of pixels on the image border excluded from density calculations.
+#' border_size Image border excluded from density calculations as a fraction of image size.
 #' @param 
 #' iso_blur Width of Gaussian filter applied to image. A value of 0 turns off blurring.
 #' @param 
