@@ -14,22 +14,22 @@
 #' @param 
 #' upper_luminance_threshold Upper limit of lightness before the hue of such pixels is excluded from density calculations.
 #' @param 
-#' border_size Number of pixels on the image border excluded from density calculations.
+#' border_size Image border excluded from density calculations as percentage of image size.
 #' @param 
 #' iso_blur Width of Gaussian filter applied to image. A value of 0 turns off blurring.
 #' @export
 
 counter = function(slice, lower_hue_threshold, upper_hue_threshold, lower_saturation_threshold=0.05, 
                      lower_luminance_threshold=0.05, upper_luminance_threshold=0.95, 
-                     border_size=5, iso_blur=2){
+                     border_size=0.25, iso_blur=2){
   # Prune border off of photo, to minimize influence of clothing color
-  px = Xc(slice) <= border_size                         
+  px = Xc(slice) <= border_size*dim(slice)[1]                         
   slice[px] = 0                                           
-  px = Xc(slice) >= dim(slice)[1]-border_size                  
+  px = Xc(slice) >= dim(slice)[1]-(border_size*dim(slice)[1])                  
   slice[px] = 0                                           
-  px = Yc(slice) <= border_size*2                           
+  px = Yc(slice) <= border_size*dim(slice)[2]                        
   slice[px] = 0                                           
-  px = Yc(slice) >= dim(slice)[2]-border_size*2              
+  px = Yc(slice) >= dim(slice)[2]-(border_size*dim(slice)[2])              
   slice[px] = 0                                           
  
   # Convert RGB image to HSL, and then use hue to identify tokens
