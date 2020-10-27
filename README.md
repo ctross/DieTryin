@@ -221,11 +221,12 @@ In the above three examples, we had only one question per resondent. However, it
 
 ```{r}
 ################################### Now lets batch process binary data
-filled = vector("list", 27)
-filled[[1]] = pre_process(path=path, ID="CTR", GID="Blank", PID=c("A","B"))
+filled = vector("list", 27) # We use 26 different questions, plus one extra slot for the blank data
+filled[[1]] = pre_process(path=path, ID="CTR", GID="Blank", PID=c("A","B")) # First slot is for the blank board
 for(i in 1:26)
-filled[[i+1]] = pre_process(path=path, ID="CTR", GID=toupper(letters)[i], PID=c("A","B"))
+filled[[i+1]] = pre_process(path=path, ID="CTR", GID=toupper(letters)[i], PID=c("A","B")) # The others are for the real data
 
+################ Boring data wrangling to put data into format needed for the classfier
 game_images_all4 = vector("list", 27)
 game_locs_all4 = vector("list", 27)
 GID_all4 = vector("list", 27)
@@ -240,6 +241,7 @@ game_locs_all4[[i]] <- filled[[i]][[2]]
 GID_all4[[i]] <- toupper(letters)[i-1]
 }
 
+##### A single call will process all of the data
 Game_all4 <- auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
                             thresh=0.1, lower_hue_threshold = 135, upper_hue_threshold = 170,  
                             plot_colors=c("empty","seagreen4"), img=game_images_all4, locs=game_locs_all4, focal="CTR",
@@ -252,9 +254,11 @@ Game_all4 <- auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, 
                             histogram_balancing=FALSE,
                             direction="backward")
 
+##### Check each clasification for accuracy
 for(i in 1:26)
 check_classification(path=path, Game_all4[[i]], n_panels = 2, n_rows=4, n_cols=5, focal="CTR", case=toupper(letters)[i])
 
+### Annotate the data
 annotate_batch_data(path = path, results=Game_all4, HHID="BQL", RID="CR", day=12, month=4, year=2020, 
 	          name = "BobBarker", ID="QQQ", game="WorkData", order="AB", seed = 1)
 
@@ -264,6 +268,7 @@ annotate_batch_data(path = path, results=Game_all4, HHID="LQL", RID="CR", day=12
 compile_data(path=path, game="WorkData", batch=TRUE)
 ```
 
+Entering Likert-scale data works just the same, but we again have to provide extra input information for the different token colors.
 ```{r}
 ################################### And now a batch process script for Likert data
 filled2 = vector("list", 27)
@@ -309,6 +314,7 @@ annotate_batch_data(path = path, results=Game_all5, HHID="JKL", RID="CR", day=1,
 compile_data(path=path, game="EmotionData", batch=TRUE)
 ```
 
+If the game-board images are collected using an app like Tiny Scanner, which automatically crops and unwarps images, then the pre-processing step can again be skipped entirely:
 ```{r}
 ####################################################### And again in batch mode
 ################################### If images are preproccessed to be squared and cropped then, 
