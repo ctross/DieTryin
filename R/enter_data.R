@@ -59,7 +59,7 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
         for (i in 1:n_panels) x[[i]] <<- X[, c(1:n_cols) + n_cols * 
             (i - 1)]
         AZ <- readline("New Person ?: ")
-        if (AZ == "Y") 
+        if (AZ == "Y" | AZ == "y") 
             headpage <<- cbind(c("HHID", "RID", "Day", "Month", 
                 "Year", "Name", "PID", "Game", "Order", "Seed"), 
                 c(rep(NA, 9), seed))
