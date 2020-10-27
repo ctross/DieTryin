@@ -26,7 +26,7 @@ Now, we initialize a directory structure:
 ```
 By default, data storage is set up only for the RICH games. If one wants to also collect other questions or games, simply create folders for those questions/games by inlcuding the  games_to_add vector.
 
-The next step is to bring in the raw photos of all respondents who will be invited to take part in the games. These should be jpg-formatted images. All of the filenames should be ID codes for the respodents: i.e., X1Z.jpg, A12.jpg, ZYZ.jpg. These strings should all be of the same length and must contain a letter as the first character. All file extensons should be the same. Now, just copy-and-paste the photos into the folder: RICH/RawPhotos
+The next step is to bring in the raw photos of all respondents who will be invited to take part in the games. These should be jpg-formatted images. All of the filenames should be ID codes for the respodents: i.e., X1Z.jpg, A12.jpg, ZYZ.jpg. These strings should all be of the same length and must contain a letter as the first character. All file extensons should be the same. Now, just copy-and-paste the photos into the folder: RICH/RawPhotos. To use our example images, copy the photographs from the RespodentsImages folder in the .zip file above into the RICH/RawPhotos folder in your own directory.
 
 Now, we can move on to standardizing the photos. First, we run:
 ```{r}
@@ -52,7 +52,7 @@ Now we can move on to building the survey. We run:
  build_survey(path=path, pattern=".jpg", start=1, stop=3, 
  	          n_panels=2, n_rows=4, n_cols=5, seed=1, ordered = sorted_ids)
 ```
-This builds a LaTeX file of the survey using the photo IDs. Individual IDs can be randomized by changing seed. n_panels indicates how many boards of photos will be made. n_rows and n_cols give how many rows and cols of photos will be included on each board. The product n_panels*n_rows*n_cols should be greater than or equal to the number of photos in the StandardizedPhotos folder. Now open the Survey folder and find the LaTeX file and PDF file of the survey. Edits to the LaTeX file can be made manually, or the header.txt file can be edited prior to running the build survey function (this is the prefered option). Print out several copies for each respodent and go collect some data! Write the number of coins/tokens placed by the focal on each ID in the photo aray.
+This builds a LaTeX file of the survey using the photo IDs. Individual IDs can be randomized by changing seed. n_panels indicates how many boards of photos will be made. n_rows and n_cols give how many rows and cols of photos will be included on each board. Now open the Survey folder and find the LaTeX file and PDF file of the survey. Edits to the LaTeX file can be made manually, or the header.txt file can be edited prior to running the build survey function (this is the prefered option). Print out several copies for each respodent and go collect some data! Write the number of coins/tokens placed by the focal on each ID in the photo aray.
 
 A whole bunch of work is now done, but we still need to enter the data. For this, we run:
 ```{r}
@@ -85,5 +85,41 @@ Now that we are sure that the data look good, lets see what we owe the community
 Change GV, LV, KV, and RV to give the value of each coin in each game. GV for giving, LV for leaving/taking, KV for the value of coins kept in the reducing game, and RV for the reducation value of the tokens in the reducing game.
 
 
+While RICH game data is often best entered manually, since there can be several coins allocated to each recipient, it can be useful to collect additional binary dyadic data: e.g.,
+"With whom have you shared food in the last 30 days?" using the same photograph roster. By placing tokens of a known color on the photograph roster to indicate directed ties and then photographing the resulting game boards, a researcher can implement an automated data entry workﬂow with DieTryin. To use our example images, copy the photographs from the CollectedDataImages folder in the .zip file above into the RICH/RawPhotos folder in your own directory.
+```{r}
+################################### Now, automatic coding
+ # First paste results photos into the ResultsPhotos directory, with properly formatted titles
+ # of form: "GAMEID_PERSONID_PANELID.jpg" then downsize the images if needed to speed the processing code
+ downsize(path=path, scaler=1) # set scaler=1 to keep same size, as the attached photos are already small
+```
 
+Now, we can run a quick example of automatic data entry for binary tie data. The user must pre-process the images. The pre_process function opens an interactive window that
+displays each photo array. The user must click the top-left corner of the photograph array, then the top-right, bottom-right, and bottom-left, in that order. This provides DieTryin with the information needed to crop-out only the photograph array, and correct any rotations or distortions. The user will need to process the blank boards and the boards for at least one other question/game. 
+```{r}
+################################### Pre-process the data needed for analysis
+# These lines will open a window where corners must be clicked
+ blank1 = pre_process(path=path, ID="CTR", GID="Blank", PID=c("A","B"))            # control with no tokens
+ friend1 = pre_process(path=path, ID="CTR", GID="FriendshipsData", PID=c("A","B")) # game play with tokens
+
+ game_images_all1 = list(blank1[[1]], friend1[[1]]) # Then organize into a list
+ game_locs_all1 = list(blank1[[2]], friend1[[2]])
+ GID_all1 = list("Blank", "FriendshipsData")
+```
+
+Once the data are pre-processed, the classifier can be applied:
+```{r}
+################################### Run the classifier
+ Game_all1 = auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
+                             thresh=0.1, lower_hue_threshold = 135, upper_hue_threshold = 170,  
+                             plot_colors=c("empty","seagreen4"), img=game_images_all1, locs=game_locs_all1, focal="CTR",
+                             case=GID_all1, ordered=sorted_ids,
+                             lower_saturation_threshold=0.12, 
+                             lower_luminance_threshold=0.12, 
+                             upper_luminance_threshold=0.88,  
+                             border_size=0.22,
+                             iso_blur=1,
+                             histogram_balancing=FALSE,
+                             direction="backward")
+```
 
