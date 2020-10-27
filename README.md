@@ -1,30 +1,33 @@
 DieTryin
 ========
-This is an R package for making it super-easy to run RICH economic games <http://journals.sagepub.com/doi/abs/10.1177/1525822X16643709?journalCode=fmxd>
+This is an R package for making it super-easy to run RICH economic games <http://journals.sagepub.com/doi/abs/10.1177/1525822X16643709?journalCode=fmxd> and other dyadic data collection operations.
 
 Here we will go through the process. First, we install by running on R:
 ```{r}
-library(devtools)
-install_github('ctross/DieTryin')
-library(DieTryin)
+ library(devtools)
+ install_github('ctross/DieTryin')
+ library(DieTryin)
 ```
 
 Next, we set a path to where we will save all of the files related to this project:
 ```{r}
-path<-"C:\\Users\\Mind Is Moving\\Desktop"
+path<-"C:\\Users\\cody_ross\\Desktop"
 ```
 
 Now, we initialize a directory structure:
 ```{r}
-setup_folders(path)
+ games_to_add = c("FriendshipsData", "TrustData", "WisdomData", "WorkData", "EmotionData", "ReputationData")
+ setup_folders(path, add=games_to_add)
 ```
-This only needs to be done once.
+By default, data storage is set up only for the RICH games. If one wants to also collect other questions or games, simply create folders for those questions/data by inlcuding the  games_to_add vector.
 
-The next step is to bring in the raw photos of all respondents who will be invited to take part in the games. These should be jpg-formatted images. All of the filenames should be ID codes for the respodents: i.e., X1Z.jpg, A12.jpg, ZYZ.jpg. These strings should all be of the same length and must contain a letter as the first character. Also, I've only checked that the code runs if the length of the id strings are 3 characters. All file extensons should be the same. Now, just copy-and-paste the photos into the folder: RICH/RawPhotos
+The next step is to bring in the raw photos of all respondents who will be invited to take part in the games. These should be jpg-formatted images. All of the filenames should be ID codes for the respodents: i.e., X1Z.jpg, A12.jpg, ZYZ.jpg. These strings should all be of the same length and must contain a letter as the first character. All file extensons should be the same. Now, just copy-and-paste the photos into the folder: RICH/RawPhotos
 
 Now, we can move on to standardizing the photos. First, we run:
 ```{r}
-standardize_photos(path=path, pattern=".jpg",start=1,stop=3, size_out=1000,border_size=10,asr=1.6180, id_range=NULL,id_names=NULL,spin=TRUE)
+ standardize_photos(path=path, pattern=".jpg", start=1, stop=3, 
+	               size_out=1000, border_size=10, asr=1.6180, 
+	               id_range=NULL, id_names=NULL, spin=TRUE)
 ```
 This will open up a semi-automated photo editing process. The first image will pop up. If spin=TRUE, then we must tell R if the image should be spun. If the image is correctly rotated, click in the upper-left corner of the image, and it will disappear. If a 90 degree spin clockwise is needed, click the upper-right corner. Click the lower-right corner for a 180 degree spin, and the bottom-left for a 270 degree spin. Once a spin is selected, the same photo will re-appear. Now click at the point where the final image should have its upper-left corner, and drag the box out to set the boundares for the final processed image. Repeat for all photos. If you mess up and don't want to redo the whole loop, run the command but set id_names toinclude only the ids that need to be redone: i.e., id_names=c("XXX","XXY","A12") 
 
