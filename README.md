@@ -122,4 +122,23 @@ Once the data are pre-processed, the classifier can be applied:
                              histogram_balancing=FALSE,
                              direction="backward")
 ```
+After the classifier runs, we need to check that the infer ties are correct. To do so, we plot the infer ties back on the images and save them in the ClassifiedPhotos folder.
+```{r}
+################################### Check the performance of the classifier
+ check_classification(path=path, Game_all1[[1]], n_panels = 2, n_rows=4, n_cols=5, focal="CTR", case="FriendshipsData")
+```
+
+If the ties are correct, then we can append the header data and save the results.
+```{r}
+# Add header information and then save the results
+ annotate_data(path = path, results=Game_all1, HHID="BPL", RID="CR", day=12, month=4, year=2020, 
+	           name = "Cory Rose", ID="CTR", game="FriendshipsData", order="AB", seed = 1)
+
+# Duplicate the above data with a different header just to test the compile function below
+ annotate_data(path = path, results=Game_all1, HHID="LQL", RID="CR", day=12, month=4, year=2020, 
+	           name = "Faith", ID="AOC", game="FriendshipsData", order="BA", seed = 1) 
+
+ compile_data(path=path, game="FriendshipsData")
+```
+
 
