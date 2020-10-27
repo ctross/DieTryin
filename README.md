@@ -2,7 +2,7 @@ DieTryin
 ========
 This is an R package for making it super-easy to run RICH economic games <http://journals.sagepub.com/doi/abs/10.1177/1525822X16643709?journalCode=fmxd> and other dyadic data collection operations. This is a brief overview of a workflow. For further details on any step, see our pre-print at <http://journals.sagepub.com/doi/abs/10.1177/1525822X16643709?journalCode=fmxd>. 
 
-In order to replicate our code exactly, you will need to download the specific image files we use in this example, and place them into the approriate folders. Download the images with this link: <http://journals.sagepub.com/doi/abs/10.1177/1525822X16643709?journalCode=fmxd>. 
+In order to replicate our code exactly, you will need to download the specific image files we use in this example, and place them into the approriate folders. Download the images with this link: <https://www.dropbox.com/s/qz6n2kke0m66zkd/WorkflowImages.zip?dl=0>. 
 
 Here we will go through the whole DieTryin workflow. First, we install by running on R:
 ```{r}
