@@ -2,8 +2,6 @@ DieTryin
 ========
 
 ![Logo](/logo.jpg)
-Format: ![Alt Text](url)
-
 
 This is an R package for making it super-easy to run RICH economic games <http://journals.sagepub.com/doi/abs/10.1177/1525822X16643709?journalCode=fmxd> and other dyadic data collection operations. This is a brief overview of a workflow. For further details on any step, see our pre-print at < >. 
 
