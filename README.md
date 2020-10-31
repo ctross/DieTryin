@@ -74,7 +74,7 @@ A pop-up will open in R. If this is the first game for a respondent, then type: 
 Otherwise, type: N
 
 Now enter the header data and simply close the pop-up window. There is no need to save or hit ctrl+s.
-A new pop-up opens. Now, if coin(s) were placed on an alter's ID, click on that ID, then type the number of coins placed, then move on to the next ID. If no coins were placed on an alter, just leave the ID code alone. There is no need to type in the zeros. To make the following code work, enter some simulated data for at least 3 respondents, for each of the three RICH games. Note that in the header file, the argument Game must take one of three special values for the RICH games data (G for the giving/allocation game, L for the leaving/taking game, and R for the reduction/punishment game). Other question types can be given arbitrary names (corresponding to those supplied in the add argument of the
+A new pop-up opens. Now, if coin(s) were placed on an alter's ID, click on that ID, then type the number of coins placed, then move on to the next ID. If no coins were placed on an alter, just leave the ID code alone. There is no need to type in the zeros. To make the following code work, enter some simulated data for at least 3 respondents (using the IDs in the sorted_ids vectors as their ID codes), for each of the three RICH games. Note that in the header file, the argument Game must take one of three special values for the RICH games data (G for the giving/allocation game, L for the leaving/taking game, and R for the reduction/punishment game). Other question types can be given arbitrary names (corresponding to those supplied in the add argument of the
 setup folders function). 
 
 Now that all of the data has been entered, lets compile it. First we run:
@@ -85,7 +85,7 @@ Now that all of the data has been entered, lets compile it. First we run:
  compile_data(path=path, game="ReducingData")
 ```
 
-This will build two files for each game. A summary table, which gives self vs. alter allocation data, and checks that the sum of entries is correct. If the checksum cell isn't the same for all respondents, then someone probably made a mistake during data collection or data entry! Better go fix the corresponding .csv files. If the summary tables look good, then we are set. The other files are the edgelists. These say how many coins ego gave to each alter.
+This will build two files for each game (a summary table and an edge-list). A summary table, which gives self vs. alter allocation data, checks that the sum of entries is correct. If the checksum cell isn't the same for all respondents, then someone probably made a mistake during data collection or data entry! Better go fix the corresponding .csv files. If the summary tables look good, then we are set. The other files are the edgelists. These say how many coins ego gave to each alter.
 
 Now that we are sure that the data look good, let's see what we owe the community!
 ```{r}
@@ -96,7 +96,7 @@ Now that we are sure that the data look good, let's see what we owe the communit
 Change GV, LV, KV, and RV to give the value of each coin in each game. GV for giving, LV for leaving/taking, KV for the value of coins kept in the reducing game, and RV for the reduction value of the tokens in the reducing game.
 
 While RICH game data is often best entered manually, since there can be several coins allocated to each recipient, it can be useful to collect additional binary dyadic data: e.g.,
-"With whom have you shared food in the last 30 days?" using the same photograph roster. By placing tokens of a known color on the photograph roster to indicate directed ties and then photographing the resulting game boards, a researcher can implement an automated data entry workﬂow with DieTryin. To use our example images, copy the photographs from the CollectedDataImages folder in the .zip file above into the RICH/RawPhotos folder in your own directory.
+"With whom have you shared food in the last 30 days?" using the same photograph roster. By placing tokens of a known color on the photograph roster to indicate directed ties and then photographing the resulting game boards, a researcher can implement an automated data entry workﬂow with DieTryin. To use our example images, copy the photographs from the CollectedDataImages folder in the .zip file above into the RICH/ResultsPhotos folder in your own directory.
 ```{r}
 ################################### Now, automatic coding
  # First paste results photos into the ResultsPhotos directory, with properly formatted titles
