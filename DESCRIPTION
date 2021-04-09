@@ -1,10 +1,10 @@
 Package: DieTryin
-Title: Helps to run RICH economic games
+Title: A package for running network-structured economic games
 Version: 0.0.0.9000
 Authors@R: person("Cody", "Ross", email = "ctross@ucdavis.edu", role = c("aut", "cre"))
 Description: Streamlines photo standardization, suvery design, data entry, data compilation, and payout calculation.
 Depends: R (>= 3.4.2), imager, xtable, MASS, readr, tools
-License: Who knows!
+License: CC BY-NC-SA
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
