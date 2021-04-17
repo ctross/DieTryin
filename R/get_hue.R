@@ -1,6 +1,3 @@
-
-
-
 get_hue = function(path){
  img = load.image(path)
  asr1 = dim(img)[1:2]
