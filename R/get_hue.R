@@ -1,3 +1,10 @@
+#' get_hue
+#'
+#' This is a helper function to identify HSL hue values. ust set a path to an image, and click to get a pixel color.
+#' @param 
+#' path Full path to image. file.choose() is often useful. Example: get_hue(file.choose())
+#' @export
+
 get_hue = function(path){
  img = load.image(path)
  asr1 = dim(img)[1:2]
