@@ -27,27 +27,28 @@
 #' build_survey(path=path, pattern=".jpg", start=1, stop=3, n_panels=2, n_rows=4, n_cols=5, seed=1, ordered = sorted_ids)
 #'                    }
   
-build_survey = function(path, pattern=".jpg", start=1, stop=3, n_panels=4, n_rows=5, n_cols=8, seed=1, ordered = NULL ){
+build_survey2 = function(path, pattern=".jpg", start=1, stop=3, n_panels=4, n_rows=5, n_cols=8, seed=1, ordered = NULL ){
  require(xtable)
  require(readr)  
  require(tools) 
   
  path_out = paste0(path,"/Survey")
-
- IDS = substr(list.files(paste0(path,"/","StandardizedPhotos"), pattern, full.names=FALSE), start = start, stop = stop) # Load IDs from photos
-
- L = length(IDS)
-
- if( L> n_panels*n_rows*n_cols){
-  stop("ID vector exceeds the product of n_panels*n_rows*n_cols")} else{      
-  set.seed(seed)
-
+  
   if(is.null(ordered)){
-  SortedIDS = c(IDS[order(runif(length(IDS),0,1))])
+    message("Because ordered=NULL, ID codes are loaded from the file names in the StandardizedPhotos directory.")
+   IDS = substr(list.files(paste0(path,"/","StandardizedPhotos"), pattern, full.names=FALSE), start = start, stop = stop) # Load IDs from photos
+   L = length(IDS)
+   set.seed(seed)
+   SortedIDS = c(IDS[order(runif(length(IDS),0,1))])
     }else{
-  SortedIDS = ordered
+    SortedIDS = ordered
+    L = length(SortedIDS)
   }
 
+ if( L> n_panels*n_rows*n_cols){
+  stop("ID vector exceeds the product of n_panels*n_rows*n_cols")
+ } else{      
+   
 SortedIDS = c(SortedIDS,rep("~~~~",(n_panels*n_rows*n_cols - L)) )
 
  X = matrix(paste0("\\LARGE \\color{gray}",SortedIDS), nrow=n_rows,ncol=n_panels*n_cols,byrow=FALSE)
