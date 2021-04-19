@@ -27,7 +27,7 @@
 #' build_survey(path=path, pattern=".jpg", start=1, stop=3, n_panels=2, n_rows=4, n_cols=5, seed=1, ordered = sorted_ids)
 #'                    }
   
-build_survey2 = function(path, pattern=".jpg", start=1, stop=3, n_panels=4, n_rows=5, n_cols=8, seed=1, ordered = NULL ){
+build_survey = function(path, pattern=".jpg", start=1, stop=3, n_panels=4, n_rows=5, n_cols=8, seed=1, ordered = NULL ){
  require(xtable)
  require(readr)  
  require(tools) 
