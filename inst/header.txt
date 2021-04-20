@@ -8,7 +8,7 @@
 \onecolumn
 \large\textbf{University of Curiosity \\[3pt]  Form 00---Economic Games}
 \begin{fshaded}
- Household ID \xxxbox~  Researcher ID   \xxbox~  Date: M \xxbox D \xxbox Y \xxxxbox
+ Household ID \xxxbox~  Researcher ID   \xxbox~  Date: D \xxbox M \xxbox Y \xxxxbox
 \end{fshaded}
 \begin{fshaded}
 \question{\textbf Individual providing data. Mark which game this applies to.}
