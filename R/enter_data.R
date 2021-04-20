@@ -28,7 +28,7 @@ enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3,
         AZ <- readline("New Person ?: ")
         if (AZ == "Y" | AZ == "y") 
             headpage <<- cbind(c("HHID", "RID", "Day", "Month", 
-                "Year", "Name", "PID", "Game", "Order", "Seed"), 
+                "Year", "Name", "ID", "Game", "Order", "Seed"), 
                 c(rep(NA, 9), seed))
         data.entry(headpage)
         for (i in 1:n_panels) {
