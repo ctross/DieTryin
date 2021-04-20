@@ -48,7 +48,7 @@ compile_data = function(path=path, game="GivingData", batch=FALSE){
                      Month=as.numeric(as.character(Data[,4])),
                      Year=as.numeric(as.character(Data[,5])),
                      Name=as.character(Data[,6]),
-                     PID=as.factor(Data[,7]),
+                     ID=as.factor(Data[,7]),
                      Order=(Data[,9]),
                      Seed=as.numeric(Data[,10]),
                      CheckSum=as.numeric(Data[,11]),
@@ -62,7 +62,7 @@ compile_data = function(path=path, game="GivingData", batch=FALSE){
     Scrap = as.data.frame(cbind(   Basic[[i]][[3]],
                                   Basic[[i]][[4]])[14:length(Basic[[i]][[4]]),])
     colnames(Scrap) = c("AID","CoinsPlaced")
-          DataFb[[i]] =  data.frame(PID=rep(DataF$PID[i],length(Scrap$AID)),AID=Scrap$AID,CoinsPlaced=Scrap$CoinsPlaced)
+          DataFb[[i]] =  data.frame(ID=rep(DataF$ID[i],length(Scrap$AID)),AID=Scrap$AID,CoinsPlaced=Scrap$CoinsPlaced)
                 } 
                 }
        else{
@@ -71,7 +71,7 @@ compile_data = function(path=path, game="GivingData", batch=FALSE){
                                Basic[[i]][[4]],
                                Basic[[i]][[5]])[14:length(Basic[[i]][[4]]),])
     colnames(Scrap) = c("AID","CoinsPlaced","Question")
-        DataFb[[i]] =  data.frame(PID=rep(DataF$PID[i],length(Scrap$AID)),AID=Scrap$AID,CoinsPlaced=Scrap$CoinsPlaced,Question=Scrap$Question)
+        DataFb[[i]] =  data.frame(ID=rep(DataF$ID[i],length(Scrap$AID)),AID=Scrap$AID,CoinsPlaced=Scrap$CoinsPlaced,Question=Scrap$Question)
                 } 
                 
        }
