@@ -46,7 +46,7 @@ stop2   = stop
    X2$CoinsPlaced = as.numeric(as.character(X2$CoinsPlaced))
 
    GiveNR = tapply(X2$CoinsPlaced, X2$AID, sum)
-   GiverNR = tapply(X2$CoinsPlaced, X2$PID, sum)
+   GiverNR = tapply(X2$CoinsPlaced, X2$ID, sum)
 
    X3$CoinsPlaced = as.numeric(as.character(X3$CoinsPlaced))
 
@@ -89,7 +89,7 @@ if(game=="GLR" | game=="GL" | game=="LR" | game=="L"){
    X2$CoinsPlaced = as.numeric(as.character(X2$CoinsPlaced))
 
    LeaveNR = tapply(X2$CoinsPlaced, X2$AID, sum)
-   LeaverNR = tapply(X2$CoinsPlaced, X2$PID, sum)
+   LeaverNR = tapply(X2$CoinsPlaced, X2$ID, sum)
 
    X3$CoinsPlaced = as.numeric(as.character(X3$CoinsPlaced))
 
@@ -133,12 +133,12 @@ if(game=="GLR" | game=="GL" | game=="LR" | game=="L"){
    X2$CoinsPlaced = as.numeric(as.character(X2$CoinsPlaced))
 
    ReduceNR = tapply(X2$CoinsPlaced, X2$AID, sum)
-   ReducerNR = tapply(X2$CoinsPlaced, X2$PID, sum)
+   ReducerNR = tapply(X2$CoinsPlaced, X2$ID, sum)
 
    X3$CoinsPlaced = as.numeric(as.character(X3$CoinsPlaced))
 
-   Xs = X3[which(as.character(X3$PID)==as.character(X3$AID)),]
-   Xo = X3[which(as.character(X3$PID)!=as.character(X3$AID)),]
+   Xs = X3[which(as.character(X3$ID)==as.character(X3$AID)),]
+   Xo = X3[which(as.character(X3$ID)!=as.character(X3$AID)),]
 
    Kept = tapply(Xs$CoinsPlaced, Xs$AID, sum)
    Reduced = tapply(Xo$CoinsPlaced, Xo$AID, sum)
@@ -221,10 +221,4 @@ Payouts<<-Payout
 
 write.csv(Payout,paste0(path,"/Results/Payouts.csv"))
 }
-   
-
-   
-   
-   
-   
-   
+  
