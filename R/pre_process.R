@@ -12,6 +12,7 @@
 #' @param 
 #' pre_processed Are photographs pre-processed such that image correction steps can be skipped? If FALSE, then user must pre-process images using DieTryings tools. If TRUE game board photographs must be cropped and unskewed. 
 #' Some Android and IOS apps, like Tiny Scanner, provide a means of producing such photographs of the game boards at the time of data collection.
+#' @return A list of length 2. The first slot contains image files. The second slot contains the locations of game-board corners.
 #' @export
 #' @examples
 #' \dontrun{
