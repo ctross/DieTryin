@@ -33,9 +33,9 @@
 #' @param 
 #' locs Locations of the corners of the game boards in the image file. Supplied via the pre-processing code.
 #' @param 
-#' focal Unique ID code of the player of the game.
+#' ID Unique ID code of the player of the game.
 #' @param 
-#' case ID code of the case/game/question: e.g., "Friendship" or "GaveFood".
+#' game ID code of the case/game/question: e.g., "Friendship" or "GaveFood".
 #' @param 
 #' clean Used to pass the hue results from the control condition into the token-treatment condition so that DieTryin can calculate contrasts.
 #' @param 
@@ -63,14 +63,14 @@
 #' \dontrun{
 #'   auto_enter_data(path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
 #'                    lower_hue_threshold=120, upper_hue_threshold=155, plot_colors=c("empty","darkgreen"), 
-#'                    thresh=0.05, img, locs, focal="CTR", case="GameID", clean=NA, ordered=NULL,
+#'                    thresh=0.05, img, locs, ID="CTR", game="GameID", clean=NA, ordered=NULL,
 #'                    lower_saturation_threshold=0.05, lower_luminance_threshold=0.05, 
 #'                    upper_luminance_threshold=0.95, border_size=0.25, iso_blur=1, histogram_balancing=FALSE,
 #'                    direction="backward", pre_processed=FALSE)
 #'                    }
 auto_enter_data = function (path, pattern = ".jpg", start = 1, stop = 3, seed = 1, n_panels = 4, n_rows = 5, n_cols = 8, 
                             lower_hue_threshold = 210, upper_hue_threshold = 230, plot_colors = c("empty","darkblue"),
-                            img, locs, focal="CTR", case="FriendshipTies", thresh=c(0.05), clean=NA, ordered=NULL,
+                            img, locs, ID="CTR", game="FriendshipTies", thresh=c(0.05), clean=NA, ordered=NULL,
                             lower_saturation_threshold=0.05, lower_luminance_threshold=0.05, 
                             upper_luminance_threshold=0.95, border_size=0.25, iso_blur=1,
                             histogram_balancing=FALSE, direction="backwards", pre_processed=FALSE) {
@@ -143,20 +143,20 @@ auto_enter_data = function (path, pattern = ".jpg", start = 1, stop = 3, seed = 
 
       # Compile all token color data into a single data frame      
       if(length(lower_hue_threshold)==1)
-        Res = data.frame(PID=rep(focal,n_panels*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)))
+        Res = data.frame(PID=rep(ID,n_panels*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)))
       if(length(lower_hue_threshold)==2)
-        Res = data.frame(PID=rep(focal,n_panels*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)), Value_2=c(do.call(cbind,y2)))
+        Res = data.frame(PID=rep(ID,n_panels*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)), Value_2=c(do.call(cbind,y2)))
       if(length(lower_hue_threshold)==3)
-        Res = data.frame(PID=rep(focal,n_panels*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)), Value_2=c(do.call(cbind,y2)), Value_3=c(do.call(cbind,y3)))
+        Res = data.frame(PID=rep(ID,n_panels*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)), Value_2=c(do.call(cbind,y2)), Value_3=c(do.call(cbind,y3)))
       if(length(lower_hue_threshold)==4)
-        Res = data.frame(PID=rep(focal,n_panels*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)), Value_2=c(do.call(cbind,y2)), Value_3=c(do.call(cbind,y3)), Value_4=c(do.call(cbind,y4)))
+        Res = data.frame(PID=rep(ID,n_panels*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)), Value_2=c(do.call(cbind,y2)), Value_3=c(do.call(cbind,y3)), Value_4=c(do.call(cbind,y4)))
       if(length(lower_hue_threshold)==5)
-        Res = data.frame(PID=rep(focal,n_panels*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)), Value_2=c(do.call(cbind,y2)), Value_3=c(do.call(cbind,y3)), Value_4=c(do.call(cbind,y4)), Value_5=c(do.call(cbind,y5)))
+        Res = data.frame(PID=rep(ID,n_panels*n_rows*n_cols), AID=c(do.call(cbind,x)), Value_1=c(do.call(cbind,y1)), Value_2=c(do.call(cbind,y2)), Value_3=c(do.call(cbind,y3)), Value_4=c(do.call(cbind,y4)), Value_5=c(do.call(cbind,y5)))
 
         Res = Res[which(Res$AID != ""),]
       
          # Now, if this is not the pre-game/control condition photo, calculate contrasts    
-         if(case != "Blank"){
+         if(game != "Blank"){
            
             if(length(lower_hue_threshold)>=1){
              Res$Control_1 = clean$Value_1
@@ -213,11 +213,11 @@ auto_enter_data = function (path, pattern = ".jpg", start = 1, stop = 3, seed = 
 
                  }}
 
-            Res$Case = case
+            Res$Case = game
             Res$Color = Color
              }
 
-            # write.csv(Res,paste0(path,"/Results/",case,"_",focal,".csv")) 
+            # write.csv(Res,paste0(path,"/Results/",game,"_",ID,".csv")) 
             return(list(Res, x, cleaned_imgs))
     }
 }
