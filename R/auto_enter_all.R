@@ -33,9 +33,9 @@
 #' @param 
 #' locs Locations of the corners of the game boards in the image file. Supplied via the pre-processing code.
 #' @param 
-#' focal Unique ID code of the player of the game.
+#' ID Unique ID code of the player of the game.
 #' @param 
-#' case ID code of the case/game/question: e.g., "Friendship" or "GaveFood".
+#' game ID code of the case/game/question: e.g., "Friendship" or "GaveFood".
 #' @param 
 #' ordered A vector of photo IDs can be provided to over-ride automatic sorting.
 #' @param 
@@ -61,8 +61,8 @@
 #' \dontrun{
 #' Game_all1 = auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
 #'                             thresh=0.05, lower_hue_threshold = 120, upper_hue_threshold = 155, 
-#'                             plot_colors=c("empty","seagreen4"), img=game_images_all1, locs=game_locs_all1, focal="SK1",
-#'                             case=GID_all1, ordered=sorted_ids,
+#'                             plot_colors=c("empty","seagreen4"), img=game_images_all1, locs=game_locs_all1, ID="SK1",
+#'                             game=gameID_all1, ordered=sorted_ids,
 #'                             lower_saturation_threshold=0.05, 
 #'                             lower_luminance_threshold=0.05, 
 #'                             upper_luminance_threshold=0.95,  
@@ -74,7 +74,7 @@
 
 auto_enter_all = function(path, pattern = ".jpg", start = 1, stop = 3, seed = 1, n_panels = 4, n_rows = 5, n_cols = 8, 
                           lower_hue_threshold = 210, upper_hue_threshold = 230, plot_colors=c("empty","darkblue"),
-                          img, locs, focal="CTR", case="FriendshipTies", thresh=0.05, ordered=NULL, 
+                          img, locs, ID="CTR", game="FriendshipTies", thresh=0.05, ordered=NULL, 
                           lower_saturation_threshold=0.05, lower_luminance_threshold=0.05, 
                           upper_luminance_threshold=0.95, border_size=0.25, iso_blur=2,
                           histogram_balancing=histogram_balancing, direction="backwards",
@@ -86,7 +86,7 @@ auto_enter_all = function(path, pattern = ".jpg", start = 1, stop = 3, seed = 1,
    i = 1
    X = auto_enter_data(path=path, pattern=pattern, start=start, stop=stop, seed=seed, n_panels=n_panels, n_rows=n_rows, n_cols=n_cols, 
                        lower_hue_threshold=lower_hue_threshold, upper_hue_threshold=upper_hue_threshold, plot_colors=plot_colors, thresh=thresh,
-                       img=img[[i]], locs=locs[[i]], focal=focal, case=case[[i]],clean=NA, ordered=ordered,
+                       img=img[[i]], locs=locs[[i]], ID=ID, game=game[[i]],clean=NA, ordered=ordered,
                        lower_saturation_threshold=lower_saturation_threshold, 
                        lower_luminance_threshold=lower_luminance_threshold, 
                        upper_luminance_threshold=upper_luminance_threshold, 
@@ -102,7 +102,7 @@ auto_enter_all = function(path, pattern = ".jpg", start = 1, stop = 3, seed = 1,
    for(i in 1:(length(img)-1)){
      res[[i]] = auto_enter_data(path=path, pattern=pattern, start=start, stop=stop, seed=seed, n_panels=n_panels, n_rows=n_rows, n_cols=n_cols, 
                                  lower_hue_threshold=lower_hue_threshold, upper_hue_threshold=upper_hue_threshold, plot_colors=plot_colors, thresh=thresh,
-                                 img=img[[i+1]], locs=locs[[i+1]], focal=focal, case=case[[i+1]], clean=X[[1]], ordered=ordered,
+                                 img=img[[i+1]], locs=locs[[i+1]], ID=ID, game=game[[i+1]], clean=X[[1]], ordered=ordered,
                                  lower_saturation_threshold=lower_saturation_threshold, 
                                  lower_luminance_threshold=lower_luminance_threshold, 
                                  upper_luminance_threshold=upper_luminance_threshold, 
@@ -112,10 +112,9 @@ auto_enter_all = function(path, pattern = ".jpg", start = 1, stop = 3, seed = 1,
                                  direction=direction,
                                  pre_processed=pre_processed)
        
-     print(paste0("Finished processing image ", case[[i+1]] ))
+     print(paste0("Finished processing image ", game[[i+1]] ))
                           }
 
      return(res)                     
 
  }
-
