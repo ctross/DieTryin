@@ -13,16 +13,16 @@
 #' @param 
 #' n_cols Number of cols per panel. With 7cm x 10cm photos, I use six to eight cols of photos per panel.
 #' @param 
-#' focal ID code of focal individual.
+#' ID ID code of focal individual.
 #' @param 
-#' case ID code for game/case/question: e.g., "GivingGame".
+#' game ID code for game/case/question: e.g., "GivingGame".
 #' @export
 #' @examples
 #' \dontrun{
-#'  check_classification(path=path, dat[[1]], n_panels = 2, n_rows=4, n_cols=5, focal="SK1", case="FriendshipsData")
+#'  check_classification(path=path, dat[[1]], n_panels = 2, n_rows=4, n_cols=5, ID="SK1", game="FriendshipsData")
 #'                    }
 
-check_classification = function(path, dat, n_panels = 2, n_rows=4, n_cols=5, focal="BS1", case="Friend"){
+check_classification = function(path, dat, n_panels = 2, n_rows=4, n_cols=5, ID="BS1", game="Friend"){
  for(k in 1:n_panels){
   Q = dat[[3]][[k]]
   P = dat[[1]]
@@ -44,7 +44,7 @@ check_classification = function(path, dat, n_panels = 2, n_rows=4, n_cols=5, foc
  df2 = df[which(df$b != "" & df$b != "empty"),]
  df2$b = as.character(df2$b) 
 
- jpeg(file=paste0(path,"/ClassifiedPhotos/",case,"_",focal,"_","frame_",k,".jpg"))
+ jpeg(file=paste0(path,"/ClassifiedPhotos/",game,"_",ID,"_","frame_",k,".jpg"))
   plot(Q)
  points(as.numeric(as.character(df2$x)),as.numeric(as.character(df2$y)),col="white",pch=20, cex=6)
  points(as.numeric(as.character(df2$x)),as.numeric(as.character(df2$y)),col=as.character(df2$b),pch=20, cex=5)
