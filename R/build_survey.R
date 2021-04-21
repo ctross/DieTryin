@@ -43,6 +43,7 @@ build_survey = function(path, pattern=".jpg", start=1, stop=3, n_panels=4, n_row
     }else{
     SortedIDS = ordered
     L = length(SortedIDS)
+    seed = "NA"
   }
 
  if( L> n_panels*n_rows*n_cols){
