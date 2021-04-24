@@ -154,8 +154,8 @@ Once the data are pre-processed, the classifier can be applied:
 ################################### Run the classifier
  Game_all1 = auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
                              thresh=0.1, lower_hue_threshold = 135, upper_hue_threshold = 170,  
-                             plot_colors=c("empty","seagreen4"), img=game_images_all1, locs=game_locs_all1, focal="CTR",
-                             case=GID_all1, ordered=sorted_ids,
+                             plot_colors=c("empty","seagreen4"), img=game_images_all1, locs=game_locs_all1, ID="CTR",
+                             game=game_ID_all1, ordered=sorted_ids,
                              lower_saturation_threshold=0.12, 
                              lower_luminance_threshold=0.12, 
                              upper_luminance_threshold=0.88,  
@@ -168,18 +168,17 @@ Once the data are pre-processed, the classifier can be applied:
 After the classifier runs, we need to check that the infer ties are correct. To do so, we plot the infer ties back on the images and save them in the ClassifiedPhotos folder.
 ```{r}
 ################################### Check the performance of the classifier
- check_classification(path=path, Game_all1[[1]], n_panels = 2, n_rows=4, n_cols=5, focal="CTR", case="FriendshipsData")
+ check_classification(path=path, Game_all1[[1]], n_panels = 2, n_rows=4, n_cols=5, ID="CTR", game="FriendshipsData")
 ```
 
 If the ties are correct, then we can append the header data and save the results.
 ```{r}
-# Add header information and then save the results
  annotate_data(path = path, results=Game_all1, HHID="BPL", RID="CR", day=12, month=4, year=2020, 
-	           name = "Cory Rose", ID="CTR", game="FriendshipsData", order="AB", seed = 1)
+             name = "Cory", ID="CTR", game="FriendshipsData", order="AB", seed = 1)
 
-# Duplicate the above data with a different header just to test the compile function below
+# Here we use the same data, and duplicate it with a new set of header data just to test the compile function below
  annotate_data(path = path, results=Game_all1, HHID="LQL", RID="CR", day=12, month=4, year=2020, 
-	           name = "Faith", ID="AOC", game="FriendshipsData", order="BA", seed = 1) 
+             name = "Faith", ID="AOC", game="FriendshipsData", order="BA", seed = 1) 
 
  compile_data(path=path, game="FriendshipsData")
 ```
@@ -188,18 +187,18 @@ Entering Likert-scale data works just the same, but we have to provide extra dat
 ```{r}
 ################################### Now pre-process the data needed for a Likert-analysis
 # These lines will open a window where corners must be clicked
- blank2 = pre_process(path=path, ID="QQQ", GID="Blank", PID=c("A","B"))
- trust2 = pre_process(path=path, ID="QQQ", GID="TrustData", PID=c("A","B"))
+ blank2 = pre_process(path=path, ID="QQQ", game="Blank", panels=c("A","B"))
+ trust2 = pre_process(path=path, ID="QQQ", game="TrustData", panels=c("A","B"))
 
  game_images_all2 = list(blank2[[1]], trust2[[1]])
  game_locs_all2 = list(blank2[[2]], trust2[[2]])
- GID_all2 = list("Blank", "TrustData")
+ game_ID_all2 = list("Blank", "TrustData")
 
 ################################### Run the classifier
 Game_all2 = auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
                             thresh=c(0.075, 0.075, 0.075), lower_hue_threshold = c(135, 280, 170), upper_hue_threshold = c(170, 350, 215),
-                            plot_colors=c("empty","seagreen4", "purple", "navyblue"), img=game_images_all2, locs=game_locs_all2, focal="SK1",
-                            case=GID_all2, ordered=sorted_ids,
+                            plot_colors=c("empty","seagreen4", "purple", "navyblue"), img=game_images_all2, locs=game_locs_all2, ID="QQQ",
+                            game=game_ID_all2, ordered=sorted_ids,
                             lower_saturation_threshold=0.09, 
                             lower_luminance_threshold=0.12, 
                             upper_luminance_threshold=0.88,   
@@ -209,36 +208,36 @@ Game_all2 = auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n
                             direction="backward")
 
 ################################### Check the performance of the classifier
-check_classification(path=path, Game_all2[[1]], n_panels = 2, n_rows=4, n_cols=5, focal="QQQ", case="TrustData")
+check_classification(path=path, Game_all2[[1]], n_panels = 2, n_rows=4, n_cols=5, ID="QQQ", game="TrustData")
 
 # and if it looks good, then save the results
 annotate_data(path = path, results=Game_all2, HHID="BPL", RID="CR", day=12, month=4, year=2020, 
-	          name = "Shakira", ID="QQQ", game="TrustData", order="BA", seed = 1)
+            name = "Shakira", ID="QQQ", game="TrustData", order="BA", seed = 1)
 
 # Just to test compiler we use the same data with a new set of annotations
 annotate_data(path = path, results=Game_all2, HHID="BPL", RID="CR", day=14, month=4, year=2020, 
-	          name = "Lowkey", ID="LKW", game="TrustData", order="BA", seed = 1)
+            name = "Lowkey", ID="LKW", game="TrustData", order="BA", seed = 1)
 
 compile_data(path=path, game="TrustData")
 ```
 
 
-If the game-board images are collected using an app like Tiny Scanner, which automatically crops and unwarps images, then the pre-processing step can be skipped entirely:
+If the game-board images are collected using an app like Tiny Scanner, which automatically crops and unwarps images, then the pre-processing step can be skipped entirely. This function is much faster compuationally, and requires no user pre-processing:
 ```{r}
 ################################### If images are preproccessed to be squared and cropped then, 
 # user input and image correction can be skipped by using pre_processed=TRUE
- blank3 = pre_process(path=path, ID="YEZ", GID="Blank", PID=c("A","B"), pre_processed=TRUE)
- trust3 = pre_process(path=path, ID="YEZ", GID="WisdomData", PID=c("A","B"), pre_processed=TRUE)
+ blank3 = pre_process(path=path, ID="YEZ", game="Blank", panels=c("A","B"), pre_processed=TRUE)
+ trust3 = pre_process(path=path, ID="YEZ", game="WisdomData", panels=c("A","B"), pre_processed=TRUE)
 
  game_images_all3 = list(blank3[[1]], trust3[[1]])
  game_locs_all5 = list(blank3[[2]], trust3[[2]])
- GID_all3 = list("Blank", "WisdomData")
+ game_ID_all3 = list("Blank", "WisdomData")
 
 ################################### Run the classifier
 Game_all3 = auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
                             thresh=c(0.075, 0.075, 0.075), lower_hue_threshold = c(135, 280, 170), upper_hue_threshold = c(170, 350, 215), 
-                            plot_colors=c("empty","seagreen4", "purple", "navyblue"), img=game_images_all3, locs=game_locs_all3, focal="CTR",
-                            case=GID_all3, ordered=sorted_ids,
+                            plot_colors=c("empty","seagreen4", "purple", "navyblue"), img=game_images_all3, locs=game_locs_all3, ID="YEZ",
+                            game=game_ID_all3, ordered=sorted_ids,
                             lower_saturation_threshold=0.09, 
                             lower_luminance_threshold=0.12, 
                             upper_luminance_threshold=0.88,  
@@ -247,15 +246,15 @@ Game_all3 = auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n
                             pre_processed=TRUE)
 
 ################################### Check the performance of the classifier
-check_classification(path=path, Game_all3[[1]], n_panels = 2, n_rows=4, n_cols=5, focal="CTR", case="WisdomData")
+check_classification(path=path, Game_all3[[1]], n_panels = 2, n_rows=4, n_cols=5, ID="YEZ", game="WisdomData")
 
 # and if it looks good, then save the results
 annotate_data(path = path, results=Game_all3, HHID="BPL", RID="CR", day=12, month=4, year=2020, 
-	          name = "Cody", ID="CTR", game="WisdomData", order="BA", seed = 1)
+            name = "Cody", ID="YEZ", game="WisdomData", order="BA", seed = 1)
 
 # Just to test compiler we use the same data with a new set of annotations
 annotate_data(path = path, results=Game_all3, HHID="BPL", RID="CR", day=14, month=4, year=2020, 
-	          name = "Dan", ID="DJR", game="WisdomData", order="BA", seed = 1)
+            name = "Dan", ID="DJR", game="WisdomData", order="BA", seed = 1)
 
 compile_data(path=path, game="WisdomData")
 ```
