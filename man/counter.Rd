@@ -4,9 +4,16 @@
 \alias{counter}
 \title{Hue processing function}
 \usage{
-counter(slice, lower_hue_threshold, upper_hue_threshold,
-  lower_saturation_threshold = 0.05, lower_luminance_threshold = 0.05,
-  upper_luminance_threshold = 0.95, border_size = 5, iso_blur = 2)
+counter(
+  slice,
+  lower_hue_threshold,
+  upper_hue_threshold,
+  lower_saturation_threshold = 0.05,
+  lower_luminance_threshold = 0.05,
+  upper_luminance_threshold = 0.95,
+  border_size = 0.25,
+  iso_blur = 2
+)
 }
 \arguments{
 \item{slice}{A subimage of a single target/recipient photograph.}
@@ -21,7 +28,7 @@ counter(slice, lower_hue_threshold, upper_hue_threshold,
 
 \item{upper_luminance_threshold}{Upper limit of lightness before the hue of such pixels is excluded from density calculations.}
 
-\item{border_size}{Number of pixels on the image border excluded from density calculations.}
+\item{border_size}{Image border excluded from density calculations as percentage of image size.}
 
 \item{iso_blur}{Width of Gaussian filter applied to image. A value of 0 turns off blurring.}
 }

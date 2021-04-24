@@ -4,8 +4,12 @@
 \alias{extractor}
 \title{Image rotation, de-skewing, and cropping}
 \usage{
-extractor(image, locations, histogram_balancing = FALSE,
-  direction = "backward")
+extractor(
+  image,
+  locations,
+  histogram_balancing = FALSE,
+  direction = "backward"
+)
 }
 \arguments{
 \item{image}{The image, stored in "imager" format, to be processed. Supplied via the pre-processing code.}

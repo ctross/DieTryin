@@ -4,20 +4,28 @@
 \alias{pre_process}
 \title{A helper function to streamline pre-processing workflow}
 \usage{
-pre_process(path, ID, GID = "Blank", BID = c("A", "B"),
-  pre_processed = FALSE)
+pre_process(
+  path,
+  ID,
+  game = "Blank",
+  panels = c("A", "B"),
+  pre_processed = FALSE
+)
 }
 \arguments{
 \item{path}{Full path to main folder.}
 
 \item{ID}{Unique ID of focal individual/respondent.}
 
-\item{GID}{ID for case/game/question.}
+\item{game}{ID for case/game/question.}
 
-\item{BID}{ID code used to distinguish photographs of the different board panels/frames from the same person and game.}
+\item{panels}{ID codes used to distinguish photographs of the different boards/panels/frames from the same person and game.}
 
 \item{pre_processed}{Are photographs pre-processed such that image correction steps can be skipped? If FALSE, then user must pre-process images using DieTryings tools. If TRUE game board photographs must be cropped and unskewed. 
 Some Android and IOS apps, like Tiny Scanner, provide a means of producing such photographs of the game boards at the time of data collection.}
+}
+\value{
+A list of length 2. The first slot contains image files. The second slot contains the locations of game-board corners.
 }
 \description{
 This function is used to prepare data for automatic coding.
@@ -25,6 +33,6 @@ This function is used to prepare data for automatic coding.
 \examples{
 \dontrun{
 filled = vector("list", 26)
-filled[[1]] = pre_process(path=path, ID="QQQ", GID="Blank", BID=c("A","B"))
+filled[[1]] = pre_process(path=path, ID="QQQ", game="Blank", panels=c("A","B"))
                    }
 }

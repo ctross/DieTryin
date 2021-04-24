@@ -4,8 +4,20 @@
 \alias{annotate_batch_data}
 \title{A function to append header data to token allocation data entered via batch scans of photographs}
 \usage{
-annotate_batch_data(path, results, HHID, RID, day, month, year, name, ID,
-  game, order)
+annotate_batch_data(
+  path,
+  results,
+  HHID,
+  RID,
+  day,
+  month,
+  year,
+  name,
+  ID,
+  game,
+  order,
+  seed
+)
 }
 \arguments{
 \item{path}{Full path to main folder.}

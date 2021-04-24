@@ -4,15 +4,34 @@
 \alias{auto_enter_data}
 \title{A function to automatically enter social network/ RICH games data from photographs}
 \usage{
-auto_enter_data(path, pattern = ".jpg", start = 1, stop = 3,
-  seed = 1, n_frames = 4, n_rows = 5, n_cols = 8,
-  lower_hue_threshold = 210, upper_hue_threshold = 230,
-  plot_colors = c("empty", "darkblue"), img, locs, focal = "CTR",
-  case = "FriendshipTies", thresh = c(0.05), clean = NA,
-  ordered = NULL, lower_saturation_threshold = 0.05,
-  lower_luminance_threshold = 0.05, upper_luminance_threshold = 0.95,
-  border_size = 5, iso_blur = 1, histogram_balancing = FALSE,
-  direction = "backwards", pre_processed = FALSE)
+auto_enter_data(
+  path,
+  pattern = ".jpg",
+  start = 1,
+  stop = 3,
+  seed = 1,
+  n_panels = 4,
+  n_rows = 5,
+  n_cols = 8,
+  lower_hue_threshold = 210,
+  upper_hue_threshold = 230,
+  plot_colors = c("empty", "darkblue"),
+  img,
+  locs,
+  ID = "CTR",
+  game = "FriendshipTies",
+  thresh = c(0.05),
+  clean = NA,
+  ordered = NULL,
+  lower_saturation_threshold = 0.05,
+  lower_luminance_threshold = 0.05,
+  upper_luminance_threshold = 0.95,
+  border_size = 0.25,
+  iso_blur = 1,
+  histogram_balancing = FALSE,
+  direction = "backwards",
+  pre_processed = FALSE
+)
 }
 \arguments{
 \item{path}{Full path to main folder.}
@@ -25,7 +44,7 @@ auto_enter_data(path, pattern = ".jpg", start = 1, stop = 3,
 
 \item{seed}{A seed for the random number generator to sort the order of photos in the array. This should match the seed used to make the survey.}
 
-\item{n_frames}{Number of frames/panels/blocks of photos to be output. I use four big panels and randomize their order at each game.}
+\item{n_panels}{Number of frames/panels/blocks of photos to be output. I use four big panels and randomize their order at each game.}
 
 \item{n_rows}{Number of rows per panel. With 7cm x 10cm photos, I use five rows of photos per panel.}
 
@@ -42,9 +61,9 @@ These colors correspond to the above-listed token hues, and this vector should b
 
 \item{locs}{Locations of the corners of the game boards in the image file. Supplied via the pre-processing code.}
 
-\item{focal}{Unique ID code of the player of the game.}
+\item{ID}{Unique ID code of the player of the game.}
 
-\item{case}{ID code of the case/game/question: e.g., "Friendship" or "GaveFood".}
+\item{game}{ID code of the case/game/question: e.g., "Friendship" or "GaveFood".}
 
 \item{thresh}{Difference in hue density between pre- and post-treatment game boards required to code a token color as present. Can be vectorized if mulple token colors are in use: e.g., c(0.05, 0.35, 0.05).}
 
@@ -58,7 +77,7 @@ These colors correspond to the above-listed token hues, and this vector should b
 
 \item{upper_luminance_threshold}{Upper limit of lightness before the hue of such pixels is excluded from density calculations.}
 
-\item{border_size}{Number of pixels on the image border excluded from density calculations.}
+\item{border_size}{Image border excluded from density calculations as a fraction of image size.}
 
 \item{iso_blur}{Width of Gaussian filter applied to image. A value of 0 turns off blurring.}
 
@@ -79,11 +98,11 @@ called directly, but rather, through auto_enter_all which organizes and simplifi
 }
 \examples{
 \dontrun{
-  auto_enter_data(path, pattern=".jpg", start=1, stop=3, seed=1, n_frames=2, n_rows=4, n_cols=5, 
+  auto_enter_data(path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
                    lower_hue_threshold=120, upper_hue_threshold=155, plot_colors=c("empty","darkgreen"), 
-                   thresh=0.05, img, locs, focal="CTR", case="GameID", clean=NA, ordered=NULL,
+                   thresh=0.05, img, locs, ID="CTR", game="GameID", clean=NA, ordered=NULL,
                    lower_saturation_threshold=0.05, lower_luminance_threshold=0.05, 
-                   upper_luminance_threshold=0.95, border_size=5, iso_blur=1, histogram_balancing=FALSE,
+                   upper_luminance_threshold=0.95, border_size=0.25, iso_blur=1, histogram_balancing=FALSE,
                    direction="backward", pre_processed=FALSE)
                    }
 }
