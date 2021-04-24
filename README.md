@@ -7,6 +7,9 @@ This is an R package for making it super-easy to run network-structured economic
 
 In order to replicate our code exactly, you will need to download the specific image files we use in this example, and place them into the appropriate folders. Download the images with this link: <https://www.dropbox.com/s/plw5cc6g122pr32/WorkflowImages.zip?dl=0>. A raw version of the R code described below can be found here: <https://github.com/ctross/DieTryin/blob/master/Workflow.R>
 
+Setup
+------
+
 Here we will go through the whole DieTryin workflow. First, we install by running on R:
 ```{r}
 ################################### Install and/or load
@@ -32,6 +35,9 @@ Now, we initialize a directory structure there:
 ```
 
 By default, data storage is set up only for the RICH games. If one wants to also collect data on other questions or games, simply create folders for those questions/games by including them in the games_to_add vector.
+
+Image standardization and survey creation
+------
 
 The next step is to bring in the raw photos of all respondents who will be invited to take part in the games. These should be jpg-formatted images. All of the filenames should be ID codes for the respondents: i.e., X1Z.jpg, A12.jpg, ZYZ.jpg. These strings should all be of the same length and must contain a letter as the first character. All file extensions should be the same. Now, just copy-and-paste the photos into the folder: RICH/RawPhotos. To use our example images, copy the photographs from the RespodentsImages folder in the .zip file above into the RICH/RawPhotos folder in your own directory.
 
@@ -84,6 +90,9 @@ Now we can move on to building the survey. We run:
 
 This builds a LaTeX file of the survey tool using the photo IDs and compiles it to a PDF. The order of ID code can be randomized by changing seed (as in the first example above). n_panels indicates how many boards/panels of photos will be made. n_rows and n_cols give how many rows and cols of photos will be included on each board. Now open the Survey folder and find the LaTeX file and PDF file of the survey. Edits to the LaTeX file can be made manually, or the header.txt file can be edited prior to running the build_survey function (this is the preferred option). Print out several copies for each respondent and go collect some data! Write the number of coins/tokens placed by the focal on each ID in the photo array.
 
+Manual data entry and payout calculation
+------
+
 A whole bunch of work is now done, but we still need to enter the data. For this, we run:
 ```{r}
 ################################### Enter some data for the RICH games
@@ -119,6 +128,9 @@ Now that we are sure that the data look good, let's see what we owe the communit
 ```
 
 Change GV, LV, KV, and RV to give the value of each coin in each game. GV for giving, LV for leaving/taking, KV for the value of coins kept in the reducing game, and RV for the reduction value of the tokens in the reducing game.
+
+Automatic data entry
+------
 
 While RICH game data is often best entered manually, since there can be several coins allocated to each recipient, it can be useful to collect additional binary dyadic data: e.g.,
 "With whom have you shared food in the last 30 days?" using the same photograph roster. By placing tokens of a known color on the photograph roster to indicate directed ties and then photographing the resulting game boards, a researcher can implement an automated data entry workﬂow with DieTryin. To use our example images, copy the photographs from the Example_Images, BinaryTie_Images, Likert_Images, and PreCropped_Images folders in the .zip file above into the RICH/ResultsPhotos folder in your own directory.
