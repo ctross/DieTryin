@@ -271,35 +271,36 @@ annotate_data(path = path, results=Game_all3, HHID="BPL", RID="CR", day=14, mont
 compile_data(path=path, game="WisdomData")
 ```
 
+Batch processing/vectorization
+------
 In the above three examples, we had only one question per respondent. However, it is common to ask the same respondent several questions during a single interview. The automatic data entry functions are vectorizable, so that many questions can be entered at once for a single respondent using the same header data: 
 
 ```{r}
-################################### Now lets batch process binary data
-filled = vector("list", 27) # We use 26 different questions, plus one extra slot for the blank data
-filled[[1]] = pre_process(path=path, ID="CTR", GID="Blank", PID=c("A","B")) # First slot is for the blank board
+################################### This all works for a single game, now lets batch process binary data
+################################ Binary data
+filled = vector("list", 27)
+filled[[1]] = pre_process(path=path, ID="CTR", game="Blank", panels=c("A","B"))
 for(i in 1:26)
-filled[[i+1]] = pre_process(path=path, ID="CTR", GID=toupper(letters)[i], PID=c("A","B")) # The others are for the real data
+filled[[i+1]] = pre_process(path=path, ID="CTR", game=toupper(letters)[i], panels=c("A","B")) # use letters for "game" names
 
-################ Boring data wrangling to put data into format needed for the classifier
 game_images_all4 = vector("list", 27)
 game_locs_all4 = vector("list", 27)
-GID_all4 = vector("list", 27)
+game_ID_all4 = vector("list", 27)
 
 game_images_all4[[1]] <- filled[[1]][[1]]
 game_locs_all4[[1]] <- filled[[1]][[2]]
-GID_all4[[1]] <- "Blank"
+game_ID_all4[[1]] <- "Blank"
 
 for(i in 2:27){
 game_images_all4[[i]] <- filled[[i]][[1]]
 game_locs_all4[[i]] <- filled[[i]][[2]]
-GID_all4[[i]] <- toupper(letters)[i-1]
+game_ID_all4[[i]] <- toupper(letters)[i-1]
 }
 
-##### A single call will process all of the data
 Game_all4 <- auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
                             thresh=0.1, lower_hue_threshold = 135, upper_hue_threshold = 170,  
-                            plot_colors=c("empty","seagreen4"), img=game_images_all4, locs=game_locs_all4, focal="CTR",
-                            case=GID_all4, ordered=sorted_ids,
+                            plot_colors=c("empty","seagreen4"), img=game_images_all4, locs=game_locs_all4, ID="CTR",
+                            game=game_ID_all4, ordered=sorted_ids,
                             lower_saturation_threshold=0.12, 
                             lower_luminance_threshold=0.12, 
                             upper_luminance_threshold=0.88,  
@@ -308,16 +309,14 @@ Game_all4 <- auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, 
                             histogram_balancing=FALSE,
                             direction="backward")
 
-##### Check each classification for accuracy
 for(i in 1:26)
-check_classification(path=path, Game_all4[[i]], n_panels = 2, n_rows=4, n_cols=5, focal="CTR", case=toupper(letters)[i])
+check_classification(path=path, Game_all4[[i]], n_panels = 2, n_rows=4, n_cols=5, ID="CTR", game=toupper(letters)[i])
 
-### Annotate the data
 annotate_batch_data(path = path, results=Game_all4, HHID="BQL", RID="CR", day=12, month=4, year=2020, 
-	          name = "BobBarker", ID="QQQ", game="WorkData", order="AB", seed = 1)
+            name = "BobBarker", ID="CTR", game="WorkData", order="AB", seed = 1)
 
 annotate_batch_data(path = path, results=Game_all4, HHID="LQL", RID="CR", day=12, month=4, year=2020, 
-	          name = "Faith", ID="AOC", game="WorkData", order="BA", seed = 1)
+            name = "Faith", ID="AOC", game="WorkData", order="BA", seed = 1)
 
 compile_data(path=path, game="WorkData", batch=TRUE)
 ```
@@ -326,28 +325,28 @@ Entering Likert-scale data works just the same, but we again have to provide ext
 ```{r}
 ################################### And now a batch process script for Likert data
 filled2 = vector("list", 27)
-filled2[[1]] = pre_process(path=path, ID="QQQ", GID="Blank", PID=c("A","B"))
+filled2[[1]] = pre_process(path=path, ID="QQQ", game="Blank", panels=c("A","B"))
 for(i in 1:26)
-filled2[[i+1]] = pre_process(path=path, ID="QQQ", GID=toupper(letters)[i], PID=c("A","B"))
+filled2[[i+1]] = pre_process(path=path, ID="QQQ", game=toupper(letters)[i], panels=c("A","B"))
 
 game_images_all5 = vector("list", 27)
 game_locs_all5= vector("list", 27)
-GID_all5 = vector("list", 27)
+game_ID_all5 = vector("list", 27)
 
 game_images_all5[[1]] <- filled2[[1]][[1]]
 game_locs_all5[[1]] <- filled2[[1]][[2]]
-GID_all5[[1]] <- "Blank"
+game_ID_all5[[1]] <- "Blank"
 
 for(i in 2:27){
 game_images_all5[[i]] <- filled2[[i]][[1]]
 game_locs_all5[[i]] <- filled2[[i]][[2]]
-GID_all5[[i]] <- toupper(letters)[i-1]
+game_ID_all5[[i]] <- toupper(letters)[i-1]
 }
 
 Game_all5 <- auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
                            thresh=c(0.075, 0.075, 0.075), lower_hue_threshold = c(135, 280, 170), upper_hue_threshold = c(170, 350, 215), 
-                           plot_colors=c("empty","seagreen4", "purple", "navyblue"), img=game_images_all5, locs=game_locs_all5, focal="QQQ",
-                           case=GID_all5, ordered=sorted_ids,
+                           plot_colors=c("empty","seagreen4", "purple", "navyblue"), img=game_images_all5, locs=game_locs_all5, ID="QQQ",
+                           game=game_ID_all5, ordered=sorted_ids,
                            lower_saturation_threshold=0.09, 
                            lower_luminance_threshold=0.12, 
                            upper_luminance_threshold=0.88,  
@@ -357,45 +356,44 @@ Game_all5 <- auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, 
                            direction="backward")
 
 for(i in 1:26)
-check_classification(path=path, Game_all5[[i]], n_panels = 2, n_rows=4, n_cols=5, focal="QQQ", case=toupper(letters)[i])
+check_classification(path=path, Game_all5[[i]], n_panels = 2, n_rows=4, n_cols=5, ID="QQQ", game=toupper(letters)[i])
 
 annotate_batch_data(path = path, results=Game_all5, HHID="BQL", RID="CR", day=12, month=4, year=2020, 
-	          name = "Quark and Beans", ID="QQQ", game="EmotionData", order="AB", seed = 1)
+            name = "Quark and Beans", ID="QQQ", game="EmotionData", order="AB", seed = 1)
 
 annotate_batch_data(path = path, results=Game_all5, HHID="JKL", RID="CR", day=1, month=4, year=2020, 
-	          name = "Walter Whit", ID="XAS", game="EmotionData", order="AB", seed = 1)
+            name = "Walter White", ID="XAS", game="EmotionData", order="AB", seed = 1)
 
 compile_data(path=path, game="EmotionData", batch=TRUE)
 ```
 
 If the game-board images are collected using an app like Tiny Scanner, which automatically crops and unwarps images, then the pre-processing step can again be skipped entirely:
 ```{r}
-####################################################### And again in batch mode
 ################################### If images are preproccessed to be squared and cropped then, 
 # user input and image correction can be skipped by using pre_processed=TRUE
 filled3 = vector("list", 27)
-filled3[[1]] = pre_process(path=path, ID="YEZ", GID="Blank", PID=c("A","B"), pre_processed=TRUE)
+filled3[[1]] = pre_process(path=path, ID="YEZ", game="Blank", panels=c("A","B"), pre_processed=TRUE)
 for(i in 1:26)
-filled3[[i+1]] = pre_process(path=path, ID="YEZ", GID=toupper(letters)[i], PID=c("A","B"), pre_processed=TRUE)
+filled3[[i+1]] = pre_process(path=path, ID="YEZ", game=toupper(letters)[i], panels=c("A","B"), pre_processed=TRUE)
 
 game_images_all6 = vector("list", 27)
 game_locs_all6 = vector("list", 27)
-GID_all6 = vector("list", 27)
+game_ID_all6 = vector("list", 27)
 
 game_images_all6[[1]] <- filled3[[1]][[1]]
 game_locs_all6[[1]] <- filled3[[1]][[2]]
-GID_all6[[1]] <- "Blank"
+game_ID_all6[[1]] <- "Blank"
 
 for(i in 2:27){
 game_images_all6[[i]] <- filled3[[i]][[1]]
 game_locs_all6[[i]] <- filled3[[i]][[2]]
-GID_all6[[i]] <- toupper(letters)[i-1]
+game_ID_all6[[i]] <- toupper(letters)[i-1]
 }
 
 Game_all6 <- auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
                            thresh=c(0.075, 0.075, 0.075), lower_hue_threshold = c(135, 280, 170), upper_hue_threshold = c(170, 350, 215), 
-                           plot_colors=c("empty","seagreen4", "purple", "navyblue"), img=game_images_all6, locs=game_locs_all6, focal="CRV",
-                           case=GID_all6, ordered=sorted_ids,
+                           plot_colors=c("empty","seagreen4", "purple", "navyblue"), img=game_images_all6, locs=game_locs_all6, ID="YEZ",
+                           game=game_ID_all6, ordered=sorted_ids,
                            lower_saturation_threshold=0.09, 
                            lower_luminance_threshold=0.12, 
                            upper_luminance_threshold=0.88,  
@@ -404,13 +402,13 @@ Game_all6 <- auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, 
                            pre_processed=TRUE)
 
 for(i in 1:26)
-check_classification(path=path, Game_all6[[i]], n_panels = 2, n_rows=4, n_cols=5, focal="YEZ", case=toupper(letters)[i])
+check_classification(path=path, Game_all6[[i]], n_panels = 2, n_rows=4, n_cols=5, ID="YEZ", game=toupper(letters)[i])
 
 annotate_batch_data(path = path, results=Game_all6, HHID="YEP", RID="CR", day=19, month=7, year=2020, 
-	          name = "Jim LaughAgain", ID="YEZ", game="ReputationData", order="AB", seed = 1)
+            name = "Jim LaughAgain", ID="YEZ", game="ReputationData", order="AB", seed = 1)
 
 annotate_batch_data(path = path, results=Game_all6, HHID="JKF", RID="CR", day=11, month=3, year=2020, 
-	          name = "Sunny Shade", ID="CVD", game="ReputationData", order="AB", seed = 1)
+            name = "Sunny Shade", ID="CVD", game="ReputationData", order="AB", seed = 1)
 
 compile_data(path=path, game="ReputationData", batch=TRUE)
 ```
