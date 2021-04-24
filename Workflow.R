@@ -6,7 +6,7 @@
  library(DieTryin)
 
 ################################### Setup directory
-# We set up for the RICH games and several social networks
+# We set up storage for the RICH games data and data from several other social networks
  path = "C:\\Users\\cody_ross\\Desktop"
  games_to_add = c("FriendshipsData", "TrustData", "WisdomData", "WorkData", "EmotionData", "ReputationData")
  setup_folders(path, add=games_to_add)
@@ -48,16 +48,16 @@
 
 ################################### Enter some data for the RICH games
 # Repeat this line to enter RICH data for a few ID codes above (e.g., "JLO","AOC", and "FKA"), for each of the three games ("G", "L", and "R")
-# You must input data for ID and Game in the header file.
+# You must input data for ID and Game in the header file. Other entries, like date, are optional.
  enter_data(path=path, pattern=".jpg", start=1, stop=3, n_panels=2, n_rows=4, n_cols=5, seed=1, ordered = sorted_ids, add=games_to_add)
-# In the envent of a data entry error just re-run the above function, and it will overwrite the erroneous data
+# In the event of a data entry error just re-run the above function, and it will overwrite the erroneous, person- and game-specific data file.
 
 ################################### Compile the data and check it for accuracy
  compile_data(path=path, game="GivingData")
  compile_data(path=path, game="LeavingData")
  compile_data(path=path, game="ReducingData")
 # Now check the results in the Results subfolder, and ensure that the summary tables look correct. If there are errors, then
-# fix the csv files by hand, or re-run the enter_data() function for the specific inviduals with data entry errors. Finally,
+# fix the csv files by hand, or re-run the enter_data() function for the specific inviduals with data entry errors. Then,
 # run the above compile functions again. Repeat until all summary tables look correct.
 
 ################################### Calculate payoffs
@@ -186,7 +186,6 @@ compile_data(path=path, game="WisdomData")
 
 #####################################################################################################
 ################################### This all works for a single game, now lets batch process binary data
-
 ################################ Binary data
 filled = vector("list", 27)
 filled[[1]] = pre_process(path=path, ID="CTR", game="Blank", panels=c("A","B"))
