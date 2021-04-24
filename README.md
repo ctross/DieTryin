@@ -16,68 +16,88 @@ Here we will go through the whole DieTryin workflow. First, we install by runnin
  install_github('ctross/DieTryin')
  library(DieTryin)
 ```
+DieTrin works best on Windows. We note that Mac users may have issues using some interactive functions. If this is the case, installing an older version of imager (e.g., 0.42.7) should resolve the issue. 
 
 Next, we set a path to where we will save all of the files related to this project:
 ```{r}
-path<-"C:\\Users\\cody_ross\\Desktop"
+ path = "C:\\Users\\cody_ross\\Desktop"
 ```
 
-Now, we initialize a directory structure:
+Now, we initialize a directory structure there:
 ```{r}
 ################################### Setup directory
-# We set up for RICH games and extra network data
+# We set up storage for the RICH games data and data from several other social networks
  games_to_add = c("FriendshipsData", "TrustData", "WisdomData", "WorkData", "EmotionData", "ReputationData")
  setup_folders(path, add=games_to_add)
 ```
 
-By default, data storage is set up only for the RICH games. If one wants to also collect other questions or games, simply create folders for those questions/games by including the  games_to_add vector.
+By default, data storage is set up only for the RICH games. If one wants to also collect data on other questions or games, simply create folders for those questions/games by including them in the games_to_add vector.
 
 The next step is to bring in the raw photos of all respondents who will be invited to take part in the games. These should be jpg-formatted images. All of the filenames should be ID codes for the respondents: i.e., X1Z.jpg, A12.jpg, ZYZ.jpg. These strings should all be of the same length and must contain a letter as the first character. All file extensions should be the same. Now, just copy-and-paste the photos into the folder: RICH/RawPhotos. To use our example images, copy the photographs from the RespodentsImages folder in the .zip file above into the RICH/RawPhotos folder in your own directory.
-
 
 Now, we can move on to standardizing the photos. First, we run:
 ```{r}
 ################################### Standardize photos
-# First paste the images into the RawImages folder, then run:
+# First paste the images in the RespodentsImages folder in this zip folder 
+# into the RawImages folder in the RICH folder created just above, then run:
  standardize_photos(path=path, pattern=".jpg", start=1, stop=3, 
-	               size_out=1000, border_size=10, asr=1.6180, 
-	               id_range=NULL, id_names=NULL, spin=TRUE)
+                 size_out=1000, border_size=10, asr=1.6180, 
+                 id_range=NULL, id_names=NULL, spin=TRUE)
 ```
 
-This will open up a semi-automated photo editing process. The first image will pop up. If spin=TRUE, then we must tell R if the image should be spun. If the image is correctly rotated, click in the upper-left corner of the image, and it will disappear. If a 90 degree spin clockwise is needed, click the upper-right corner. Click the lower-right corner for a 180 degree spin, and the bottom-left for a 270 degree spin. Once a spin is selected, the same photo will re-appear. Now click at the point where the final image should have its upper-left corner, and drag the box out to set the boundaries for the final processed image. Repeat for all photos. If you mess up and don't want to redo the whole loop, run the command but set id_names to include only the ids that need to be redone: i.e., id_names=c("XXX","XXY","A12"). 
+This will open up a semi-automated photo editing process. The first image will pop up. If spin=TRUE, then we must tell R if the image should be spun. If the image is correctly rotated, click in the upper-left corner of the image, and it will disappear. If a 90 degree spin clockwise is needed, click the upper-right corner. Click the lower-right corner for a 180 degree spin, and the bottom-left for a 270 degree spin. Once a spin is selected, the same photo will re-appear. Now click at the point where the final image should have its upper-left corner, and drag the box out to set the boundaries for the final processed image. Repeat for all photos. If you mess up and don't want to redo the whole loop of photo editing, run the same command but set id_names to include only the ids that need to be redone: i.e., id_names=c("XXX","XXY","A12") or id_names="EW1". 
 
-It’s time to print out the photos, laminate them, and arrange them on some boards!
+```{r}
+# Imagine you messed up somewhere and want to re-do a single image, then run:
+ standardize_photos(path=path, pattern=".jpg", start=1, stop=3, 
+                 size_out=1000, border_size=10, asr=1.6180, 
+                 id_range=NULL, id_names="EW1", spin=TRUE)
+```
+
+With the photos standardized, it’s time to print them, laminate them, and arrange them on some boards!
 
 
 Now we can move on to building the survey. We run:
 ```{r}
-################################### Create the survey tool
-# Lets set a specific sorting order (not required, but sometimes desired)
- sorted_ids = c("DB1","AR1","AY1","JLO","AF1","ASF","BO1","BYC","AOC","AT1",
-                "BS1","CCM","LF1","MK1","RBG","CT1","JC1","SS1","TT1","SW1",
-                "KC1","EDG","FKA","JK1","DB2","EM1","FN1","RKM","DJT","EW1",
-                "JA1","SK1","KW1","LWA","MM1","SR1","LCK","MB1","MR1")
+################################### Now create the survey tool
+# To create a random order of ID codes, run:
+ build_survey(path=path, pattern=".jpg", start=1, stop=3, 
+            n_panels=2, n_rows=4, n_cols=5, seed=15, ordered = NULL)
+
+# But, for now lets set a specific sorting order instead
+ sorted_ids = c("LF1", "CCM", "SW1", "KC1",
+                "DB1", "RKM", "AT1", "CT1",
+                "JK1", "AF1", "KW1", "MK1", 
+                "AOC", "FN1", "LWA", "DJT",
+                "LCK", "MM1", "RBG", "EM1",
+
+                "AR1", "MR1", "BYC", "JLO",
+                "BS1", "SR1", "DB2", "EW1",
+                "TT1", "EDG", "JA1", "SS1",
+                "SK1", "MB1", "AY1", "ASF",
+                "JC1", "BO1", "FKA"
+                )
 
  build_survey(path=path, pattern=".jpg", start=1, stop=3, 
- 	          n_panels=2, n_rows=4, n_cols=5, seed=1, ordered = sorted_ids)
+            n_panels=2, n_rows=4, n_cols=5, seed=1, ordered = sorted_ids)
 ```
 
-This builds a LaTeX file of the survey using the photo IDs. Individual IDs can be randomized by changing seed. n_panels indicates how many boards of photos will be made. n_rows and n_cols give how many rows and cols of photos will be included on each board. Now open the Survey folder and find the LaTeX file and PDF file of the survey. Edits to the LaTeX file can be made manually, or the header.txt file can be edited prior to running the build survey function (this is the preferred option). Print out several copies for each respondent and go collect some data! Write the number of coins/tokens placed by the focal on each ID in the photo array.
+This builds a LaTeX file of the survey tool using the photo IDs and compiles it to a PDF. The order of ID code can be randomized by changing seed (as in the first example above). n_panels indicates how many boards/panels of photos will be made. n_rows and n_cols give how many rows and cols of photos will be included on each board. Now open the Survey folder and find the LaTeX file and PDF file of the survey. Edits to the LaTeX file can be made manually, or the header.txt file can be edited prior to running the build_survey function (this is the preferred option). Print out several copies for each respondent and go collect some data! Write the number of coins/tokens placed by the focal on each ID in the photo array.
 
 A whole bunch of work is now done, but we still need to enter the data. For this, we run:
 ```{r}
 ################################### Enter some data for the RICH games
-# Repeat this line to enter RICH data for a few ID codes above, for each of the three games
- enter_data(path=path, pattern=".jpg", start=1, stop=3, n_panels=2, 
-            n_rows=4, n_cols=5, seed=1, ordered = sorted_ids, add=games_to_add)
+# Repeat this line to enter RICH data for a few ID codes above (e.g., "JLO","AOC", and "FKA"), for each of the three games ("G", "L", and "R")
+# You must input data for ID and Game in the header file. Other entries, like date, are optional.
+ enter_data(path=path, pattern=".jpg", start=1, stop=3, n_panels=2, n_rows=4, n_cols=5, seed=1, ordered = sorted_ids, add=games_to_add)
+# In the event of a data entry error just re-run the above function, and it will overwrite the erroneous, person- and game-specific data file.
 ```
 
 A pop-up will open in R. If this is the first game for a respondent, then type: Y
 Otherwise, type: N
 
 Now enter the header data and simply close the pop-up window. There is no need to save or hit ctrl+s.
-A new pop-up opens. Now, if coin(s) were placed on an alter's ID, click on that ID, then type the number of coins placed, then move on to the next ID. If no coins were placed on an alter, just leave the ID code alone. There is no need to type in the zeros. To make the following code work, enter some simulated data for at least 3 respondents (using the IDs in the sorted_ids vectors as their ID codes), for each of the three RICH games. Note that in the header file, the argument Game must take one of three special values for the RICH games data (G for the giving/allocation game, L for the leaving/taking game, and R for the reduction/punishment game). Other question types can be given arbitrary names (corresponding to those supplied in the add argument of the
-setup folders function). 
+A new pop-up now opens. Now, if coin(s) were placed on an alter's ID, click on that ID, then type the number of coins placed, then move on to the next ID. If no coins were placed on an alter, just leave the ID code alone. There is no need to type in the zeros. To make the following code work, enter some simulated data for at least 3 respondents (using the IDs in the sorted_ids vectors as their ID codes), for each of the three RICH games. Note that in the header file, the argument Game must take one of three special values for the RICH games data (G for the giving/allocation game, L for the leaving/taking/exploitation game, and R for the reduction/punishment game). Other question types can be given arbitrary names (corresponding to those supplied in the add argument of the setup_folders function). 
 
 Now that all of the data has been entered, lets compile it. First we run:
 ```{r}
@@ -85,9 +105,12 @@ Now that all of the data has been entered, lets compile it. First we run:
  compile_data(path=path, game="GivingData")
  compile_data(path=path, game="LeavingData")
  compile_data(path=path, game="ReducingData")
+# Now check the results in the Results subfolder, and ensure that the summary tables look correct. If there are errors, then
+# fix the csv files by hand, or re-run the enter_data() function for the specific inviduals with data entry errors. Then,
+# run the above compile functions again. Repeat until all summary tables look correct.
 ```
 
-This will build two files for each game (a summary table and an edge-list). A summary table, which gives self vs. alter allocation data, checks that the sum of entries is correct. If the checksum cell isn't the same for all respondents, then someone probably made a mistake during data collection or data entry! Better go fix the corresponding .csv files. If the summary tables look good, then we are set. The other files are the edgelists. These say how many coins ego gave to each alter.
+This will build two files for each game (a summary table and an edge-list). The summary table, which gives self vs. alter allocation data, checks that the sum of entries is correct. If the checksum cell isn't the same for all respondents, then someone probably made a mistake during data collection or data entry! Better go fix the corresponding .csv files. If the summary tables look good, then we are set. The other files are the edgelists. These say how many coins ego gave to each alter, and can be converted into network objects by igraph.
 
 Now that we are sure that the data look good, let's see what we owe the community!
 ```{r}
@@ -98,12 +121,19 @@ Now that we are sure that the data look good, let's see what we owe the communit
 Change GV, LV, KV, and RV to give the value of each coin in each game. GV for giving, LV for leaving/taking, KV for the value of coins kept in the reducing game, and RV for the reduction value of the tokens in the reducing game.
 
 While RICH game data is often best entered manually, since there can be several coins allocated to each recipient, it can be useful to collect additional binary dyadic data: e.g.,
-"With whom have you shared food in the last 30 days?" using the same photograph roster. By placing tokens of a known color on the photograph roster to indicate directed ties and then photographing the resulting game boards, a researcher can implement an automated data entry workﬂow with DieTryin. To use our example images, copy the photographs from the CollectedDataImages folder in the .zip file above into the RICH/ResultsPhotos folder in your own directory.
+"With whom have you shared food in the last 30 days?" using the same photograph roster. By placing tokens of a known color on the photograph roster to indicate directed ties and then photographing the resulting game boards, a researcher can implement an automated data entry workﬂow with DieTryin. To use our example images, copy the photographs from the Example_Images, BinaryTie_Images, Likert_Images, and PreCropped_Images folders in the .zip file above into the RICH/ResultsPhotos folder in your own directory.
 ```{r}
 ################################### Now, automatic coding
  # First paste results photos into the ResultsPhotos directory, with properly formatted titles
  # of form: "GAMEID_PERSONID_PANELID.jpg" then downsize the images if needed to speed the processing code
  downsize(path=path, scaler=1) # set scaler=1 to keep same size, as the attached photos are already small
+```
+In order to set the right parameters for lower_hue_threshold and upper_hue_threshold in the functions below, it is helpful to check out the actual hue of your tokens.
+```{r}
+# So pick a photo with all your token colors and run:
+ get_hue(paste0(path,"/ResultsPhotosSmall/E_YEZ_A.jpg")) 
+# make sure to click on several tokens and several places on each token to get a good idea of the range of hue values that each token may take.
+# get_hue(file.choose()) # will allow you to select a pictures without having to input the file path directly
 ```
 
 Now, we can run a quick example of automatic data entry for binary tie data. The user must pre-process the images. The pre_process function opens an interactive window that
@@ -111,12 +141,12 @@ displays each photo array. The user must click the top-left corner of the photog
 ```{r}
 ################################### Pre-process the data needed for analysis
 # These lines will open a window where corners must be clicked
- blank1 = pre_process(path=path, ID="CTR", GID="Blank", PID=c("A","B"))            # control with no tokens
- friend1 = pre_process(path=path, ID="CTR", GID="FriendshipsData", PID=c("A","B")) # game play with tokens
+ blank1 = pre_process(path=path, ID="CTR", game="Blank", panels=c("A","B"))            # control with no tokens
+ friend1 = pre_process(path=path, ID="CTR", game="FriendshipsData", panels=c("A","B")) # game play with tokens
 
  game_images_all1 = list(blank1[[1]], friend1[[1]]) # Then organize into a list
  game_locs_all1 = list(blank1[[2]], friend1[[2]])
- GID_all1 = list("Blank", "FriendshipsData")
+ game_ID_all1 = list("Blank", "FriendshipsData")
 ```
 
 Once the data are pre-processed, the classifier can be applied:
