@@ -12,7 +12,13 @@ In order to replicate our code exactly, you will need to download the specific i
 Setup
 ------
 
-Here we will go through the whole DieTryin workflow. First, we install by running on R:
+Here we will go through the whole DieTryin workflow.  DieTrin works best on Windows. We note that Mac users may have issues using some interactive functions. If this is the case, installing an older version of imager (e.g., 0.41.1) should resolve the issue as long as the user has X11 installed.
+```{r}
+library(devtools)
+install_version("ggplot2", version = "0.41.2", repos = "http://cran.us.r-project.org")
+```
+
+Otherwise, we install by running on R:
 ```{r}
 ################################### Install and/or load
  library(devtools)
@@ -21,7 +27,6 @@ Here we will go through the whole DieTryin workflow. First, we install by runnin
  install_github('ctross/DieTryin')
  library(DieTryin)
 ```
-DieTrin works best on Windows. We note that Mac users may have issues using some interactive functions. If this is the case, installing an older version of imager (e.g., 0.42.7) should resolve the issue. 
 
 Next, we set a path to where we will save all of the files related to this project:
 ```{r}
