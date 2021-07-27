@@ -6,11 +6,11 @@ Social network collection and automated entry using R
 <img align="right" src="https://github.com/ctross/STRAND/blob/main/logo.png" alt="logo" width="140">
 <img align="right" src="https://github.com/ctross/STRAND/blob/main/logo2.png" alt="logo" width="140">
 
-DieTryin is an R package designed to facilitate the collection of roster-based network data, and to run network-structured economic games—like Gervais' RICH games: <http://journals.sagepub.com/doi/abs/10.1177/1525822X16643709?journalCode=fmxd>. This is a brief overview of a workflow. For further details on any step, see our full publication in Behavior Research Methods at: <https://doi.org/10.3758/s13428-021-01606-5>. 
+**DieTryin** is an R package designed to facilitate the collection of roster-based network data, and to run network-structured economic games—like Gervais' RICH games: <http://journals.sagepub.com/doi/abs/10.1177/1525822X16643709?journalCode=fmxd>. This is a brief overview of a workflow. For further details on any step, see our full publication in Behavior Research Methods at: <https://doi.org/10.3758/s13428-021-01606-5>. 
 
 In order to replicate our code exactly, you will need to download the specific image files we use in this example, and place them into the appropriate folders. Download the images with this link: <https://www.dropbox.com/s/lzazr97erlvbq5u/Workflow.zip?dl=0>. A raw version of the R code described below can be found here: <https://github.com/ctross/DieTryin/blob/master/Workflow.R>
   
-DieTryin is part of an ecosystem of tools for modern social network analysis. STRAND is a companion package designed to allow users to specify complex Bayesian social network models using a simple, lm() style, syntax. ResolveR is a package for semisupervised data cleaning, de-duplication, and record linkage.
+**DieTryin** is part of an ecosystem of tools for modern social network analysis. **STRAND** is a companion package designed to allow users to specify complex Bayesian social network models using a simple, lm() style, syntax. **ResolveR** is a package for semi-supervised data cleaning, de-duplication, and record linkage.
 
  
 Setup
