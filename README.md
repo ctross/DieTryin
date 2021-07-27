@@ -1,6 +1,6 @@
 DieTryin
 ========
-Social network collection and analysis using R 
+Social network collection and automated entry using R 
 ------
 <img align="right" src="https://github.com/ctross/STRAND/blob/main/logo3.png" alt="logo" width="140"> 
 <img align="right" src="https://github.com/ctross/STRAND/blob/main/logo.png" alt="logo" width="140">
