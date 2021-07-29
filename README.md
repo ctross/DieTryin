@@ -10,7 +10,7 @@ Social network collection and automated entry using R
 
 In order to replicate our code exactly, you will need to download the specific image files we use in this example, and place them into the appropriate folders. Download the images with this link: <https://www.dropbox.com/s/lzazr97erlvbq5u/Workflow.zip?dl=0>. A raw version of the R code described below can be found here: <https://github.com/ctross/DieTryin/blob/master/Workflow.R>
   
-**DieTryin** is part of an ecosystem of tools for modern social network analysis. **STRAND** is a companion package designed to allow users to specify complex Bayesian social network models using a simple, lm() style, syntax. **ResolveR** is a package for semi-supervised data cleaning, de-duplication, and record linkage.
+[**DieTryin**](https://github.com/ctross/DieTryin) is part of an ecosystem of tools for modern social network analysis. (**STRAND**](https://github.com/ctross/STRAND] is a companion package designed to allow users to specify complex Bayesian social network models using a simple, lm() style, syntax. **ResolveR** is a package for semi-supervised data cleaning, de-duplication, and record linkage.
 
  
 Setup
