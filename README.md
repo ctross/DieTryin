@@ -146,7 +146,7 @@ Automatic data entry
 While RICH game data is often best entered manually, since there can be several coins allocated to each recipient, it can be useful to collect additional binary dyadic data: e.g.,
 "With whom have you shared food in the last 30 days?" using the same photograph roster. By placing tokens of a known color on the photograph roster to indicate directed ties and then photographing the resulting game boards, a researcher can implement an automated data entry workﬂow with DieTryin. To use our example images, copy the photographs from the Example_Images, BinaryTie_Images, Likert_Images, and PreCropped_Images folders in the .zip file above into the RICH/ResultsPhotos folder in your own directory.
 
-When it comes time to collect your own photos, consider using our Android app [**DieTrying Cam**](https://github.com/ctross/DieTryin/blob/master/DieTryinCam.apk)to collect the data and properly format the filenames.
+When it comes time to collect your own photos, consider using our Android app [**DieTryinCam**](https://github.com/ctross/DieTryin/blob/master/DieTryinCam.apk) to collect the data and properly format the filenames.
 
 ```{r}
 ################################### Now, automatic coding
