@@ -46,7 +46,7 @@ check_classification = function(path, dat, n_panels = 2, n_rows=4, n_cols=5, ID=
 
  jpeg(file=paste0(path,"/ClassifiedPhotos/",game,"_",ID,"_","frame_",k,".jpg"))
   plot(Q)
- points(as.numeric(as.character(df2$x)),as.numeric(as.character(df2$y)),col="white",pch=20, cex=6)
- points(as.numeric(as.character(df2$x)),as.numeric(as.character(df2$y)),col=as.character(df2$b),pch=20, cex=5)
+ points(as.numeric(as.character(df2$x)),as.numeric(as.character(df2$y)),col="white",pch=20, cex=4)
+ points(as.numeric(as.character(df2$x)),as.numeric(as.character(df2$y)),col=as.character(df2$b),pch=20, cex=3)
  dev.off()
 }}
