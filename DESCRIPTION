@@ -3,7 +3,7 @@ Title: A package for running network-structured economic games
 Version: 0.0.0.9000
 Authors@R: person("Cody", "Ross", email = "ctross@ucdavis.edu", role = c("aut", "cre"))
 Description: Streamlines photo standardization, suvery design, data entry, data compilation, and payout calculation. Used for networked structured economic games.
-Depends:R,imager,xtable,MASS,readr,tools
+Depends:R,imager,xtable,MASS,readr,tools,philentropy
 License: CC BY-NC-SA
 Encoding: UTF-8
 LazyData: true
