@@ -4,9 +4,18 @@
 \alias{enter_data}
 \title{A function to enter manually data from RICH economic games}
 \usage{
-enter_data(path = path, pattern = ".jpg", start = 1, stop = 3,
-  n_frames = 4, n_rows = 5, n_cols = 8, seed = 1, ordered = NULL,
-  games_to_add = c("Nothing"))
+enter_data(
+  path = path,
+  pattern = ".jpg",
+  start = 1,
+  stop = 3,
+  n_panels = 4,
+  n_rows = 5,
+  n_cols = 8,
+  seed = 1,
+  ordered = NULL,
+  add = c("Nothing")
+)
 }
 \arguments{
 \item{path}{Full path to main folder.}
@@ -17,17 +26,17 @@ enter_data(path = path, pattern = ".jpg", start = 1, stop = 3,
 
 \item{stop}{Location of end of PID in file name. If files are saved as "XXX.jpg" for example, this is 3.}
 
+\item{n_panels}{Number of frames/panels/blocks of photos to be output. I use four big panels and randomize order at each game.}
+
+\item{n_rows}{Number of rows per panel. With 7cm x 10cm photos, I use five rows of photos per panel.}
+
+\item{n_cols}{Number of rows per panel. With 7cm x 10cm photos, I use six to eight cols of photos per panel.}
+
 \item{seed}{A seed for the random number generator to sort the order of photos in the array. This should match the seed used to make the survey.}
 
 \item{ordered}{A list of IDs if photograph order is to be explicilty coded. This overwrites random sorting.}
 
-\item{games_to_add}{A vector of labels with the same names passed into setup_folders(). Used to save social network data not corresponding to the 3 RICH games.}
-
-\item{frames}{Number of frames/panels/blocks of photos to be output. I use four big panels and randomize order at each game.}
-
-\item{rows}{Number of rows per panel. With 7cm x 10cm photos, I use five rows of photos per panel.}
-
-\item{cols}{Number of rows per panel. With 7cm x 10cm photos, I use six to eight cols of photos per panel.}
+\item{add}{A vector of labels with the same names passed into setup_folders(). Used to save social network data not corresponding to the 3 RICH games.}
 }
 \description{
 This function allows you to speed up data entry. Simply set a path to the main folder. Then run the function. In the popup, enter "Y" if the data is for a new person, 
@@ -36,6 +45,6 @@ Giving, Leaving, or Reducing, the data correspond to. In the function call, set 
 }
 \examples{
 \dontrun{
-  enter_data(path=path, pattern=".jpg", start=1, stop=3, seed=1, frames=4, rows=5, cols=8)
+  enter_data(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=4, n_rows=5, n_cols=8)
                    }
 }

@@ -9,7 +9,11 @@ pre_process(
   ID,
   game = "Blank",
   panels = c("A", "B"),
-  pre_processed = FALSE
+  pre_processed = FALSE,
+  automate = FALSE,
+  reference = NULL,
+  d_x = 20,
+  d_y = 20
 )
 }
 \arguments{
@@ -23,6 +27,14 @@ pre_process(
 
 \item{pre_processed}{Are photographs pre-processed such that image correction steps can be skipped? If FALSE, then user must pre-process images using DieTryings tools. If TRUE game board photographs must be cropped and unskewed. 
 Some Android and IOS apps, like Tiny Scanner, provide a means of producing such photographs of the game boards at the time of data collection.}
+
+\item{automate}{will corners be selected manually, or automatically?}
+
+\item{reference}{path to the reference set.}
+
+\item{d_x}{x width of kernel used to scan for corners}
+
+\item{d_y}{y width of kernel used to scan for corners}
 }
 \value{
 A list of length 2. The first slot contains image files. The second slot contains the locations of game-board corners.
