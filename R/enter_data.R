@@ -1,3 +1,35 @@
+#' A function to enter manually data from RICH economic games
+#'
+#' This function allows you to speed up data entry. Simply set a path to the main folder. Then run the function. In the popup, enter "Y" if the data is for a new person, 
+#' and "N" if it is for a second game from the same person. In the header for each data.entry table, you must enter "G"'", "L", or "R" to indicate which game:
+#' Giving, Leaving, or Reducing, the data correspond to. In the function call, set the number of panels, and the number of rows and cols per panel, as in the build_survey file. 
+# Then run the function. This function relies on the 'data.entry' function. This is only supported on some R builds. I've only tested on Windows. See details below.
+#' @param 
+#' path Full path to main folder.
+#' @param 
+#' pattern File extension of photos. Should be ".jpg" or ".JPG". 
+#' @param 
+#' start Location of start of PID in file name. If files are saved as "XXX.jpg" for example, this is 1.
+#' @param 
+#' stop Location of end of PID in file name. If files are saved as "XXX.jpg" for example, this is 3.
+#' @param 
+#' seed A seed for the random number generator to sort the order of photos in the array. This should match the seed used to make the survey.
+#' @param 
+#' n_panels Number of frames/panels/blocks of photos to be output. I use four big panels and randomize order at each game.
+#' @param 
+#' n_rows Number of rows per panel. With 7cm x 10cm photos, I use five rows of photos per panel.
+#' @param 
+#' n_cols Number of rows per panel. With 7cm x 10cm photos, I use six to eight cols of photos per panel.
+#' @param 
+#' ordered A list of IDs if photograph order is to be explicilty coded. This overwrites random sorting.
+#' @param 
+#' add A vector of labels with the same names passed into setup_folders(). Used to save social network data not corresponding to the 3 RICH games.
+#' @export
+#' @examples
+#' \dontrun{
+#'   enter_data(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=4, n_rows=5, n_cols=8)
+#'                    }
+
 enter_data <- function (path = path, pattern = ".jpg", start = 1, stop = 3, 
      n_panels = 4, n_rows = 5, n_cols = 8, seed = 1, ordered=NULL, add=c("Nothing")) 
 {
