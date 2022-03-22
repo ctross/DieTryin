@@ -169,7 +169,7 @@ if(alert_mode == "50_Cent"){
 message = rep(NA,6)
 message[1] = "Im full of focus man. my money on my mind. I got a mill out the deal, and Im still on the grind."
 message[2] = "You can find me in the club, bottle full of bub. Look, mami, I got the X, if you into taking drugs."
-message[3] = "Im into havin sex, I aint into makin love. So come give me a hug."
+message[3] = "In the hood, in L.A., they saying fifty you hot. They like me. I want them to love me like they love Pac."
 message[4] = "Go, shorty. Its your birthday. We gonna party like its your birthday. We gonna sip Bacardi like its your birthday."
 message[5] = "Been hit wit a few shells, but I dont walk wit a limp."
 message[6] = "When I pull out up front, you see the Benz on dubs. When I roll 20 deep, its 20 knives in the club."
