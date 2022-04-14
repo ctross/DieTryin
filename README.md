@@ -154,7 +154,7 @@ When it comes time to collect your own photos, consider using our Android app [*
 ################################### Now, automatic coding
  # First paste results photos into the ResultsPhotos directory, with properly formatted titles
  # of form: "GAMEID_PERSONID_PANELID.jpg" then downsize the images if needed to speed the processing code
- downsize(path=path, scaler=1) # set scaler=1 to keep same size, as the attached photos are already small
+ downsize(path=path, scaler=3) # set scaler=1 to keep same size, as the attached photos are already small
 ```
 In order to set the right parameters for lower_hue_threshold and upper_hue_threshold in the functions below, it is helpful to check out the actual hue of your tokens.
 ```{r}
@@ -164,40 +164,39 @@ In order to set the right parameters for lower_hue_threshold and upper_hue_thres
 # get_hue(file.choose()) # will allow you to select a pictures without having to input the file path directly
 ```
 
-Now, we can run a quick example of automatic data entry for binary tie data. The user must pre-process the images. The pre_process function opens an interactive window that
-displays each photo array. The user must click the top-left corner of the photograph array, then the top-right, bottom-right, and bottom-left, in that order. This provides DieTryin with the information needed to crop-out only the photograph array, and correct any rotations or distortions. The user will need to process the blank boards and the boards for at least one other question/game. 
+Now, we can run a quick example of automatic data entry. For automatic entry, set automate = TRUE. Data will be saved in appropriate folders. If the images are tricky and need manual corner-clicking, just set automate = FALSE. The user must then click the top-left corner of the photograph array, then the top-right, bottom-right, and bottom-left, in that order. This provides DieTryin with the information needed to crop-out only the photograph array, and correct any rotations or distortions. The user will need to process the blank boards and the boards for at least one other question/game. 
 ```{r}
 classify(
-path=path,
-PID = "SS1",
-HHID = "SKA",
-RID = "CR",
-day = 12, month = 4, year = 2020,
-name = "Cody",
-panels = c("A", "B"),
-questions = c("A","B","C","D","E","F","G","H"),
-game = "PeerReports",
-order = "AB",
-revise = FALSE,
-pattern = ".jpg",
-start = 1, stop = 3,
-seed = 1,
-n_panels = 2,
-n_rows = 4, n_cols = 5,
-ordered_ids = sorted_ids,
-thresh = c(0.065, 0.065, 0.065),
-lower_hue_threshold = c(110, 285,175),
-upper_hue_threshold = c(155, 341,215),
-plot_colors = c("empty", "seagreen4", "purple", "navyblue"),
-lower_saturation_threshold = 0.1,
-lower_luminance_threshold = 0.12,
-upper_luminance_threshold = 0.88,
-border_size = 0.22, iso_blur = 0,
-direction = "forward",
-alert_mode = "50_Cent",
-automate = TRUE,
-d_x = 20, d_y = 20
-)
+  path=path,
+  PID = "SS1",
+  HHID = "SKA",
+  RID = "CR",
+  day = 12, month = 4, year = 2020,
+  name = "Cody",
+  panels = c("A", "B"),
+  questions = c("A","B","C","D","E","F","G","H"),
+  game = "PeerReports",
+  order = "AB",
+  revise = FALSE,
+  pattern = ".jpg",
+  start = 1, stop = 3,
+  seed = 1,
+  n_panels = 2,
+  n_rows = 4, n_cols = 5,
+  ordered_ids = sorted_ids,
+  thresh = c(0.065, 0.065, 0.065),
+  lower_hue_threshold = c(110, 285,175),
+  upper_hue_threshold = c(155, 341,215),
+  plot_colors = c("empty", "seagreen4", "purple", "navyblue"),
+  lower_saturation_threshold = 0.1,
+  lower_luminance_threshold = 0.12,
+  upper_luminance_threshold = 0.88,
+  border_size = 0.22, iso_blur = 0,
+  direction = "forward",
+  alert_mode = "50_Cent",
+  automate = TRUE,
+  d_x = 20, d_y = 20
+  )
 ```
 
 
