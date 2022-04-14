@@ -8,7 +8,7 @@ Social network collection and automated entry using R
 
 **DieTryin** is an R package designed to facilitate the collection of roster-based network data, and to run network-structured economic games—such as [Recipient Identity-Conditioned Heuristics (RICH) games](http://journals.sagepub.com/doi/abs/10.1177/1525822X16643709?journalCode=fmxd). This is a brief overview of a workflow. For further details on any step, see our full publication in [Behavior Research Methods](https://doi.org/10.3758/s13428-021-01606-5). 
 
-In order to replicate our code from the BRM paper exactly, you will need to download the specific image files we use in this example, and place them into the appropriate folders. Download the images [here](https://www.dropbox.com/s/lzazr97erlvbq5u/Workflow.zip?dl=0). In order to replicate our code from the AMPPS paper exactly, you will need to download the specific image files we use [here](https://www.dropbox.com/s/uuw6qbzieu0o6qc/TestImages.zip?dl=0).
+In order to replicate our workflow from the BRM paper exactly, you will need to download the specific image files we use therein, and place them into the appropriate folders. Download the images [here](https://www.dropbox.com/s/lzazr97erlvbq5u/Workflow.zip?dl=0). In order to replicate our workflow from the AMPPS paper exactly, you will need to download the specific image files we use [here](https://www.dropbox.com/s/uuw6qbzieu0o6qc/TestImages.zip?dl=0) instead.
 
 A raw version of the R code described below can be found [here](https://github.com/ctross/DieTryin/blob/master/Workflow.R)
   
