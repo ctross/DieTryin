@@ -167,265 +167,37 @@ In order to set the right parameters for lower_hue_threshold and upper_hue_thres
 Now, we can run a quick example of automatic data entry for binary tie data. The user must pre-process the images. The pre_process function opens an interactive window that
 displays each photo array. The user must click the top-left corner of the photograph array, then the top-right, bottom-right, and bottom-left, in that order. This provides DieTryin with the information needed to crop-out only the photograph array, and correct any rotations or distortions. The user will need to process the blank boards and the boards for at least one other question/game. 
 ```{r}
-################################### Pre-process the data needed for analysis
-# These lines will open a window where corners must be clicked
- blank1 = pre_process(path=path, ID="CTR", game="Blank", panels=c("A","B"))            # control with no tokens
- friend1 = pre_process(path=path, ID="CTR", game="FriendshipsData", panels=c("A","B")) # game play with tokens
-
- game_images_all1 = list(blank1[[1]], friend1[[1]]) # Then organize into a list
- game_locs_all1 = list(blank1[[2]], friend1[[2]])
- game_ID_all1 = list("Blank", "FriendshipsData")
+classify(
+path=path,
+PID = "SS1",
+HHID = "SKA",
+RID = "CR",
+day = 12, month = 4, year = 2020,
+name = "Cody",
+panels = c("A", "B"),
+questions = c("A","B","C","D","E","F","G","H"),
+game = "PeerReports",
+order = "AB",
+revise = FALSE,
+pattern = ".jpg",
+start = 1, stop = 3,
+seed = 1,
+n_panels = 2,
+n_rows = 4, n_cols = 5,
+ordered_ids = sorted_ids,
+thresh = c(0.065, 0.065, 0.065),
+lower_hue_threshold = c(110, 285,175),
+upper_hue_threshold = c(155, 341,215),
+plot_colors = c("empty", "seagreen4", "purple", "navyblue"),
+lower_saturation_threshold = 0.1,
+lower_luminance_threshold = 0.12,
+upper_luminance_threshold = 0.88,
+border_size = 0.22, iso_blur = 0,
+direction = "forward",
+alert_mode = "50_Cent",
+automate = TRUE,
+d_x = 20, d_y = 20
+)
 ```
 
-Once the data are pre-processed, the classifier can be applied:
-```{r}
-################################### Run the classifier
- Game_all1 = auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
-                             thresh=0.1, lower_hue_threshold = 135, upper_hue_threshold = 170,  
-                             plot_colors=c("empty","seagreen4"), img=game_images_all1, locs=game_locs_all1, ID="CTR",
-                             game=game_ID_all1, ordered=sorted_ids,
-                             lower_saturation_threshold=0.12, 
-                             lower_luminance_threshold=0.12, 
-                             upper_luminance_threshold=0.88,  
-                             border_size=0.22,
-                             iso_blur=1,
-                             histogram_balancing=FALSE,
-                             direction="backward")
-```
-
-After the classifier runs, we need to check that the infer ties are correct. To do so, we plot the infer ties back on the images and save them in the ClassifiedPhotos folder.
-```{r}
-################################### Check the performance of the classifier
- check_classification(path=path, Game_all1[[1]], n_panels = 2, n_rows=4, n_cols=5, ID="CTR", game="FriendshipsData")
-```
-
-If the ties are correct, then we can append the header data and save the results.
-```{r}
- annotate_data(path = path, results=Game_all1, HHID="BPL", RID="CR", day=12, month=4, year=2020, 
-             name = "Cory", ID="CTR", game="FriendshipsData", order="AB", seed = 1)
-
-# Here we use the same data, and duplicate it with a new set of header data just to test the compile function below
- annotate_data(path = path, results=Game_all1, HHID="LQL", RID="CR", day=12, month=4, year=2020, 
-             name = "Faith", ID="AOC", game="FriendshipsData", order="BA", seed = 1) 
-
- compile_data(path=path, game="FriendshipsData")
-```
-
-Entering Likert-scale data works just the same, but we have to provide extra data for the different token colors.
-```{r}
-################################### Now pre-process the data needed for a Likert-analysis
-# These lines will open a window where corners must be clicked
- blank2 = pre_process(path=path, ID="QQQ", game="Blank", panels=c("A","B"))
- trust2 = pre_process(path=path, ID="QQQ", game="TrustData", panels=c("A","B"))
-
- game_images_all2 = list(blank2[[1]], trust2[[1]])
- game_locs_all2 = list(blank2[[2]], trust2[[2]])
- game_ID_all2 = list("Blank", "TrustData")
-
-################################### Run the classifier
-Game_all2 = auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
-                            thresh=c(0.075, 0.075, 0.075), lower_hue_threshold = c(135, 280, 170), upper_hue_threshold = c(170, 350, 215),
-                            plot_colors=c("empty","seagreen4", "purple", "navyblue"), img=game_images_all2, locs=game_locs_all2, ID="QQQ",
-                            game=game_ID_all2, ordered=sorted_ids,
-                            lower_saturation_threshold=0.09, 
-                            lower_luminance_threshold=0.12, 
-                            upper_luminance_threshold=0.88,   
-                            border_size=0.22,
-                            iso_blur=1,
-                            histogram_balancing=FALSE,
-                            direction="backward")
-
-################################### Check the performance of the classifier
-check_classification(path=path, Game_all2[[1]], n_panels = 2, n_rows=4, n_cols=5, ID="QQQ", game="TrustData")
-
-# and if it looks good, then save the results
-annotate_data(path = path, results=Game_all2, HHID="BPL", RID="CR", day=12, month=4, year=2020, 
-            name = "Shakira", ID="QQQ", game="TrustData", order="BA", seed = 1)
-
-# Just to test compiler we use the same data with a new set of annotations
-annotate_data(path = path, results=Game_all2, HHID="BPL", RID="CR", day=14, month=4, year=2020, 
-            name = "Lowkey", ID="LKW", game="TrustData", order="BA", seed = 1)
-
-compile_data(path=path, game="TrustData")
-```
-
-
-If the game-board images are collected using an app like Tiny Scanner, which automatically crops and unwarps images, then the pre-processing step can be skipped entirely. This function is much faster compuationally, and requires no user pre-processing:
-```{r}
-################################### If images are preproccessed to be squared and cropped then, 
-# user input and image correction can be skipped by using pre_processed=TRUE
- blank3 = pre_process(path=path, ID="YEZ", game="Blank", panels=c("A","B"), pre_processed=TRUE)
- trust3 = pre_process(path=path, ID="YEZ", game="WisdomData", panels=c("A","B"), pre_processed=TRUE)
-
- game_images_all3 = list(blank3[[1]], trust3[[1]])
- game_locs_all5 = list(blank3[[2]], trust3[[2]])
- game_ID_all3 = list("Blank", "WisdomData")
-
-################################### Run the classifier
-Game_all3 = auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
-                            thresh=c(0.075, 0.075, 0.075), lower_hue_threshold = c(135, 280, 170), upper_hue_threshold = c(170, 350, 215), 
-                            plot_colors=c("empty","seagreen4", "purple", "navyblue"), img=game_images_all3, locs=game_locs_all3, ID="YEZ",
-                            game=game_ID_all3, ordered=sorted_ids,
-                            lower_saturation_threshold=0.09, 
-                            lower_luminance_threshold=0.12, 
-                            upper_luminance_threshold=0.88,  
-                            border_size=0.22,
-                            iso_blur=1,
-                            pre_processed=TRUE)
-
-################################### Check the performance of the classifier
-check_classification(path=path, Game_all3[[1]], n_panels = 2, n_rows=4, n_cols=5, ID="YEZ", game="WisdomData")
-
-# and if it looks good, then save the results
-annotate_data(path = path, results=Game_all3, HHID="BPL", RID="CR", day=12, month=4, year=2020, 
-            name = "Cody", ID="YEZ", game="WisdomData", order="BA", seed = 1)
-
-# Just to test compiler we use the same data with a new set of annotations
-annotate_data(path = path, results=Game_all3, HHID="BPL", RID="CR", day=14, month=4, year=2020, 
-            name = "Dan", ID="DJR", game="WisdomData", order="BA", seed = 1)
-
-compile_data(path=path, game="WisdomData")
-```
-
-Batch processing/vectorization
-------
-In the above three examples, we had only one question per respondent. However, it is common to ask the same respondent several questions during a single interview. The automatic data entry functions are vectorizable, so that many questions can be entered at once for a single respondent using the same header data: 
-
-```{r}
-################################### This all works for a single game, now lets batch process binary data
-################################ Binary data
-filled = vector("list", 27)
-filled[[1]] = pre_process(path=path, ID="CTR", game="Blank", panels=c("A","B"))
-for(i in 1:26)
-filled[[i+1]] = pre_process(path=path, ID="CTR", game=toupper(letters)[i], panels=c("A","B")) # use letters for "game" names
-
-game_images_all4 = vector("list", 27)
-game_locs_all4 = vector("list", 27)
-game_ID_all4 = vector("list", 27)
-
-game_images_all4[[1]] <- filled[[1]][[1]]
-game_locs_all4[[1]] <- filled[[1]][[2]]
-game_ID_all4[[1]] <- "Blank"
-
-for(i in 2:27){
-game_images_all4[[i]] <- filled[[i]][[1]]
-game_locs_all4[[i]] <- filled[[i]][[2]]
-game_ID_all4[[i]] <- toupper(letters)[i-1]
-}
-
-Game_all4 <- auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
-                            thresh=0.1, lower_hue_threshold = 135, upper_hue_threshold = 170,  
-                            plot_colors=c("empty","seagreen4"), img=game_images_all4, locs=game_locs_all4, ID="CTR",
-                            game=game_ID_all4, ordered=sorted_ids,
-                            lower_saturation_threshold=0.12, 
-                            lower_luminance_threshold=0.12, 
-                            upper_luminance_threshold=0.88,  
-                            border_size=0.22,
-                            iso_blur=1,
-                            histogram_balancing=FALSE,
-                            direction="backward")
-
-for(i in 1:26)
-check_classification(path=path, Game_all4[[i]], n_panels = 2, n_rows=4, n_cols=5, ID="CTR", game=toupper(letters)[i])
-
-annotate_batch_data(path = path, results=Game_all4, HHID="BQL", RID="CR", day=12, month=4, year=2020, 
-            name = "BobBarker", ID="CTR", game="WorkData", order="AB", seed = 1)
-
-annotate_batch_data(path = path, results=Game_all4, HHID="LQL", RID="CR", day=12, month=4, year=2020, 
-            name = "Faith", ID="AOC", game="WorkData", order="BA", seed = 1)
-
-compile_data(path=path, game="WorkData", batch=TRUE)
-```
-
-Entering Likert-scale data works just the same, but we again have to provide extra input information for the different token colors.
-```{r}
-################################### And now a batch process script for Likert data
-filled2 = vector("list", 27)
-filled2[[1]] = pre_process(path=path, ID="QQQ", game="Blank", panels=c("A","B"))
-for(i in 1:26)
-filled2[[i+1]] = pre_process(path=path, ID="QQQ", game=toupper(letters)[i], panels=c("A","B"))
-
-game_images_all5 = vector("list", 27)
-game_locs_all5= vector("list", 27)
-game_ID_all5 = vector("list", 27)
-
-game_images_all5[[1]] <- filled2[[1]][[1]]
-game_locs_all5[[1]] <- filled2[[1]][[2]]
-game_ID_all5[[1]] <- "Blank"
-
-for(i in 2:27){
-game_images_all5[[i]] <- filled2[[i]][[1]]
-game_locs_all5[[i]] <- filled2[[i]][[2]]
-game_ID_all5[[i]] <- toupper(letters)[i-1]
-}
-
-Game_all5 <- auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
-                           thresh=c(0.075, 0.075, 0.075), lower_hue_threshold = c(135, 280, 170), upper_hue_threshold = c(170, 350, 215), 
-                           plot_colors=c("empty","seagreen4", "purple", "navyblue"), img=game_images_all5, locs=game_locs_all5, ID="QQQ",
-                           game=game_ID_all5, ordered=sorted_ids,
-                           lower_saturation_threshold=0.09, 
-                           lower_luminance_threshold=0.12, 
-                           upper_luminance_threshold=0.88,  
-                           border_size=0.22,
-                           iso_blur=1,
-                           histogram_balancing=FALSE,
-                           direction="backward")
-
-for(i in 1:26)
-check_classification(path=path, Game_all5[[i]], n_panels = 2, n_rows=4, n_cols=5, ID="QQQ", game=toupper(letters)[i])
-
-annotate_batch_data(path = path, results=Game_all5, HHID="BQL", RID="CR", day=12, month=4, year=2020, 
-            name = "Quark and Beans", ID="QQQ", game="EmotionData", order="AB", seed = 1)
-
-annotate_batch_data(path = path, results=Game_all5, HHID="JKL", RID="CR", day=1, month=4, year=2020, 
-            name = "Walter White", ID="XAS", game="EmotionData", order="AB", seed = 1)
-
-compile_data(path=path, game="EmotionData", batch=TRUE)
-```
-
-If the game-board images are collected using an app like Tiny Scanner, which automatically crops and unwarps images, then the pre-processing step can again be skipped entirely:
-```{r}
-################################### If images are preproccessed to be squared and cropped then, 
-# user input and image correction can be skipped by using pre_processed=TRUE
-filled3 = vector("list", 27)
-filled3[[1]] = pre_process(path=path, ID="YEZ", game="Blank", panels=c("A","B"), pre_processed=TRUE)
-for(i in 1:26)
-filled3[[i+1]] = pre_process(path=path, ID="YEZ", game=toupper(letters)[i], panels=c("A","B"), pre_processed=TRUE)
-
-game_images_all6 = vector("list", 27)
-game_locs_all6 = vector("list", 27)
-game_ID_all6 = vector("list", 27)
-
-game_images_all6[[1]] <- filled3[[1]][[1]]
-game_locs_all6[[1]] <- filled3[[1]][[2]]
-game_ID_all6[[1]] <- "Blank"
-
-for(i in 2:27){
-game_images_all6[[i]] <- filled3[[i]][[1]]
-game_locs_all6[[i]] <- filled3[[i]][[2]]
-game_ID_all6[[i]] <- toupper(letters)[i-1]
-}
-
-Game_all6 <- auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
-                           thresh=c(0.075, 0.075, 0.075), lower_hue_threshold = c(135, 280, 170), upper_hue_threshold = c(170, 350, 215), 
-                           plot_colors=c("empty","seagreen4", "purple", "navyblue"), img=game_images_all6, locs=game_locs_all6, ID="YEZ",
-                           game=game_ID_all6, ordered=sorted_ids,
-                           lower_saturation_threshold=0.09, 
-                           lower_luminance_threshold=0.12, 
-                           upper_luminance_threshold=0.88,  
-                           border_size=0.22,
-                           iso_blur=1,
-                           pre_processed=TRUE)
-
-for(i in 1:26)
-check_classification(path=path, Game_all6[[i]], n_panels = 2, n_rows=4, n_cols=5, ID="YEZ", game=toupper(letters)[i])
-
-annotate_batch_data(path = path, results=Game_all6, HHID="YEP", RID="CR", day=19, month=7, year=2020, 
-            name = "Jim LaughAgain", ID="YEZ", game="ReputationData", order="AB", seed = 1)
-
-annotate_batch_data(path = path, results=Game_all6, HHID="JKF", RID="CR", day=11, month=3, year=2020, 
-            name = "Sunny Shade", ID="CVD", game="ReputationData", order="AB", seed = 1)
-
-compile_data(path=path, game="ReputationData", batch=TRUE)
-```
 
