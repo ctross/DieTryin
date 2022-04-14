@@ -68,7 +68,7 @@
 ################################### Now, for the other data, we can move into automatic coding
  # First paste results photos from the CollectedDataImages folder from the zip file into the ResultsPhotos directory. Use properly formatted titles
  # of form: "GAMEID_PERSONID_PANELID.jpg" then downsize the images 
- downsize(path=path, scaler=1) # set scaler=1 to keep same size
+ downsize(path=path, scaler=3) # set scaler=1 to keep same size
 
 # In order to set the right paramters for: lower_hue_threshold and upper_hue_threshold, it is helpful to check out the actual hue of your tokens.
 # So pick a photo with all your token colors and run:
@@ -76,7 +76,42 @@
 # make sure to click on several tokens and several places on each token to get a good idea of the range of values each token may take.
 # get_hue(file.choose()) # will allow you to select a pictures without having to input the file path directly
 
+################################ Now enter the data
+
+
+classify(
+  path=path,
+  PID = "SS1",
+  HHID = "SKA",
+  RID = "CR",
+  day = 12, month = 4, year = 2020,
+  name = "Cody",
+  panels = c("A", "B"),
+  questions = c("A"),
+  game = "PeerReports",
+  order = "AB",
+  revise = FALSE,
+  pattern = ".jpg",
+  start = 1, stop = 3,
+  seed = 1,
+  n_panels = 2,
+  n_rows = 4, n_cols = 5,
+  ordered_ids = sorted_ids,
+  thresh = c(0.065, 0.065, 0.065),
+  lower_hue_threshold = c(110, 285,175),
+  upper_hue_threshold = c(155, 341,215),
+  plot_colors = c("empty", "seagreen4", "purple", "navyblue"),
+  lower_saturation_threshold = 0.1,
+  lower_luminance_threshold = 0.12,
+  upper_luminance_threshold = 0.88,
+  border_size = 0.22, iso_blur = 0,
+  direction = "forward",
+  automate = TRUE,
+  d_x = 20, d_y = 20
+  )
+
 ############################################################################
+#The code below is outdated. It was needed in the BRM paper, but the package now does all of these steps automatically via the classify function
 ################################### Pre-process the data needed for analysis
 # These lines will open a window where corners must be clicked
  blank1 = pre_process(path=path, ID="CTR", game="Blank", panels=c("A","B"))            # control with no tokens
