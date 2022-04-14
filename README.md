@@ -159,7 +159,7 @@ When it comes time to collect your own photos, consider using our Android app [*
 In order to set the right parameters for lower_hue_threshold and upper_hue_threshold in the functions below, it is helpful to check out the actual hue of your tokens.
 ```{r}
 # So pick a photo with all your token colors and run:
- get_hue(paste0(path,"/ResultsPhotosSmall/E_YEZ_A.jpg")) 
+ get_hue(paste0(path,"/ResultsPhotosSmall/G_SS1_A.jpg")) 
 # make sure to click on several tokens and several places on each token to get a good idea of the range of hue values that each token may take.
 # get_hue(file.choose()) # will allow you to select a pictures without having to input the file path directly
 ```
