@@ -193,7 +193,6 @@ classify(
   upper_luminance_threshold = 0.88,
   border_size = 0.22, iso_blur = 0,
   direction = "forward",
-  alert_mode = "50_Cent",
   automate = TRUE,
   d_x = 20, d_y = 20
   )
