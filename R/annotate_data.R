@@ -1,4 +1,4 @@
-#' A function to append header data to token allocation data entered via scan of photographs
+#' A function to append header data to token allocation data entered via a scan of photographs
 #'
 #' This function appends header data to automatically entered data. The end result is a "csv" with the same structure as that
 #' which is exported by the standard enter_data function.
