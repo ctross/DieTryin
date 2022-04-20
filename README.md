@@ -12,19 +12,19 @@ In order to replicate our workflow from the BRM paper exactly, you will need to 
 
 A raw version of the R code described below can be found [here](https://github.com/ctross/DieTryin/blob/master/Workflow.R)
   
-[**DieTryin**](https://github.com/ctross/DieTryin) is part of an ecosystem of tools for modern social network analysis. [**STRAND**](https://github.com/ctross/STRAND) is a companion package designed to allow users to specify complex Bayesian social network models using a simple, lm() style, syntax. **ResolveR** is a package for semi-supervised data cleaning, de-duplication, and record linkage.
+[**DieTryin**](https://github.com/ctross/DieTryin) is part of an ecosystem of tools for contemporary social network analysis. [**STRAND**](https://github.com/ctross/STRAND) is a companion package designed to allow users to specify complex Bayesian social network models using a simple, lm() style, syntax. **ResolveR** (currently under development) is a package for semi-supervised data cleaning, de-duplication, and record linkage.
 
  
 Setup
 ------
 
-Here we will go through the whole DieTryin workflow.  DieTryin works best on Windows. We note that Mac users may have issues using some interactive functions. If this is the case, installing an older version of imager (e.g., 0.41.1) should resolve the issue as long as the user has X11 installed.
+Here we will go through the entire DieTryin workflow.  DieTryin works best on Windows. We note that Mac users may have issues using some interactive functions. If this is the case, installing an older version of imager (e.g., 0.41.1) should resolve the issue as long as the user has X11 installed.
 ```{r}
 library(devtools)
 install_version("imager", version = "0.41.2", repos = "http://cran.us.r-project.org")
 ```
 
-Otherwise, we install by running on R:
+Otherwise, we can install by running on R:
 ```{r}
 ################################### Install and/or load
  library(devtools)
@@ -47,7 +47,7 @@ Now, we initialize a directory structure there:
  setup_folders(path, add=games_to_add)
 ```
 
-By default, data storage is set up only for the RICH games. If one wants to also collect data on other questions or games, simply create folders for those questions/games by including them in the games_to_add vector.
+By default, data storage is set up only for RICH games. If you would like to also collect data on other questions or games, simply create folders for those questions/games by including them in the games_to_add vector.
 
 Image standardization and survey creation
 ------
@@ -101,7 +101,7 @@ Now we can move on to building the survey. We run:
             n_panels=2, n_rows=4, n_cols=5, seed=1, ordered = sorted_ids)
 ```
 
-This builds a LaTeX file of the survey tool using the photo IDs and compiles it to a PDF. The order of ID code can be randomized by changing seed (as in the first example above). n_panels indicates how many boards/panels of photos will be made. n_rows and n_cols give how many rows and cols of photos will be included on each board. Now open the Survey folder and find the LaTeX file and PDF file of the survey. Edits to the LaTeX file can be made manually, or the header.txt file can be edited prior to running the build_survey function (this is the preferred option). Print out several copies for each respondent and go collect some data! Write the number of coins/tokens placed by the focal on each ID in the photo array.
+This builds a LaTeX file of the survey tool using the photo IDs and compiles it to a PDF. The order of ID code can be randomized by changing the seed (as in the first example above). n_panels indicates how many boards/panels of photos will be made. n_rows and n_cols give how many rows and cols of photos will be included on each board. Now open the Survey folder and find the LaTeX file and PDF file of the survey. Edits to the LaTeX file can be made manually, or the header.txt file can be edited prior to running the build_survey function (this is the preferred option). Print out several copies for each respondent and go collect some data! Write the number of coins/tokens placed by the focal on each ID in the photo array.
 
 Manual data entry and payout calculation
 ------
@@ -132,7 +132,7 @@ Now that all of the data has been entered, lets compile it. First we run:
 # run the above compile functions again. Repeat until all summary tables look correct.
 ```
 
-This will build two files for each game (a summary table and an edge-list). The summary table, which gives self vs. alter allocation data, checks that the sum of entries is correct. If the checksum cell isn't the same for all respondents, then someone probably made a mistake during data collection or data entry! Better go fix the corresponding .csv files. If the summary tables look good, then we are set. The other files are the edgelists. These say how many coins ego gave to each alter, and can be converted into network objects by igraph.
+This will build two files for each game (a summary table and an edge-list). The summary table, which gives self vs. alter allocation data, checks that the sum of entries is correct. If the checksum cell isn't the same for all respondents, then someone probably made a mistake during data collection or data entry! If that's the case, then we better go and fix the corresponding .csv files. If the summary tables look good, then we are set. The other files are the edgelists. These say how many coins ego gave to each alter, and can be converted into network objects by igraph.
 
 Now that we are sure that the data look good, let's see what we owe the community!
 ```{r}
@@ -145,7 +145,7 @@ Change GV, LV, KV, and RV to give the value of each coin in each game. GV for gi
 Automatic data entry
 ------
 
-While RICH game data is often best entered manually, since there can be several coins allocated to each recipient, it can be useful to collect additional binary dyadic data: e.g.,
+While RICH game data may at times be best entered manually, since there can be several coins allocated to each recipient, it can be useful to collect additional binary dyadic data: e.g.,
 "With whom have you shared food in the last 30 days?" using the same photograph roster. By placing tokens of a known color on the photograph roster to indicate directed ties and then photographing the resulting game boards, a researcher can implement an automated data entry workﬂow with DieTryin. To use our example images, copy the photographs from the relevant .zip folders above into the RICH/ResultsPhotos folder in your own directory.
 
 When it comes time to collect your own photos, consider using our Android app [**DieTryinCam**](https://github.com/ctross/DieTryin/blob/master/DieTryinCam-v1.2.apk) to collect the data and properly format the filenames.
