@@ -16,9 +16,10 @@ A raw version of the R code described below can be found [here](https://github.c
 
 Data Collection with DieTryinCam
 ------
+To collect data using DieTryinCam, just photograph the roster after tokens have been placed to indicate ties. Then use DieTryin in R to automagically encode the data as color-labeled edge-lists.
 ![Android Camera API](https://github.com/ctross/DieTryinCam/blob/main/DieTryinCam.png?raw=true)
  
-Setup
+Data Entry with DieTryin
 ------
 
 Here we will go through the entire DieTryin workflow.  DieTryin works best on Windows. We note that Mac users may have issues using some interactive functions. If this is the case, installing an older version of imager (e.g., 0.41.1) should resolve the issue as long as the user has X11 installed.
