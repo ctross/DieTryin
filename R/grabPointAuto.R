@@ -71,10 +71,10 @@
     loc3 = which(D3==max(D3), arr.ind=TRUE) + c(dim(D1)[1], dim(D4)[2])
     loc4 = which(D4==max(D4), arr.ind=TRUE) + c(0,dim(D4)[2])
 
-    loc1 = loc1 * c(d_x, d_y) + c(-d_x, -d_y)
+    loc1 = loc1 * c(d_x, d_y) + c(-d_x/2, -d_y/2)
     loc2 = loc2 * c(d_x, d_y) + c(d_x/2, -d_y/2)
     loc3 = loc3 * c(d_x, d_y) + c(d_x/2, d_y/2)
-    loc4 = loc4 * c(d_x, d_y) + c(-d_x, d_y)
+    loc4 = loc4 * c(d_x, d_y) + c(-d_x/2, d_y/2)
 
     loc = rbind(loc1, loc2, loc3, loc4)
    return(loc)
