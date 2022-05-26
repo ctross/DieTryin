@@ -116,6 +116,7 @@ classify = function(
 if(revise == FALSE){
 ################################### And now a batch process script for Likert data
 N_all = length(questions) + 1
+N_all <<- length(questions) + 1 
 
 filled2 = vector("list", N_all)
 filled2[[1]] = pre_process(path=path, ID=PID, game="Blank", panels=panels, automate =  automate, reference = paste0(path,"/ReferenceChip"), d_x = d_x, d_y = d_y)
