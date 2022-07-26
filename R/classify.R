@@ -168,6 +168,7 @@ annotate_batch_data(path = path, results=Game_all5, HHID=HHID, RID=RID, day=day,
 
 
 if(alert_mode == "50_Cent"){
+  set.seed(digest2int(PID))
 message = rep(NA,6)
 message[1] = "Im full of focus man. my money on my mind. I got a mill out the deal, and Im still on the grind."
 message[2] = "You can find me in the club, bottle full of bub. Look, mami, I got the X, if you into taking drugs."
