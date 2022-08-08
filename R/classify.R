@@ -169,15 +169,19 @@ annotate_batch_data(path = path, results=Game_all5, HHID=HHID, RID=RID, day=day,
 
 if(alert_mode == "50_Cent"){
   set.seed(digest2int(PID))
-message = rep(NA,6)
+message = rep(NA,10)
 message[1] = "Im full of focus man. my money on my mind. I got a mill out the deal, and Im still on the grind."
 message[2] = "You can find me in the club, bottle full of bub. Look, mami, I got the X, if you into taking drugs."
 message[3] = "In the hood, in L.A., they saying fifty you hot. They like me. I want them to love me like they love Pac."
 message[4] = "Go, shorty. Its your birthday. We gonna party like its your birthday. We gonna sip Bacardi like its your birthday."
 message[5] = "Been hit wit a few shells, but I dont walk wit a limp."
 message[6] = "When I pull out up front, you see the Benz on dubs. When I roll 20 deep, its 20 knives in the club."
+message[7] = "If the roof on fire, let the motherfucker burn. If you talking bout money, homie, I aint concerned."
+message[8] = "You shouldnt throw stones if you live in a glass house. And if you got a glass jaw, you should watch your mouth."
+message[9] = "We only humans, girl, we make mistakes. To make it up, aisle do whatever it take."
+message[10] = "If I was down, would you say things to make me smile? aisle treat you how you want to be treated, just teach me how."
 
- say_something(message=message[ceiling(runif(1, 0, 5.9999))], voice="Zira")
+ say_something(message=message[ceiling(runif(1, 0, 9.9999))], voice="Zira")
 }
 
 if(alert_mode == "Beep"){
