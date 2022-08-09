@@ -12,20 +12,29 @@
 #' @return A list of length 4. Each slot contains the locations of game-board corners.
 #' @export
 
- grabPointAuto = function(img, ref_set, d_x = 20, d_y = 20){
+ grabPointAuto = function(img, ref_set, d_x = 20, d_y = 20, tuner=2.5){
+ 	KL2 = function (x, test.na = TRUE, unit = "log2", est.prob = NULL, 
+    epsilon = 1e-05) 
+    { 
+    if (!is.matrix(x)) 
+        stop("Please provide a matrix as input, e.g. with x <- rbind(vector1, vector2).", 
+            call. = FALSE)
+    return(philentropy::distance(x = x, method = "kullback-leibler", test.na = test.na, 
+        unit = unit, est.prob = est.prob, epsilon = epsilon, mute.message=TRUE))
+    }
 
     Q_H = ref_set
-    # Q_S = as.vector(table(c(floor(ref_set[,,2]*360*0.999 + 1), c(1:360)))) - 1
-    # Q_L = as.vector(table(c(floor(ref_set[,,3]*360*0.999 + 1), c(1:360)))) - 1
 
     n_x = floor(dim(img)[1]/d_x)
     n_y = floor(dim(img)[2]/d_y)
 
+   print(paste0("n_x = ",n_x))
+   print(paste0("n_y = ",n_y))
+   print(paste0("Total KL evaluations = ",n_x*n_y))
+
     hues = RGBtoHSL(img)
 
     divergence_H = matrix(NA, nrow=n_x, ncol=n_y)
-    #divergence_S = matrix(NA, nrow=n_x, ncol=n_y)
-    #divergence_L = matrix(NA, nrow=n_x, ncol=n_y)
 
     for(x in 0:(n_x-1)){
     for(y in 0:(n_y-1)){
@@ -35,32 +44,33 @@
      P_H = as.vector(table(c(floor(hue_signature+1), c(1:360)))) - 1
      X = rbind(P_H/sum(P_H), Q_H/sum(Q_H))
 
-     divergence_H[x+1,y+1] = -log(KL(X[2:1,]))
+     divergence_H[x+1,y+1] = -log(KL2(X[2:1,]))
 
-     # # Saturation divergence   
-     # saturation_signature = c(hues[(1:d_x)+x*d_x, (1:d_y)+y*d_y, 1, 2])*360*0.999
-     # P_S = as.vector(table(c(floor(saturation_signature+1), c(1:360)))) - 1
-     # X = rbind(P_S/sum(P_S), Q_S/sum(Q_S))
-
-     # divergence_S[x+1,y+1] = -log(KL(X[2:1,]))
-
-     # # Lumenosity divergence   
-     # lumenosity_signature = c(hues[(1:d_x)+x*d_x, (1:d_y)+y*d_y, 1, 3])*360*0.999
-     # P_L = as.vector(table(c(floor(lumenosity_signature+1), c(1:360)))) - 1
-     # X = rbind(P_L/sum(P_L), Q_L/sum(Q_L))
-
-     # divergence_L[x+1,y+1] = -log(KL(X[2:1,]))
-
-    }
+      }
     }
 
-    #D = (divergence_H+divergence_S+divergence_L)
+    D1 = (divergence_H)
+    min_D = D1/min(D1)
+    #  windows()
+    # image(min_D)
+    D = (1-min_D)^tuner
+   #   windows()
+   # image(D)
 
-    D = (divergence_H)
+   # r = raster(D)
+   # bob = matrix(1/9, nc=3, nr=3)*0.6
+   # bob[2,2] = 0.4
+   # S = as.matrix(focal(r,bob,sum, pad = T, padValue = 0))
+   
+   # windows()
+   # image(S)
 
-    #par(mfrow=c(1,2))
-    #image(D[,ncol(D):1])
+   # D = S^(tuner*0.8)
 
+   # windows()
+   # image(D)
+
+    # Map back
     D1 = D[1:floor(dim(D)[1]/2), 1:floor(dim(D)[2]/2)]
     D2 = D[(floor(dim(D)[1]/2)+1):dim(D)[1], 1:floor(dim(D)[2]/2)]
     D3 = D[(floor(dim(D)[1]/2)+1):dim(D)[1], (floor(dim(D)[2]/2)+1):dim(D)[2] ]
@@ -68,8 +78,10 @@
 
     loc1 = which(D1==max(D1), arr.ind=TRUE) + c(0,0)
     loc2 = which(D2==max(D2), arr.ind=TRUE) + c(dim(D1)[1], 0)
-    loc3 = which(D3==max(D3), arr.ind=TRUE) + c(dim(D1)[1], dim(D4)[2])
-    loc4 = which(D4==max(D4), arr.ind=TRUE) + c(0,dim(D4)[2])
+    loc3 = which(D3==max(D3), arr.ind=TRUE) + c(dim(D1)[1], dim(D1)[2])
+    loc4 = which(D4==max(D4), arr.ind=TRUE) + c(0,dim(D1)[2])
+    #loc = rbind(loc1, loc2, loc3, loc4)
+    #print(loc)
 
     loc1 = loc1 * c(d_x, d_y) + c(-d_x/2, -d_y/2)
     loc2 = loc2 * c(d_x, d_y) + c(d_x/2, -d_y/2)
