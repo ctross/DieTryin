@@ -1,0 +1,18 @@
+L_to_LeavingData = function(path, max_coins, coin_color="navyblue"){
+ files = list.files(paste0(path,"/L"),full.names=TRUE)
+ files_short = list.files(paste0(path,"/L"))
+ 
+ for(i in 1:length(files)){
+ bob=read.csv(files[i])
+ bob$CoinsPlaced[bob$CoinsPlaced==coin_color] = 1
+ bob$CoinsPlaced[which(bob$AlterID==bob[6,2])] = 1
+
+ bob[10,2] = max_coins
+ bob[12,2] = sum(as.numeric(as.character(bob$CoinsPlaced)),na.rm=TRUE) - 1
+ bob[11,2] = as.numeric(as.character(bob[10,2])) - as.numeric(as.character(bob[12,2]))
+
+ bob = bob[, 1:4]
+
+ write.csv(bob, paste0(path,"/LeavingData/",files_short[i]), row.names=FALSE)
+ }
+}
