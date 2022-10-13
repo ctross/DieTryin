@@ -29,13 +29,15 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' standardize_photos(path=path, pattern=".jpg", start=1, stop=3, size_out=1000, border_size=10, asr=1.6180, id_range=1, id_names=NULL, spin=TRUE)
+#' standardize_photos(path=path, pattern=".jpg", start=1, stop=3, 
+#'                    size_out=1000, border_size=10, asr=1.6180, 
+#'                    id_range=1, id_names=NULL, spin=TRUE)
 #'                    }
  
 standardize_photos = function(path, pattern=".jpg", start=1, stop=3,
                               size_out=1000, border_size=10, asr=1.6180,
                               id_range=NULL, id_names=NULL, spin=FALSE){
-   require(imager)
+
    path_in = paste0(path,"/RawPhotos")
    path_out = paste0(path,"/StandardizedPhotos")
    ids = substr(list.files(path_in, pattern, full.names=FALSE), start = start, stop = stop) # Load IDs
@@ -51,7 +53,7 @@ standardize_photos = function(path, pattern=".jpg", start=1, stop=3,
     
  for( i in idset){
   pid = ids[i]                                       # Pick ID
-  img = load.image(paste0(path_in,"/",pid,pattern))  # Load Image
+  img = imager::load.image(paste0(path_in,"/",pid,pattern))  # Load Image
   size = dim(img)[1:2]
   
   if(spin==TRUE){
@@ -65,7 +67,7 @@ standardize_photos = function(path, pattern=".jpg", start=1, stop=3,
    img2[,round(dim(img2)[2]/2,0)+c(-1,0,1),1,2] = 0
    img2[,round(dim(img2)[2]/2,0)+c(-1,0,1),1,3] = 0
    
-   loc = grabPoint(img2)                           # Check rotation
+   loc = imager::grabPoint(img2)                           # Check rotation
   
    if( loc[1]<(size[1]/2) & loc[2]<(size[2]/2) )   # Set Spin
    spin_ang = 0                                    #
@@ -76,10 +78,10 @@ standardize_photos = function(path, pattern=".jpg", start=1, stop=3,
    if( loc[1]<(size[1]/2) & loc[2]>(size[2]/2) )   #
    spin_ang = 270                                  #
   
-   img = imrotate(img, spin_ang, interp=2)
+   img = imager::imrotate(img, spin_ang, interp=2)
    }
   
-  locs = grabRect(img, output = "coord")                # Set picture range
+  locs = imager::grabRect(img, output = "coord")                # Set picture range
   locs = locs[c(1,3,2,4)]                               # Swap IDS - Not sure why I do this!
   
   wid = locs[2]-locs[1]                                 # Rescale
@@ -87,18 +89,18 @@ standardize_photos = function(path, pattern=".jpg", start=1, stop=3,
   hig2 = round(wid*asr,0)                               #
   locs[4] = locs[3]+hig2                                #
                                                         #
-  x = imsub(img,x %inr% locs[1:2],y %inr% locs[3:4])    #
-                                                        #
-  y = resize(x,size_out,round(size_out*asr,0))          #
+  x = imager::imsub(img,x %inr% locs[1:2],y %inr% locs[3:4])    #
+                                                                #
+  y = imager::resize(x,size_out,round(size_out*asr,0))          #
  
-  px = Xc(y) <= border_size                           # Add border
-  y[px] = 0                                           #
-  px = Xc(y) >= size_out-border_size                  #
-  y[px] = 0                                           #
-  px = Yc(y) <= border_size                           #
-  y[px] = 0                                           #
-  px = Yc(y) >= asr*size_out-border_size              #
-  y[px] = 0                                           #
+  px = imager::Xc(y) <= border_size                           # Add border
+  y[px] = 0                                                   #
+  px = imager::Xc(y) >= size_out-border_size                  #
+  y[px] = 0                                                   #
+  px = imager::Yc(y) <= border_size                           #
+  y[px] = 0                                                   #
+  px = imager::Yc(y) >= asr*size_out-border_size              #
+  y[px] = 0                                                   #
 
  imager::save.image(y,paste0(path_out,"/",pid,".jpg"),quality=1)  # Save image
  }

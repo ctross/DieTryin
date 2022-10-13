@@ -2,7 +2,7 @@
 % Please edit documentation in R/annotate_data.R
 \name{annotate_data}
 \alias{annotate_data}
-\title{A function to append header data to token allocation data entered via scan of photographs}
+\title{A function to append header data to token allocation data entered via a scan of photographs}
 \usage{
 annotate_data(
   path,

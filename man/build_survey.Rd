@@ -42,6 +42,8 @@ The user must have a LaTeX build on the system path.
 }
 \examples{
 \dontrun{
-build_survey(path=path, pattern=".jpg", start=1, stop=3, n_panels=2, n_rows=4, n_cols=5, seed=1, ordered = sorted_ids)
+build_survey(path=path, pattern=".jpg", start=1, stop=3, 
+             n_panels=2, n_rows=4, n_cols=5, seed=1, 
+             ordered = sorted_ids)
                    }
 }

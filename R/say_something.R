@@ -2,9 +2,9 @@
 #'
 #' This is a helper function.
 #' @param 
-#' stuff  the message to read.
+#' message  The message to read.
 #' @param 
-#' stuff  the voice to use.
+#' voice  The voice to use.
 #' @export
 
 

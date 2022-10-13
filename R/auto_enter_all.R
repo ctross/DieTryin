@@ -59,9 +59,11 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' Game_all1 = auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
+#' Game_all1 = auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, 
+#'                             n_panels=2, n_rows=4, n_cols=5, 
 #'                             thresh=0.05, lower_hue_threshold = 120, upper_hue_threshold = 155, 
-#'                             plot_colors=c("empty","seagreen4"), img=game_images_all1, locs=game_locs_all1, ID="SK1",
+#'                             plot_colors=c("empty","seagreen4"), 
+#'                             img=game_images_all1, locs=game_locs_all1, ID="SK1",
 #'                             game=gameID_all1, ordered=sorted_ids,
 #'                             lower_saturation_threshold=0.05, 
 #'                             lower_luminance_threshold=0.05, 

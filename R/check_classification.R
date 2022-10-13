@@ -19,7 +19,8 @@
 #' @export
 #' @examples
 #' \dontrun{
-#'  check_classification(path=path, dat[[1]], n_panels = 2, n_rows=4, n_cols=5, ID="SK1", game="FriendshipsData")
+#'  check_classification(path=path, dat[[1]], n_panels = 2, n_rows=4, n_cols=5, 
+#'                       ID="SK1", game="FriendshipsData")
 #'                    }
 
 check_classification = function(path, dat, n_panels = 2, n_rows=4, n_cols=5, ID="BS1", game="Friend"){
@@ -44,7 +45,7 @@ check_classification = function(path, dat, n_panels = 2, n_rows=4, n_cols=5, ID=
  df2 = df[which(df$b != "" & df$b != "empty"),]
  df2$b = as.character(df2$b) 
 
- jpeg(file=paste0(path,"/ClassifiedPhotos/",game,"_",ID,"_","frame_",k,".jpg"))
+ jpeg(filename=paste0(path,"/ClassifiedPhotos/",game,"_",ID,"_","frame_",k,".jpg"))
   plot(Q)
  points(as.numeric(as.character(df2$x)),as.numeric(as.character(df2$y)),col="white",pch=20, cex=4)
  points(as.numeric(as.character(df2$x)),as.numeric(as.character(df2$y)),col=as.character(df2$b),pch=20, cex=3)

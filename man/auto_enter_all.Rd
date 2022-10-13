@@ -90,14 +90,16 @@ A list of classified ties and associated data, ID tables, and corrected images, 
 }
 \description{
 This function allows you to significantly speed up data entry by using photographs of game boards before and after token allocation. 
-The auto_enter_all is a workflow wrapper for the auto_enter_data function. This function lets the user process all game data by the same respondent in a single call. 
+The auto_enter_all is a workflow wrapper for the auto_enter_data function. This function allows the user process all game data from the same respondent in a single call. 
 It also automates the calculation of contrasts between control images and images with token allocations.
 }
 \examples{
 \dontrun{
-Game_all1 = auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
+Game_all1 = auto_enter_all(path=path, pattern=".jpg", start=1, stop=3, seed=1, 
+                            n_panels=2, n_rows=4, n_cols=5, 
                             thresh=0.05, lower_hue_threshold = 120, upper_hue_threshold = 155, 
-                            plot_colors=c("empty","seagreen4"), img=game_images_all1, locs=game_locs_all1, ID="SK1",
+                            plot_colors=c("empty","seagreen4"), 
+                            img=game_images_all1, locs=game_locs_all1, ID="SK1",
                             game=gameID_all1, ordered=sorted_ids,
                             lower_saturation_threshold=0.05, 
                             lower_luminance_threshold=0.05, 

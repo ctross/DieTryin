@@ -6,9 +6,11 @@
 #' @param 
 #' ref_set the reference hue distribution.
 #' @param 
-#' d_x x width of kernel used to scan for corners
+#' d_x x width of kernel used to scan for corners.
 #' @param 
-#' d_y y width of kernel used to scan for corners
+#' d_y y width of kernel used to scan for corners.
+#' @param 
+#' tuner Exponent to scale divergence simplex.
 #' @return A list of length 4. Each slot contains the locations of game-board corners.
 #' @export
 
@@ -32,7 +34,7 @@
    print(paste0("n_y = ",n_y))
    print(paste0("Total KL evaluations = ",n_x*n_y))
 
-    hues = RGBtoHSL(img)
+    hues = imager::RGBtoHSL(img)
 
     divergence_H = matrix(NA, nrow=n_x, ncol=n_y)
 

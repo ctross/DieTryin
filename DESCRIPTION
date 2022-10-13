@@ -1,10 +1,10 @@
 Package: DieTryin
 Title: A package for running network-structured economic games
-Version: 0.0.2.0000
+Version: 0.0.420.6969
 Authors@R: person("Cody", "Ross", email = "ctross@ucdavis.edu", role = c("aut", "cre"))
 Description: Streamlines photo standardization, suvery design, data entry, data compilation, and payout calculation. Used for networked structured economic games.
-Depends:R,imager,xtable,MASS,readr,tools,philentropy,digest
-License: CC BY-NC-SA
+Imports: imager,xtable,MASS,readr,tools,philentropy,digest
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0

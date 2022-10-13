@@ -4,16 +4,18 @@
 \alias{grabPointAuto}
 \title{grabPointAuto}
 \usage{
-grabPointAuto(img, ref_set, d_x = 20, d_y = 20)
+grabPointAuto(img, ref_set, d_x = 20, d_y = 20, tuner = 2.5)
 }
 \arguments{
 \item{img}{The image to be scaned for corners.}
 
 \item{ref_set}{the reference hue distribution.}
 
-\item{d_x}{x width of kernel used to scan for corners}
+\item{d_x}{x width of kernel used to scan for corners.}
 
-\item{d_y}{y width of kernel used to scan for corners}
+\item{d_y}{y width of kernel used to scan for corners.}
+
+\item{tuner}{Exponent to scale divergence simplex.}
 }
 \value{
 A list of length 4. Each slot contains the locations of game-board corners.

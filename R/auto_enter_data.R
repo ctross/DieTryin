@@ -61,12 +61,13 @@
 #' @export
 #' @examples
 #' \dontrun{
-#'   auto_enter_data(path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
-#'                    lower_hue_threshold=120, upper_hue_threshold=155, plot_colors=c("empty","darkgreen"), 
-#'                    thresh=0.05, img, locs, ID="CTR", game="GameID", clean=NA, ordered=NULL,
-#'                    lower_saturation_threshold=0.05, lower_luminance_threshold=0.05, 
-#'                    upper_luminance_threshold=0.95, border_size=0.25, iso_blur=1, histogram_balancing=FALSE,
-#'                    direction="backward", pre_processed=FALSE)
+#' auto_enter_data(path, pattern=".jpg", start=1, stop=3, seed=1, n_panels=2, n_rows=4, n_cols=5, 
+#'          lower_hue_threshold=120, upper_hue_threshold=155, plot_colors=c("empty","darkgreen"), 
+#'          thresh=0.05, img, locs, ID="CTR", game="GameID", clean=NA, ordered=NULL,
+#'          lower_saturation_threshold=0.05, lower_luminance_threshold=0.05, 
+#'          upper_luminance_threshold=0.95, border_size=0.25, 
+#'          iso_blur=1, histogram_balancing=FALSE,
+#'          direction="backward", pre_processed=FALSE)
 #'                    }
 auto_enter_data = function (path, pattern = ".jpg", start = 1, stop = 3, seed = 1, n_panels = 4, n_rows = 5, n_cols = 8, 
                             lower_hue_threshold = 210, upper_hue_threshold = 230, plot_colors = c("empty","darkblue"),

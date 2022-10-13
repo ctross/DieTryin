@@ -23,18 +23,18 @@ counter = function(slice, lower_hue_threshold, upper_hue_threshold, lower_satura
                      lower_luminance_threshold=0.05, upper_luminance_threshold=0.95, 
                      border_size=0.25, iso_blur=2){
   # Prune border off of photo, to minimize influence of clothing color
-  px = Xc(slice) <= border_size*dim(slice)[1]                         
+  px = imager::Xc(slice) <= border_size*dim(slice)[1]                         
   slice[px] = 0                                           
-  px = Xc(slice) >= dim(slice)[1]-(border_size*dim(slice)[1])                  
+  px = imager::Xc(slice) >= dim(slice)[1]-(border_size*dim(slice)[1])                  
   slice[px] = 0                                           
-  px = Yc(slice) <= border_size*dim(slice)[2]                        
+  px = imager::Yc(slice) <= border_size*dim(slice)[2]                        
   slice[px] = 0                                           
-  px = Yc(slice) >= dim(slice)[2]-(border_size*dim(slice)[2])              
+  px = imager::Yc(slice) >= dim(slice)[2]-(border_size*dim(slice)[2])              
   slice[px] = 0                                           
  
   # Convert RGB image to HSL, and then use hue to identify tokens
-  slice = isoblur(slice, iso_blur)
-  X = RGBtoHSL(slice)
+  slice = imager::isoblur(slice, iso_blur)
+  X = imager::RGBtoHSL(slice)
   S = ifelse(X[,,1,2]>lower_saturation_threshold,1,NA)
   L = ifelse(X[,,1,3]>lower_luminance_threshold & X[,,1,3]<upper_luminance_threshold ,1,NA)
   R = X[,,1,1]*S*L

@@ -50,7 +50,8 @@ which is exported by the standard enter_data function, but with one extra column
 }
 \examples{
 \dontrun{
-annotate_batch_data(path = path, results=Game_all6, HHID="JKF", RID="CR", day=11, month=3, year=2020, 
-             name = "Walter W.", PID="CVD", game="LikertData", order="AB", seed = 1)
+annotate_batch_data(path = path, results=Game_all6, HHID="JKF", RID="CR", 
+                   day=11, month=3, year=2020, name = "Walter W.", PID="CVD",
+                   game="LikertData", order="AB", seed = 1)
                    }
 }

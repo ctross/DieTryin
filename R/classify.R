@@ -112,9 +112,8 @@ classify = function(
                       d_x = 20, 
                       d_y = 20
     ){
-  
-N_all = length(questions) + 1
 N_all <<- length(questions) + 1 
+N_all = length(questions) + 1
 
 if(revise == FALSE){
 ################################### And now a batch process script for Likert data
@@ -123,35 +122,40 @@ filled2 = vector("list", N_all)
 filled2[[1]] = pre_process(path=path, ID=PID, game="Blank", panels=panels, automate =  automate, reference = paste0(path,"/ReferenceChip"), d_x = d_x, d_y = d_y)
 
 game_names_list <<- questions
+game_names_list = game_names_list
 
 for(i in 1:(N_all-1)){
  print(game_names_list[i])
  filled2[[i+1]] = pre_process(path=path, ID=PID, game=game_names_list[i], panels=panels, automate =  automate, reference = paste0(path,"/ReferenceChip"), d_x = d_x, d_y = d_y)
 }
 
-game_images_all5 <<- vector("list", N_all)
-game_locs_all5 <<- vector("list", N_all)
-game_ID_all5 <<- vector("list", N_all)
+game_images_all = vector("list", N_all)
+game_locs_all = vector("list", N_all)
+game_ID_all = vector("list", N_all)
 
-game_images_all5[[1]] <<- filled2[[1]][[1]]
-game_locs_all5[[1]] <<- filled2[[1]][[2]]
-game_ID_all5[[1]] <<- "Blank"
+game_images_all[[1]] = filled2[[1]][[1]]
+game_locs_all[[1]] = filled2[[1]][[2]]
+game_ID_all[[1]] = "Blank"
 
 for(i in 2:N_all){
-game_images_all5[[i]] <<- filled2[[i]][[1]]
-game_locs_all5[[i]] <<- filled2[[i]][[2]]
-game_ID_all5[[i]] <<- game_names_list[i-1]
+game_images_all[[i]] = filled2[[i]][[1]]
+game_locs_all[[i]] = filled2[[i]][[2]]
+game_ID_all[[i]] = game_names_list[i-1]
 }
+
+game_images_all <<- game_images_all
+game_locs_all <<- game_locs_all
+game_ID_all <<- game_ID_all
 
 }
 
-Game_all5 <<- auto_enter_all(path=path, pattern=".jpg", start=start, stop=stop, seed=seed, n_panels=n_panels, n_rows=n_rows, n_cols=n_cols, 
+Game_all = auto_enter_all(path=path, pattern=".jpg", start=start, stop=stop, seed=seed, n_panels=n_panels, n_rows=n_rows, n_cols=n_cols, 
                              thresh=thresh, 
                              lower_hue_threshold = lower_hue_threshold, 
                              upper_hue_threshold = upper_hue_threshold, 
                              plot_colors=plot_colors, 
-                             img=game_images_all5, locs=game_locs_all5, ID=PID,
-                             game=game_ID_all5, ordered=ordered_ids,
+                             img=game_images_all, locs=game_locs_all, ID=PID,
+                             game=game_ID_all, ordered=ordered_ids,
                              lower_saturation_threshold=lower_saturation_threshold, 
                              lower_luminance_threshold=lower_luminance_threshold, 
                              upper_luminance_threshold=upper_luminance_threshold,  
@@ -159,16 +163,17 @@ Game_all5 <<- auto_enter_all(path=path, pattern=".jpg", start=start, stop=stop, 
                              iso_blur=iso_blur,
                              histogram_balancing=FALSE,
                              direction=direction)
+Game_all <<- Game_all 
 
 for(i in 1: (N_all-1))
-check_classification(path=path, Game_all5[[i]], n_panels = n_panels, n_rows=n_rows, n_cols=n_cols, ID=PID, game=game_names_list[i])
+check_classification(path=path, Game_all[[i]], n_panels = n_panels, n_rows=n_rows, n_cols=n_cols, ID=PID, game=game_names_list[i])
 
-annotate_batch_data(path = path, results=Game_all5, HHID=HHID, RID=RID, day=day, month=month, year=year, 
+annotate_batch_data(path = path, results=Game_all, HHID=HHID, RID=RID, day=day, month=month, year=year, 
             name = name, ID=PID, game=game, order=order, seed = seed)
 
 
 if(alert_mode == "50_Cent"){
-  set.seed(digest2int(PID))
+  set.seed(digest::digest2int(PID))
 message = rep(NA,10)
 message[1] = "Im full of focus man. my money on my mind. I got a mill out the deal, and Im still on the grind."
 message[2] = "You can find me in the club, bottle full of bub. Look, mami, I got the X, if you into taking drugs."

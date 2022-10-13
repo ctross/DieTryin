@@ -48,6 +48,8 @@ then the program will find the closest box with the legal aspect ratio. Files ar
 }
 \examples{
 \dontrun{
-standardize_photos(path=path, pattern=".jpg", start=1, stop=3, size_out=1000, border_size=10, asr=1.6180, id_range=1, id_names=NULL, spin=TRUE)
+standardize_photos(path=path, pattern=".jpg", start=1, stop=3, 
+                   size_out=1000, border_size=10, asr=1.6180, 
+                   id_range=1, id_names=NULL, spin=TRUE)
                    }
 }

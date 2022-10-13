@@ -4,6 +4,12 @@
 #' @param 
 #' path Full path to main folder.
 #' @param 
+#' pattern File extension of photos. Should be ".jpg" or ".JPG". 
+#' @param 
+#' start Location of start of PID in file name. If files are saved as "XXX.jpg" for example, this is 1.
+#' @param 
+#' stop Location of end of PID in file name. If files are saved as "XXX.jpg" for example, this is 3.
+#' @param 
 #' game Indicates which game data will be used in payout calculations. All combinations of G for the giving/allocation game, L for the leaving/taking game, and
 #' R for the reduction/punishment game, are accepted: i.e., type "G", "L", "R", "GL", "GR", "LR", or "GLR".
 #' @param 
@@ -17,7 +23,8 @@
 #' @export
 #' @examples
 #' \dontrun{
-#'   calculate_payouts(path=path, pattern=".jpg", start=1, stop=3, game="GLR", GV=1, LV=0.5, KV=1, RV=-4)
+#'   calculate_payouts(path=path, pattern=".jpg", start=1, stop=3, 
+#'                     game="GLR", GV=1, LV=0.5, KV=1, RV=-4)
 #'                    }
          
 calculate_payouts = function(path, pattern=".jpg", start=1, stop=3, game="GLR", GV=1, LV=0.5, KV=1, RV=-4){ 
@@ -186,7 +193,7 @@ Payout = tapply(Vals, GIDS, sum, na.rm=TRUE)
 }
 
 if(game=="L"){
-Vals = c(GTakeVal)
+Vals = c(TakeVal)
 GIDS = c(names(TakeVal))
 Payout = tapply(Vals, GIDS, sum, na.rm=TRUE)
 }
@@ -218,6 +225,7 @@ Payout = tapply(Vals, GIDS, sum, na.rm=TRUE)
 print(Payout)
 
 Payouts<<-Payout
+Payouts<-Payout
 
 write.csv(Payout,paste0(path,"/Results/Payouts.csv"))
 }

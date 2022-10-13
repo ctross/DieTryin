@@ -19,14 +19,14 @@
   {
 
     ###################################### Get reference set hue spectra
-    path_refset = list.files(path_refset, full=TRUE)
+    path_refset = list.files(path_refset, full.names=TRUE)
 
     refset_long = refset_img = vector("list", length(path_refset))
 
     for(i in 1: length(path_refset)){
-     refset_img[[i]] = load.image(path_refset[[i]])
-     refset_img_small = resize(refset_img[[i]], d_x, d_y, interpolation_type = 3, centering_x = 0, centering_y = 0)
-     refsetHSL = RGBtoHSL(refset_img_small)
+     refset_img[[i]] = imager::load.image(path_refset[[i]])
+     refset_img_small = imager::resize(refset_img[[i]], d_x, d_y, interpolation_type = 3, centering_x = 0, centering_y = 0)
+     refsetHSL = imager::RGBtoHSL(refset_img_small)
      refset_long[[i]] =  as.vector(table(c(floor(refsetHSL[,,1]+1), c(1:360)))) - 1
      }
 
@@ -40,10 +40,10 @@
     imgs = vector("list", length(path_imgs))
     locs = vector("list", length(path_imgs))
     for (i in 1:length(imgs)) {
-        imgs[[i]] = load.image(path_imgs[i])
+        imgs[[i]] = imager::load.image(path_imgs[i])
      
         if(dim(imgs[[i]])[1] > dim(imgs[[i]])[2]) {
-                imgs[[i]] = imrotate(imgs[[i]], 90)
+                imgs[[i]] = imager::imrotate(imgs[[i]], 90)
             }
 
             locs[[i]] = grabPointAuto(img = imgs[[i]], ref_set = refset, d_x = d_x, d_y = d_y)
@@ -53,7 +53,7 @@
 
 
  if(plot_corners==TRUE){
-    windows()
+    dev.new()
     plot(imgs[[i]])
     points(locs[[i]][1,1],locs[[i]][1,2], pch=20, cex=2.5, col="red")
     segments(locs[[i]][1,1], locs[[i]][1,2], locs[[i]][2,1], locs[[i]][2,2], lwd=2, col="red")

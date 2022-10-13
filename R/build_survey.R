@@ -24,14 +24,13 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' build_survey(path=path, pattern=".jpg", start=1, stop=3, n_panels=2, n_rows=4, n_cols=5, seed=1, ordered = sorted_ids)
+#' build_survey(path=path, pattern=".jpg", start=1, stop=3, 
+#'              n_panels=2, n_rows=4, n_cols=5, seed=1, 
+#'              ordered = sorted_ids)
 #'                    }
   
 build_survey = function(path, pattern=".jpg", start=1, stop=3, n_panels=4, n_rows=5, n_cols=8, seed=1, ordered = NULL ){
- require(xtable)
- require(readr)  
- require(tools) 
-  
+
  path_out = paste0(path,"/Survey")
   
   if(is.null(ordered)){
@@ -59,7 +58,7 @@ SortedIDS = c(SortedIDS,rep("~~~~",(n_panels*n_rows*n_cols - L)) )
  x[[i]] = xtable_custom(X[,c(1:n_cols)+n_cols*(i-1)])
  
 Code = c()
-Code[1] = read_file(paste0(path,"/Survey/","header.txt"))
+Code[1] = readr::read_file(paste0(path,"/Survey/","header.txt"))
 Code[2] = seed
 Code[3] = " \\\\[12pt] \\end{fshaded}"
      

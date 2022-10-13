@@ -16,17 +16,17 @@ grab_points = function(path_imgs, pre_processed=FALSE){
   locs = vector("list",length(path_imgs))
   
    for(i in 1:length(imgs)){
-    imgs[[i]] = load.image(path_imgs[i])
+    imgs[[i]] = imager::load.image(path_imgs[i])
 
      if(pre_processed==FALSE){
 
       if(dim(imgs[[i]])[1]>dim(imgs[[i]])[2]){
-        imgs[[i]] = imrotate(imgs[[i]],90)}
+        imgs[[i]] = imager::imrotate(imgs[[i]],90)}
 
-      loc1 = grabPoint(imgs[[i]])  
-      loc2 = grabPoint(imgs[[i]])  
-      loc3 = grabPoint(imgs[[i]])  
-      loc4 = grabPoint(imgs[[i]])  
+      loc1 = imager::grabPoint(imgs[[i]])  
+      loc2 = imager::grabPoint(imgs[[i]])  
+      loc3 = imager::grabPoint(imgs[[i]])  
+      loc4 = imager::grabPoint(imgs[[i]])  
 
        locs[[i]] = rbind(loc1,loc2,loc3,loc4)
         }

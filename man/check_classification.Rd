@@ -35,6 +35,7 @@ is not good, then tweak parameters until classification is accurate. Photos are 
 }
 \examples{
 \dontrun{
- check_classification(path=path, dat[[1]], n_panels = 2, n_rows=4, n_cols=5, ID="SK1", game="FriendshipsData")
+ check_classification(path=path, dat[[1]], n_panels = 2, n_rows=4, n_cols=5, 
+                      ID="SK1", game="FriendshipsData")
                    }
 }

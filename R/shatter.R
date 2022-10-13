@@ -48,9 +48,9 @@ shatter = function(image, locations, n_rows = 5, n_cols = 9, lower_hue_threshold
   pruned_image = image
  }
 
- rows_image = imsplit(pruned_image,"y",n_rows)
+ rows_image = imager::imsplit(pruned_image,"y",n_rows)
  for(i in 1:n_rows){
- slice_image = imsplit(rows_image[[i]],"x",n_cols)  
+ slice_image = imager::imsplit(rows_image[[i]],"x",n_cols)  
  for(j in 1:n_cols){
   for(k in 1: length(lower_hue_threshold)){
    results[i,j,k] = counter(slice_image[[j]], lower_hue_threshold=lower_hue_threshold[k], upper_hue_threshold=upper_hue_threshold[k], 

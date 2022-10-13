@@ -7,7 +7,9 @@
 say_something(message, voice)
 }
 \arguments{
-\item{stuff}{the voice to use.}
+\item{message}{The message to read.}
+
+\item{voice}{The voice to use.}
 }
 \description{
 This is a helper function.

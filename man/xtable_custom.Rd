@@ -8,6 +8,8 @@ xtable_custom(x, ...)
 }
 \arguments{
 \item{x}{An object.}
+
+\item{...}{Additional arguments to xtable.}
 }
 \description{
 This is just a helper function to reformat xtable output

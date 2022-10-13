@@ -14,9 +14,8 @@
 
 extractor = function(image, locations, histogram_balancing=FALSE, direction="backward"){
   # extractor takes in a raw image file and corner locations, and unwarps image
-   require(MASS)
-   require(imager)
-
+  x = NULL
+  y = NULL
   ####################### First get four corners of image in order: top left, top right, bottom right, bottom left
   loc1 = locations[1,]  
   loc2 = locations[2,] 
@@ -55,7 +54,7 @@ extractor = function(image, locations, histogram_balancing=FALSE, direction="bac
   A2[,3] = A2[,3]*Y2[3]
 
  ### Transformation matrix
-  C = A2 %*% ginv(A)
+  C = A2 %*% MASS::ginv(A)
  
  ### Define backwards map function for imager
   map_F = function(x,y){
@@ -81,19 +80,19 @@ extractor = function(image, locations, histogram_balancing=FALSE, direction="bac
    }
    
    if(direction=="backward"){
-   img_warp = imwarp(image, map=map_B, direction="backward", coordinates="absolute") 
+   img_warp = imager::imwarp(image, map=map_B, direction="backward", coordinates="absolute") 
                              }
    if(direction=="forward"){
-   img_warp = imwarp(image, map=map_F, direction="forward", coordinates="absolute") 
+   img_warp = imager::imwarp(image, map=map_F, direction="forward", coordinates="absolute") 
                              }
-   img_cut = imsub(img_warp, x < W, y < H) # %>% plot
+   img_cut = imager::imsub(img_warp, x < W, y < H) # %>% plot
 
   #Split across colour channels,
   if(histogram_balancing==TRUE){
-  hist.eq = function(im) as.cimg(ecdf(im)(im),dim=dim(im))
-  cn = imsplit(img_cut,"c")
-  cn.eq = map_il(cn,hist.eq) #run hist.eq on each
-  img_cut = imappend(cn.eq,"c") 
+  hist.eq = function(im) imager::as.cimg(ecdf(im)(im),dim=dim(im))
+  cn = imager::imsplit(img_cut,"c")
+  cn.eq = imager::map_il(cn,hist.eq) #run hist.eq on each
+  img_cut = imager::imappend(cn.eq,"c") 
    }
  return(img_cut)
 }
