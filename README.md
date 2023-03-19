@@ -168,7 +168,10 @@ In order to set the right parameters for lower_hue_threshold and upper_hue_thres
 # get_hue(file.choose()) # will allow you to select a pictures without having to input the file path directly
 ```
 
-Now, we can run a quick example of automatic data entry. For automatic entry, set automate = TRUE. Data will be saved in appropriate folders. If the images are tricky and need manual corner-clicking, just set automate = FALSE. The user must then click the top-left corner of the photograph array, then the top-right, bottom-right, and bottom-left, in that order. This provides DieTryin with the information needed to crop-out only the photograph array, and correct any rotations or distortions. The user will need to process the blank boards and the boards for at least one other question/game. 
+Now, we can run a quick example of automatic data entry. For automatic entry, set automate = TRUE. Data will be saved in appropriate folders. 
+Just make sure to put the reference chip <img align="right" src="https://github.com/ctross/DieTryin/blob/master/reference_chip.jpg" alt="logo" width="60"> in each corner of the roster, and add some example pictures of the reference chip to the "Reference Chip" folder.
+
+If the images are tricky and need manual corner-clicking, just set automate = FALSE. The user must then click the top-left corner of the photograph array, then the top-right, bottom-right, and bottom-left, in that order. This provides DieTryin with the information needed to crop-out only the photograph array, and correct any rotations or distortions. The user will need to process the blank boards and the boards for at least one other question/game. 
 ```{r}
 classify(
   path=path,
