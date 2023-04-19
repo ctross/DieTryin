@@ -191,7 +191,7 @@ message[11] = "Death gotta be easy. cause life is hard. Itll leave you physicall
 }
 
 if(alert_mode == "Beep"){
- message = "Beep. Beep. Your data are entered."
+ message = "putt-putt-vraow-chatter-chatter bye mr. fibonacci!"
  say_something(message=message, voice="Zira")
 }
 
