@@ -22,6 +22,7 @@ setup_folders = function(path=path, add=NULL){
   dir.create(file.path(paste0(path,"/","RICH"),"ResultsPhotos"))
   dir.create(file.path(paste0(path,"/","RICH"),"ResultsPhotosSmall"))
   dir.create(file.path(paste0(path,"/","RICH"),"ReferenceChip"))
+  dir.create(file.path(paste0(path,"/","RICH"),"PhotosToPrint"))
 
   dir.create(file.path(paste0(path,"/","RICH"),"SubsetContributions"))
   dir.create(file.path(paste0(path,"/","RICH"),"SubsetSurveys"))
