@@ -21,3 +21,6 @@ utils::globalVariables(c("res"))
 utils::globalVariables(c("res.all"))
 utils::globalVariables(c("headpage"))
 utils::globalVariables(c("headpage2"))  
+
+# Enter subset data
+utils::globalVariables(c("d_Top")) 

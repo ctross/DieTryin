@@ -1,4 +1,4 @@
-#' Build subset-RICH surveys (e.g., for partner choice or PG games.)
+#' Build RICH subset surveys (e.g., for partner choice or PG games.)
 #' 
 #' This is a small helper function to create suveys (PDFs) to collect data for PGG contributions and similar games.
 #'
@@ -6,25 +6,18 @@
 #' @param pid ID code of focal recipient.
 #' @param id_set IDs of alter recipients (as vector).
 #' @param game_name Used to label PDF surveys.
-#' @param set_size Size of set of possible alters.
-#' @param token_color "color" of tokens placed. If data was entered manually, place whatever value was stored to indiciate a tie: "1"
 #' @param pattern Should JPG be jpg be used to load photos?
 #' @param height Size of PDF output.
 #' @param width Size of PDF output.
 #' @param seed Number to use in RNG.
 #' @param gid_size Number of terms in hashcodes for the game IDs.
-#' @param max_iter Max time to search for full-scope legal permutations.
-#' @return A file folder, SubsetSurveys, full of selective sub-surveys to run, and a second folder, SubsetContributions, full of csv files to stord=e results.
+#' @return A file folder, SubsetSurveys, filled with PDFs of sub-surveys to run, and a second folder, SubsetContributions, 
+#'  filled with CSV files that will be used to record survey results.
 #' @export
-#' @examples
-#' \dontrun{
-#' subset_survey_compiler_partner_choice(path, pattern = ".jpg", token_color="navyblue", set_size=4, 
-#'                                  height=8.5, width=11, seed=123, gid_size=4, max_iter=10000)
-#' }
 #'
-subset_survey_compiler_predefined = function(path, pid=NULL, id_set=NULL, pattern = ".jpg", token_color="navyblue", 
-                                         set_size=4, height=8.5, width=11, seed=123, 
-                                         max_iter=10000, gid_size=4, game_name="Predefined"){
+subset_survey_compiler_predefined = function(path, pid=NULL, id_set=NULL, pattern = ".jpg",  
+                                         height=8.5, width=11, seed=123, 
+                                         gid_size=4, game_name="Predefined"){
     # Set random number generator seed to make repeatable game IDS
       if(!is.na(seed)){
        set.seed(seed)

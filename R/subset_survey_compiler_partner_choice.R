@@ -1,23 +1,24 @@
-#' Build subset-RICH surveys (e.g., for partner choice or PG games.)
+#' Build RICH subset surveys (e.g., for partner choice or PG games.)
 #' 
 #' This is a small helper function to create suveys (PDFs) to collect data for PGG contributions and similar games.
 #'
 #' @param path Path to RICH folder.
 #' @param game_name Used to label PDF surveys.
 #' @param set_size Size of set of possible alters.
-#' @param token_color "color" of tokens placed. If data was entered manually, place whatever value was stored to indiciate a tie: "1"
-#' @param pattern Should JPG be jpg be used to load photos?
+#' @param token_color "color" of tokens placed. If data was entered manually, place whatever value was stored 
+#'  to indiciate a tie: e.g., "1"
+#' @param pattern Should "JPG" be "jpg" be used to load photos?
 #' @param height Size of PDF output.
 #' @param width Size of PDF output.
-#' @param seed Number to use in RNG.
-#' @param gid_size Number of terms in hashcodes for the game IDs.
-#' @param max_iter Max time to search for full-scope legal permutations.
-#' @return A file folder, SubsetSurveys, full of selective sub-surveys to run, and a second folder, SubsetContributions, full of csv files to stord=e results.
+#' @param seed Number to use in seeding randomizer. Not applicable with choice data.
+#' @param gid_size Number of characters in hashcodes for the game IDs.
+#' @return A file folder, SubsetSurveys, filled with PDFs of sub-surveys to run, and a second folder, SubsetContributions, 
+#'  filled with CSV files that will be used to record survey results.
 #' @export
 #' @examples
 #' \dontrun{
 #' subset_survey_compiler_partner_choice(path, pattern = ".jpg", token_color="navyblue", set_size=4, 
-#'                                  height=8.5, width=11, seed=123, gid_size=4, max_iter=10000)
+#'                                  height=8.5, width=11, seed=123, gid_size=4)
 #' }
 #'
 subset_survey_compiler_partner_choice = function(path, pattern = ".jpg", token_color="navyblue", 
@@ -90,8 +91,8 @@ subset_survey_compiler_partner_choice = function(path, pattern = ".jpg", token_c
         dev.off()
 
         ###### Now Build csv
-         header = cbind(c("HHID", "RID", "Day", "Month", "Year", "Name", "ID", "Game", "Order", "Seed", "GID"), c(rep(NA, 6), legal_set[i,1], game_name , NA, seed, GID))
-         header2 = cbind(c(paste0("Offer_", c(1:(set_size+1))),paste0("AID_", c(1:(set_size+1)))), c(rep(NA, set_size +1),legal_set[i,]))
+         header = cbind(c("HHID", "RID", "Day", "Month", "Year", "Name", "ID", "Game", "Order", "Seed", "GID"), c(rep(NA, 6), PID, game_name , NA, seed, GID))
+         header2 = cbind(c(paste0("Offer_", c(1:(set_size+1))),paste0("AID_", c(1:(set_size+1)))), c(rep(NA, set_size +1),IDs))
 
          output = rbind(header,header2) 
          colnames(output) = c("Variable","Data")

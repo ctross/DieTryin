@@ -2,7 +2,7 @@
 #'
 #' This function allows you to make automatic data entry more accurate by filtering out token color from the photo roster. Simply set a path to the main folder. 
 #' Then supply an ID code and the token color vectors and shift angles. It is recomended to use cool token colors (e.g., green, blue, and purple), and shift all
-#' token colors in the standized photos twoards warmer yellow, red, and orange hues.
+#' token colors in the standized photos towards warmer yellow, red, and orange hues.
 #' @param 
 #' path Full path to main folder.
 #' @param 
@@ -37,11 +37,11 @@ clean_colors = function(path=path,
    }
 
   img = imager::load.image(path_img)
-  img2 = RGBtoHSL(img)
+  img2 = imager::RGBtoHSL(img)
   img3 = img2
   for(k in 1:length(rotation_angle))
   img3[,,1,1] = ifelse((img3[,,1,1] > lower_hue_threshold[k]) & (img3[,,1,1]<upper_hue_threshold[k]),(img3[,,1,1] + rotation_angle[k]) %% 360, img3[,,1,1]) 
-  img4 = HSLtoRGB(img3)
+  img4 = imager::HSLtoRGB(img3)
   if(mode=="test"){
    plot(img4)
   }

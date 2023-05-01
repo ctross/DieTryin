@@ -1,18 +1,19 @@
-#' A function to remove token colors from standardized photos
+#' A function to remove token hues from standardized photos
 #'
-#' This function allows you to make automatic data entry more accurate by filtering out token color from the photo roster. Simply set a path to the main folder. 
-#' Then supply the token color vectors and shift angles. It is recomended to use cool token colors (e.g., green, blue, and purple), and shift all
-#' token colors in the standized photos twoards warmer yellow, red, and orange hues. All photos in StandardizedPhotos will be updated and saved in PhotosToPrint.
-#' @param 
-#' path Full path to main folder.
-#' @param 
-#' lower_hue_threshold A vector of lower hue thresholds for each token color. To use three token colors, instead of the single token in the defaults, use: e.g., c(120, 210, 330).
-#' @param 
-#' upper_hue_threshold A vector of upper hue thresholds for each token color. To use three token colors, instead of the single token in the defaults, use: e.g., c(150, 250, 355).
-#' @param 
-#' rotation_angle A vector of angles with which to shift colors inside of the token range. Values are specified in degree: e.g., c(-65, 70, 40). Calculations are made mod 360.
-#' @param 
-#' verbose If TRUE, print which photo is being saved.
+#' This function allows you to make automatic data entry more accurate by filtering out token color from the photo 
+#' roster. Simply set a path to the main folder. Then supply the token color vectors and shift angles. It is 
+#' recomended to use cool token colors (e.g., green, blue, and purple), and shift all token hues in the standized 
+#' photos twoards warmer yellow, red, and orange hues. All photos in the StandardizedPhotos folder will be updated  
+#' and saved in the PhotosToPrint folder. With token hues removed from the photo-roster, automatic token detection and
+#' classification is much more acurrate, as there a fewer false positives arising from background colors.
+#' @param path Full path to main folder.
+#' @param lower_hue_threshold A vector of lower hue thresholds for each token color. 
+#'  To use three token colors, use: e.g., c(120, 210, 330).
+#' @param upper_hue_threshold A vector of upper hue thresholds for each token color. 
+#'  To use three token colors, use: e.g., c(150, 250, 355).
+#' @param rotation_angle A vector of angles with which to shift colors inside of the token range. 
+#'  Values are matched to the hue thresholds and specified in degree: e.g., c(-65, 70, 40). Calculations are made mod 360.
+#' @param  verbose If TRUE, print which photo is being saved.
 #' @export
 
 remove_color_collisions = function(path=path,

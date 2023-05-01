@@ -1,8 +1,8 @@
-#' A function to compile individual subset-RICH CSVs into a flat database
-#' Useful for partner choice and PGG games.
+#' A function to compile individual CSVs in the SubsetContributions folder into a flat database.
+#' Used to create a database after each individual record is entered.
 #'
 #' @param path Path to RICH folder.
-#' @return A CSV of compiled subset-RICH contributions will be added to the Results folder.
+#' @return A CSV of compiled contribution records will be added to the Results folder.
 #' @export
 #' @examples
 #' \dontrun{
@@ -18,12 +18,12 @@ compile_subset_survey_data = function(path=path){
   Basic[[i]] = matrix(read.csv(paste0(path,"/","SubsetContributions","/",files[i]),stringsAsFactors = FALSE, header = FALSE))
    }
 
- Nc<-c()
+ Nc = c()
  for(i in 1:length(files)){
    Nc[i] = length(Basic[[i]][[1]])
    }
 
- Nk<-c()
+ Nk = c()
  for(i in 1:length(files)){
    Nk[i] = length(matrix(read.csv(paste0(path,"/","SubsetContributions","/",files[i]),stringsAsFactors = FALSE)))
    }
@@ -35,6 +35,6 @@ compile_subset_survey_data = function(path=path){
    Data[i,] = Basic[[i]][[2]]
    }                         
  
-   write.csv(Data, file=paste0(path,"/","Results/","SubsetContributions","-SummaryTable.csv"),row.names = FALSE)
+ write.csv(Data, file=paste0(path,"/","Results/","SubsetContributions","-SummaryTable.csv"),row.names = FALSE)
  }
 

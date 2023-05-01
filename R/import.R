@@ -10,4 +10,8 @@ NULL
 NULL
 #' @importFrom grDevices dev.new
 NULL
+#' @importFrom grDevices pdf
+NULL
+#' @importFrom graphics mtext par text
+NULL
 

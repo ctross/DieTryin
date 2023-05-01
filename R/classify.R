@@ -185,13 +185,13 @@ message[7] = "If the roof on fire, let the motherfucker burn. If you talking bou
 message[8] = "You shouldnt throw stones if you live in a glass house. And if you got a glass jaw, you should watch your mouth."
 message[9] = "We only humans, girl, we make mistakes. To make it up, aisle do whatever it take."
 message[10] = "If I was down, would you say things to make me smile? aisle treat you how you want to be treated, just teach me how."
-message[11] = "Death gotta be easy. cause life is hard. Itll leave you physically, mentally, and emotionally scarred."
+message[11] = "Death gotta be easy. cause life is hard. It ill leave you physically, mentally, and emotionally scarred."
 
  say_something(message=message[ceiling(runif(1, 0, 10.9999))], voice="Zira")
 }
 
 if(alert_mode == "Beep"){
- message = "putt-putt-vraow-chatter-chatter bye mr. fibonacci!"
+ message = "Beep. Beep. Your data are entered."
  say_something(message=message, voice="Zira")
 }
 

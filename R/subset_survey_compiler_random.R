@@ -1,18 +1,20 @@
-#' Build subset-RICH surveys (e.g., for partner choice or PG games.)
+#' Build RICH subset surveys (e.g., for partner choice or PG games.)
 #' 
 #' This is a small helper function to create suveys (PDFs) to collect data for PGG contributions and similar games.
 #'
 #' @param path Path to RICH folder.
 #' @param game_name Used to label PDF surveys.
 #' @param set_size Size of set of possible alters.
-#' @param token_color "color" of tokens placed. If data was entered manually, place whatever value was stored to indiciate a tie: "1"
-#' @param pattern Should JPG be jpg be used to load photos?
+#' @param token_color "color" of tokens placed. If data was entered manually, place whatever value was stored 
+#'  to indiciate a tie: e.g., "1"
+#' @param pattern Should "JPG" be "jpg" be used to load photos?
 #' @param height Size of PDF output.
 #' @param width Size of PDF output.
-#' @param seed Number to use in RNG.
-#' @param gid_size Number of terms in hashcodes for the game IDs.
-#' @param max_iter Max time to search for full-scope legal permutations.
-#' @return A file folder, SubsetSurveys, full of selective sub-surveys to run, and a second folder, SubsetContributions, full of csv files to stord=e results.
+#' @param seed Number to use in seeding the randomizer.
+#' @param gid_size Number of characters in hashcodes for the game IDs.
+#' @param max_iter Max time to search for legal permutations.
+#' @return A file folder, SubsetSurveys, full of PDFs of subset-surveys to run, and a second folder,
+#'  SubsetContributions, full of CSV files to store results.
 #' @export
 #' @examples
 #' \dontrun{
@@ -65,7 +67,13 @@ subset_survey_compiler_random = function(path, pattern = ".jpg", token_color="na
            }
          }
 
-    # Loop over each CSV file, and build a PDF survey and a CSV for data entry 
+     # Loop over each CSV file, and build a PDF survey and a CSV for data entry 
+     # Now load the photos into R
+        path_imgs_small = paste0(path, "/StandardizedPhotos/")
+        
+        to_read = list.files(path_imgs_small, full.names=TRUE)
+        to_read_short = list.files(path_imgs_small)
+
       # Make photo set 
       for(i in 1:length(files)){
        photoset = list()
