@@ -1,4 +1,4 @@
-#' @importFrom grDevices dev.off jpeg windows
+#' @importFrom grDevices dev.off jpeg
 NULL
 #' @importFrom graphics points segments
 NULL
