@@ -45,12 +45,12 @@ subset_survey_compiler_random = function(path, pattern = ".jpg", token_color="na
        bob = read.csv(files[i])
        legal_IDS[i] = bob[6,2]
            }
-
+           
+       N_legal = length(legal_IDS)
+       
        if(full_alter_set==TRUE){
         legal_IDS = unique(na.omit(bob$AlterID))  
        }
-       
-       N_legal = length(legal_IDS)
        
        legal_set[,1] = sample(legal_IDS, N_legal, replace=FALSE)
 
