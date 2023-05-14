@@ -52,7 +52,7 @@ subset_survey_compiler_random = function(path, pattern = ".jpg", token_color="na
        
        N_legal = length(legal_IDS)
        
-       legal_set[,1] = legal_IDS
+       legal_set[,1] = sample(legal_IDS, N_legal, replace=FALSE)
 
        for(i in 1:set_size){
         legal_set[, i+1] = sample(legal_IDS, N_legal, replace=FALSE)
