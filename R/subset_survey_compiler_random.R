@@ -50,10 +50,12 @@ subset_survey_compiler_random = function(path, pattern = ".jpg", token_color="na
         legal_IDS = unique(na.omit(bob$AlterID))  
        }
        
+       N_legal = length(legal_IDS)
+       
        legal_set[,1] = legal_IDS
 
        for(i in 1:set_size){
-        legal_set[, i+1] = sample(legal_IDS, replace=FALSE)
+        legal_set[, i+1] = sample(legal_IDS, N_legal, replace=FALSE)
 
         fail = 0
         ticker = 1
@@ -66,7 +68,7 @@ subset_survey_compiler_random = function(path, pattern = ".jpg", token_color="na
            }
          fail=ifelse(prod(fail_long)==0,0,1)
           if(fail==0){
-           legal_set[, i+1] = sample(legal_IDS, replace=FALSE)
+           legal_set[, i+1] = sample(legal_IDS, N_legal, replace=FALSE)
            }
           ticker = ticker + 1
            }
