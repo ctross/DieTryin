@@ -11,6 +11,7 @@
 #' @param height Size of PDF output.
 #' @param width Size of PDF output.
 #' @param seed Number to use in seeding the randomizer.
+#' @param full_alter_set Include all alters on roster, or only those who played first round of game?
 #' @param gid_size Number of characters in hashcodes for the game IDs.
 #' @param max_iter Max time to search for legal permutations.
 #' @return A file folder, SubsetSurveys, full of PDFs of subset-surveys to run, and a second folder,
@@ -24,7 +25,7 @@
 #'
 
 subset_survey_compiler_random = function(path, pattern = ".jpg", token_color="navyblue", 
-                                         set_size=4, height=8.5, width=11, seed=123, 
+                                         set_size=4, height=8.5, width=11, seed=123, full_alter_set = TRUE, 
                                          max_iter=10000, gid_size=4, game_name="Random"){
     # Set random number generator seed to make repeatable game IDS
       if(!is.na(seed)){
@@ -44,7 +45,11 @@ subset_survey_compiler_random = function(path, pattern = ".jpg", token_color="na
        bob = read.csv(files[i])
        legal_IDS[i] = bob[6,2]
            }
-         
+
+       if(full_alter_set==TRUE){
+        legal_IDS = unique(na.omit(bob$AlterID))  
+       }
+       
        legal_set[,1] = legal_IDS
 
        for(i in 1:set_size){
@@ -124,4 +129,3 @@ subset_survey_compiler_random = function(path, pattern = ".jpg", token_color="na
 
        }
 }
-
