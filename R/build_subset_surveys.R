@@ -36,7 +36,7 @@
 #'
 
 build_subset_surveys = function (path, pid=NULL, id_set=NULL, game_name="Choice", entry_type="random", set_size=4, 
-                                    pattern = ".jpg", token_color="navyblue",  max_iter=10000, 
+                                    pattern = ".jpg", token_color="navyblue",  max_iter=10000, full_alter_set = TRUE,
                                     height=8.5, width=11, seed=NA, gid_size=4){
 
   ################################################################## Build Selection
