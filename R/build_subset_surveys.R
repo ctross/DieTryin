@@ -16,6 +16,7 @@
 #' @param set_size Size of set of possible alters.
 #' @param token_color Number or "color" of tokens placed. If data was entered manually, place whatever value was stored 
 #'  to indiciate a tie: "1"
+#' @param full_alter_set Include all alters on roster, or only those who played first round of game?
 #' @param pattern Should "JPG" be "jpg" file endings be used to load photos?
 #' @param height Size of PDF output.
 #' @param width Size of PDF output.
@@ -28,7 +29,7 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' build_subset_surveys(path, pattern = ".jpg", token_color="navyblue", 
+#' build_subset_surveys(path, pattern = ".jpg", token_color="navyblue", full_alter_set = TRUE,
 #'                       entry_type="random", max_iter=10000, set_size=4, 
 #'                       height=8.5, width=11, seed=123, gid_size=4)
 #' }
@@ -47,7 +48,8 @@ build_subset_surveys = function (path, pid=NULL, id_set=NULL, game_name="Choice"
   ################################################################## Build Random
   else if(entry_type=="random"){
    subset_survey_compiler_random(path=path, token_color=token_color, game_name=game_name, max_iter=max_iter, set_size=set_size, 
-                                 height=height, width=width, pattern = pattern, seed=seed, gid_size=gid_size)     
+                                 full_alter_set = full_alter_set, height=height, width=width, pattern = pattern, seed=seed, 
+                                 gid_size=gid_size)     
    }
 
   ################################################################## Build Selection
