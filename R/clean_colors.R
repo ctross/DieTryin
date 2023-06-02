@@ -78,7 +78,7 @@ clean_colors = function(path=path,
     img2b = img2[,,2]
     img2c = img2[,,3]
 
-    imgP = img %>% imager::grayscale
+    imgP = imager::grayscale(img)
     px = imgP > high_intensity_thresh
     pz = imgP < low_intensity_thresh
 
