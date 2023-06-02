@@ -65,6 +65,7 @@
  
  for(i in 1:n_panels){
  x[[i]] = X[,c(1:n_cols)+n_cols*(i-1)]
+ x[[i]] = t(x[[i]]) 
 
  imgs = magick::image_read(paste0(path,"/PhotosToPrint/",c(x[[i]])))
  chip = imager::cimg2magick(imager::load.image(paste0(path,"/Survey/","reference_chip.jpg")))
