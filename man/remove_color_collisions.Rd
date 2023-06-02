@@ -6,25 +6,55 @@
 \usage{
 remove_color_collisions(
   path = path,
-  lower_hue_threshold = c(120, 270, 185),
-  upper_hue_threshold = c(180, 330, 210),
-  rotation_angle = c(-65, 70, 40),
-  verbose = FALSE
+  mix_histogram = 0.8,
+  high_intensity_thresh = 0.8,
+  low_intensity_thresh = 0.2,
+  moderate_intensity = 0.8,
+  blur_intensity = 2,
+  blur_saturation = 2,
+  mean_intensity = 0.5,
+  mean_saturation = 0.15,
+  rotate_wheel = 30,
+  endpoint = 100,
+  lower_hue_threshold = 110,
+  upper_hue_threshold = 330,
+  saturation_limit_recolor = 0.2,
+  mode = "test",
+  verbose = TRUE
 )
 }
 \arguments{
 \item{path}{Full path to main folder.}
 
-\item{lower_hue_threshold}{A vector of lower hue thresholds for each token color. 
-To use three token colors, use: e.g., c(120, 210, 330).}
+\item{mix_histogram}{A scalar on (0,1) to mix orginal intensity and balanced histogram of intensity.}
 
-\item{upper_hue_threshold}{A vector of upper hue thresholds for each token color. 
-To use three token colors, use: e.g., c(150, 250, 355).}
+\item{high_intensity_thresh}{Limit at which to moderate overexposed areas.}
 
-\item{rotation_angle}{A vector of angles with which to shift colors inside of the token range. 
-Values are matched to the hue thresholds and specified in degree: e.g., c(-65, 70, 40). Calculations are made mod 360.}
+\item{low_intensity_thresh}{Limit at which to lighten underexposed areas.}
 
-\item{verbose}{If TRUE, print which photo is being saved.}
+\item{moderate_intensity}{Scale factor with which we correct high and low intensity areas.}
+
+\item{blur_intensity}{Blur applied to intensity layer to smooth out threshold artifacts.}
+
+\item{blur_saturation}{Blur applied to saturation layer to smooth out threshold artifacts.}
+
+\item{mean_intensity}{Average intensity in final image.}
+
+\item{mean_saturation}{Average saturation in final image.}
+
+\item{rotate_wheel}{Angle to rotate color wheel before removing token colors. Its beter to start at slightly purple than red.}
+
+\item{endpoint}{Upper limit of hues after mapping.}
+
+\item{lower_hue_threshold}{Any hue above this, but below the upper threshold, will get mapped to the interval between 0 and endpoint.}
+
+\item{upper_hue_threshold}{Any hue below this, but above the lower threshold, will get mapped to the interval between 0 and endpoint.}
+
+\item{saturation_limit_recolor}{Saturation limit above which token colors are rotated out of image.}
+
+\item{mode}{Set to "test", to check photos by hand. The "save" option is used only by remove_color_collisions.}
+
+\item{verbose}{Set to TRUE to plot orginal and processsed images}
 }
 \description{
 This function allows you to make automatic data entry more accurate by filtering out token color from the photo 

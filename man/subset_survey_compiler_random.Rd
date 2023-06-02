@@ -12,6 +12,7 @@ subset_survey_compiler_random(
   height = 8.5,
   width = 11,
   seed = 123,
+  full_alter_set = TRUE,
   max_iter = 10000,
   gid_size = 4,
   game_name = "Random"
@@ -32,6 +33,8 @@ to indiciate a tie: e.g., "1"}
 \item{width}{Size of PDF output.}
 
 \item{seed}{Number to use in seeding the randomizer.}
+
+\item{full_alter_set}{Include all alters on roster, or only those who played first round of game?}
 
 \item{max_iter}{Max time to search for legal permutations.}
 

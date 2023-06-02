@@ -14,6 +14,7 @@ build_subset_surveys(
   pattern = ".jpg",
   token_color = "navyblue",
   max_iter = 10000,
+  full_alter_set = TRUE,
   height = 8.5,
   width = 11,
   seed = NA,
@@ -47,6 +48,8 @@ to indiciate a tie: "1"}
 \item{max_iter}{Max time to search for full-scope legal permutations. In random mode, we seek to ensure that each
 alter appears in exactly the same number of games. Thus, we iterate randomizations until we find such a set.}
 
+\item{full_alter_set}{Include all alters on roster, or only those who played first round of game?}
+
 \item{height}{Size of PDF output.}
 
 \item{width}{Size of PDF output.}
@@ -64,7 +67,7 @@ This is a wraper function to create suveys (PDFs) to collect data for RICH-PGG c
 }
 \examples{
 \dontrun{
-build_subset_surveys(path, pattern = ".jpg", token_color="navyblue", 
+build_subset_surveys(path, pattern = ".jpg", token_color="navyblue", full_alter_set = TRUE,
                       entry_type="random", max_iter=10000, set_size=4, 
                       height=8.5, width=11, seed=123, gid_size=4)
 }

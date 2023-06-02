@@ -2,7 +2,7 @@
 NULL
 #' @importFrom graphics points segments
 NULL
-#' @importFrom stats dist median ecdf runif
+#' @importFrom stats dist median ecdf runif aggregate na.omit
 NULL
 #' @importFrom utils data.entry read.csv write.csv write.table
 NULL
@@ -12,6 +12,9 @@ NULL
 NULL
 #' @importFrom grDevices pdf
 NULL
-#' @importFrom graphics mtext par text
+#' @importFrom graphics mtext par text layout
 NULL
+#' @importFrom magrittr %>%
+NULL
+
 

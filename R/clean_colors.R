@@ -12,41 +12,109 @@
 #' @param 
 #' id_short ID code plus .jpg extension. Used by remove_color_collisions. Set to NA otherwise.
 #' @param 
-#' lower_hue_threshold A vector of lower hue thresholds for each token color. To use three token colors, instead of the single token in the defaults, use: e.g., c(120, 210, 330).
+#' mix_histogram A scalar on (0,1) to mix orginal intensity and balanced histogram of intensity. 
 #' @param 
-#' upper_hue_threshold A vector of upper hue thresholds for each token color. To use three token colors, instead of the single token in the defaults, use: e.g., c(150, 250, 355).
+#' high_intensity_thresh Limit at which to moderate overexposed areas.
 #' @param 
-#' rotation_angle A vector of angles with which to shift colors inside of the token range. Values are specified in degree: e.g., c(-65, 70, 40). Calculations are made mod 360.
+#' low_intensity_thresh Limit at which to lighten underexposed areas.
+#' @param 
+#' moderate_intensity Scale factor with which we correct high and low intensity areas.
+#' @param 
+#' blur_intensity Blur applied to intensity layer to smooth out threshold artifacts.
+#' @param 
+#' blur_saturation Blur applied to saturation layer to smooth out threshold artifacts.
+#' @param 
+#' mean_intensity Average intensity in final image.
+#' @param 
+#' mean_saturation Average saturation in final image.
+#' @param 
+#' rotate_wheel Angle to rotate color wheel before removing token colors. Its beter to start at slightly purple than red.
+#' @param 
+#' endpoint Upper limit of hues after mapping.
+#' @param 
+#' lower_hue_threshold Any hue above this, but below the upper threshold, will get mapped to the interval between 0 and endpoint.
+#' @param 
+#' upper_hue_threshold Any hue below this, but above the lower threshold, will get mapped to the interval between 0 and endpoint.
+#' @param 
+#' saturation_limit_recolor Saturation limit above which token colors are rotated out of image.
 #' @param 
 #' mode Set to "test", to check photos by hand. The "save" option is used only by remove_color_collisions. 
+#' @param 
+#' verbose Set to TRUE to plot orginal and processsed images 
 #' @export
 
 clean_colors = function(path=path, 
                         id="blank",
                         id_full=NA,
                         id_short=NA, 
-                        lower_hue_threshold = c(120, 270, 185),
-                        upper_hue_threshold = c(180, 330, 210),
-                        rotation_angle = c(-65, 70, 40),
-                        mode="test"
+                        mix_histogram = 0.8,
+                        high_intensity_thresh = 0.8,
+                        low_intensity_thresh = 0.2,
+                        moderate_intensity = 0.8,
+                        blur_intensity = 2,
+                        blur_saturation = 2,
+                        mean_intensity = 0.5,
+                        mean_saturation = 0.15,
+                        rotate_wheel = 30,
+                        endpoint = 100,
+                        lower_hue_threshold = 150,
+                        upper_hue_threshold = 330,
+                        saturation_limit_recolor = 0.15,
+                        mode="test",
+                        verbose=TRUE
                         ){
-  if(!is.na(id_full)){
-   path_img = id_full
+ ################################################################## Read in picture
+   if(!is.na(id_full)){
+    path_img = id_full
    } else{
-   path_img = paste0(path,"/StandardizedPhotos/",id,".jpg") 
+    path_img = paste0(path,"/StandardizedPhotos/",id,".jpg") 
    }
 
-  img = imager::load.image(path_img)
-  img2 = imager::RGBtoHSL(img)
-  img3 = img2
-  for(k in 1:length(rotation_angle))
-  img3[,,1,1] = ifelse((img3[,,1,1] > lower_hue_threshold[k]) & (img3[,,1,1]<upper_hue_threshold[k]),(img3[,,1,1] + rotation_angle[k]) %% 360, img3[,,1,1]) 
-  img4 = imager::HSLtoRGB(img3)
-  if(mode=="test"){
-   plot(img4)
+    img = imager::load.image(path_img)
+    img2z = img2 = imager::RGBtoHSI(img)
+
+ ################################################################## Process intensity
+    img2a = img2[,,1]
+    img2b = img2[,,2]
+    img2c = img2[,,3]
+
+    imgP = img %>% imager::grayscale
+    px = imgP > high_intensity_thresh
+    pz = imgP < low_intensity_thresh
+
+    img2c[px] = img2c[px]*moderate_intensity
+    img2c[pz] = img2c[pz]*(1/moderate_intensity)
+
+    img2c = imager::isoblur(imager::as.cimg(img2c,dim=dim(img2c)), blur_intensity) 
+    img2b = imager::isoblur(imager::as.cimg(img2b,dim=dim(img2c)), blur_saturation) 
+
+    f = ecdf(img2c)
+    img2cv2 = f(img2c) %>% imager::as.cimg(dim=dim(img2c)) 
+
+    img2c = img2c*mix_histogram + img2cv2*(1-mix_histogram)
+
+ ################################################################## Remove token colors
+  img2a = (img2a + rotate_wheel) %% 360
+  pw = (img2a < upper_hue_threshold) & (img2a > lower_hue_threshold) & (img2b[,,1,1] > saturation_limit_recolor)
+  img2a[pw] = (img2a[pw]/360)*endpoint
+
+  pw = (img2a > upper_hue_threshold) & (img2b[,,1,1] > saturation_limit_recolor)
+  img2a[pw] = (img2a[pw] + rotate_wheel) %% 360
+
+  img2a = (img2a - rotate_wheel) %% 360
+
+  img2z[,,1] = (img2a ) 
+  img2z[,,2] = img2b*(mean_saturation/mean(img2b))
+  img2z[,,3] = img2c*(mean_intensity/mean(img2c))
+  img4 = imager::HSItoRGB(img2z)
+
+ if(verbose==TRUE){
+  layout(t(1:2))
+  plot(img)
+  plot(img4)
   }
-  if(mode=="save"){
-   imager::save.image(img4, paste0(path,"/PhotosToPrint/",id_short), quality=1)  # Save image 
+
+ if(mode=="save"){
+  imager::save.image(img4, paste0(path,"/PhotosToPrint/",id_short), quality=1)  # Save image 
   }
 }
-
