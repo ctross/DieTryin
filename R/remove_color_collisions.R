@@ -54,7 +54,7 @@ remove_color_collisions = function(path=path,
                                    lower_hue_threshold = 110,
                                    upper_hue_threshold = 330,
                                    saturation_limit_recolor = 0.2,
-                                   mode="test",
+                                   mode="save",
                                    verbose=TRUE
                                    ){
 
