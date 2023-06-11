@@ -23,7 +23,8 @@
 #'
 subset_survey_compiler_partner_choice = function(path, pattern = ".jpg", token_color="navyblue", 
                                                  set_size=4, height=8.5, width=11, seed=123, 
-                                                 gid_size=4, game_name="Choice"){
+                                                 gid_size=4, game_name="Choice",
+                                                 RID="CR", day=1, month=3, year=2023){
     # Set random number generator seed to make repeatable game IDS
       if(!is.na(seed)){
        set.seed(seed)
@@ -92,15 +93,29 @@ subset_survey_compiler_partner_choice = function(path, pattern = ".jpg", token_c
 
         ###### Now Build csv
          Full_N = 8
-         header = cbind(c("HHID", "RID", "Day", "Month", "Year", "Name", "ID", "Game", "Order", "Seed", "GID"), c(rep(NA, 6), PID, game_name , NA, seed, GID))
-         header2 = cbind(c(paste0("Offer", c(1:(Full_N+1))),paste0("AID", c(1:(Full_N+1)))), c(rep(NA, Full_N +1),IDs,rep(NA,Full_N-set_size)))
+         header = cbind(c("HHID", "RID", "Day", "Month", "Year", "Name", "ID", "Game", "Order", "Seed", "GID"), c(c('',RID,day,month,year,''), PID, game_name , '', seed, GID))
+         header2 = cbind(c(paste0("Offer", c(1:(Full_N+1))),paste0("AID", c(1:(Full_N+1)))), c(rep('', Full_N +1),IDs,rep("BLANK",Full_N-set_size)))
 
          output = rbind(header,header2) 
          colnames(output) = c("Variable","Data")
 
          write.csv(output, paste0(path, "/SubsetContributions/", GID,".csv"),row.names = FALSE)
+        
+        ####### And parse to JSON 
+         LB = length(output[,1])
+         billy = c()
+         for(i in 1:(LB-1)){
+         billy = paste0(billy, paste0("'",output[i,1],"':'", output[i,2],"',"))
+         }
+         billy = paste0(billy, paste0("'",output[LB,1],"':'", output[LB,2],"'"))
+         billy = paste0("{",billy,"}")
+
+         write(billy, paste0(path, "/SubsetContributions/", GID,".json"))
+
 
        }
 }
+
+
 
 
