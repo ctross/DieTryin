@@ -122,8 +122,11 @@ subset_survey_compiler_random = function(path, pattern = ".jpg", token_color="na
 
        ######## Build csv
          Full_N = 8
-         header = cbind(c("HHID", "RID", "Day", "Month", "Year", "Name", "ID", "Game", "Order", "Seed", "GID"), c(rep(NA, 6), legal_set[i,1], game_name , NA, seed, GID))
-         header2 = cbind(c(paste0("Offer", c(1:(Full_N+1))),paste0("AID", c(1:(Full_N+1)))), c(rep(NA, Full_N +1),IDs,rep(NA,Full_N-set_size)))
+         header = cbind(c("HHID", "RID", "Day", "Month", "Year", "Name", "ID", "Game", "Order", "Seed", "GID"), c(c('',RID,day,month,year,''), legal_set[i,1], game_name , NA, seed, GID))
+         header2 = cbind(c(paste0("Offer", c(1:(Full_N+1))),paste0("AID", c(1:(Full_N+1)))), c(rep('', Full_N +1),IDs,rep("BLANK",Full_N-set_size)))
+
+         header = cbind(c("HHID", "RID", "Day", "Month", "Year", "Name", "ID", "Game", "Order", "Seed", "GID"), c(c('',RID,day,month,year,''), PID, game_name , '', seed, GID))
+         header2 = cbind(c(paste0("Offer", c(1:(Full_N+1))),paste0("AID", c(1:(Full_N+1)))), c(rep('', Full_N +1),legal_set[i,],rep("BLANK",Full_N-set_size)))
 
          output = rbind(header,header2) 
          colnames(output) = c("Variable","Data")
