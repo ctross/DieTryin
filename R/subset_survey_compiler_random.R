@@ -26,7 +26,8 @@
 
 subset_survey_compiler_random = function(path, pattern = ".jpg", token_color="navyblue", 
                                          set_size=4, height=8.5, width=11, seed=123, full_alter_set = TRUE, 
-                                         max_iter=10000, gid_size=4, game_name="Random"){
+                                         max_iter=10000, gid_size=4, game_name="Random",
+                                         RID="CR", day=1, month=3, year=2023){
     # Set random number generator seed to make repeatable game IDS
       if(!is.na(seed)){
        set.seed(seed)

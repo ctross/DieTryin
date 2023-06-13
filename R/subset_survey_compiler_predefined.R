@@ -17,7 +17,8 @@
 #'
 subset_survey_compiler_predefined = function(path, pid=NULL, id_set=NULL, pattern = ".jpg",  
                                          height=8.5, width=11, seed=123, 
-                                         gid_size=4, game_name="Predefined"){
+                                         gid_size=4, game_name="Predefined",
+                                         RID="CR", day=1, month=3, year=2023){
     # Set random number generator seed to make repeatable game IDS
       if(!is.na(seed)){
        set.seed(seed)

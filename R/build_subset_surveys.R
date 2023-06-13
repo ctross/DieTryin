@@ -37,25 +37,29 @@
 
 build_subset_surveys = function (path, pid=NULL, id_set=NULL, game_name="Choice", entry_type="random", set_size=4, 
                                     pattern = ".jpg", token_color="navyblue",  max_iter=10000, full_alter_set = TRUE,
-                                    height=8.5, width=11, seed=NA, gid_size=4){
+                                    height=8.5, width=11, seed=NA, gid_size=4,
+                                    RID="CR", day=1, month=3, year=2023){
 
   ################################################################## Build Selection
   if(entry_type=="choice"){
    subset_survey_compiler_partner_choice(path=path, token_color=token_color, game_name=game_name, set_size=set_size, 
-                                         height=height, width=width, pattern = pattern, seed=seed, gid_size=gid_size)
+                                         height=height, width=width, pattern = pattern, seed=seed, gid_size=gid_size,
+                                         RID=RID, day=day, month=month, year=year)
    }
  
   ################################################################## Build Random
   else if(entry_type=="random"){
    subset_survey_compiler_random(path=path, token_color=token_color, game_name=game_name, max_iter=max_iter, set_size=set_size, 
                                  full_alter_set = full_alter_set, height=height, width=width, pattern = pattern, seed=seed, 
-                                 gid_size=gid_size)     
+                                 gid_size=gid_size,
+                                 RID=RID, day=day, month=month, year=year)     
    }
 
   ################################################################## Build Selection
   else if(entry_type=="predefined"){
    subset_survey_compiler_predefined(path=path, pid = pid, id_set = id_set, game_name=game_name,  
-                                     height=height, width=width, pattern = pattern, seed=seed, gid_size=gid_size)
+                                     height=height, width=width, pattern = pattern, seed=seed, gid_size=gid_size,
+                                     RID=RID, day=day, month=month, year=year)
   }
 
   ##### Otherwise return error
