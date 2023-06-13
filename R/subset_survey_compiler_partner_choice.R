@@ -114,6 +114,7 @@ subset_survey_compiler_partner_choice = function(path, pattern = ".jpg", token_c
 
 
        }
+
 }
 
 

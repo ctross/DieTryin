@@ -86,4 +86,15 @@ subset_survey_compiler_predefined = function(path, pid=NULL, id_set=NULL, patter
 
         write.csv(output, paste0(path, "/SubsetContributions/", GID,".csv"),row.names = FALSE)
 
+       ####### And parse to JSON 
+        LB = length(output[,1])
+        billy = c()
+        for(i in 1:(LB-1)){
+         billy = paste0(billy, paste0("'",output[i,1],"':'", output[i,2],"',"))
+         }
+        billy = paste0(billy, paste0("'",output[LB,1],"':'", output[LB,2],"'"))
+        billy = paste0("{",billy,"}")
+
+        write(billy, paste0(path, "/SubsetContributions/", GID,".json"))
+
 }
