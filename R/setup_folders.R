@@ -45,6 +45,8 @@ setup_folders = function(path=path, add=NULL){
   file.copy(paste0(path.package("DieTryin"),"/","header.txt"), paste0(path,"/","RICH","/","Survey/","header.txt"))
   file.copy(paste0(path.package("DieTryin"),"/","paperandpencil.sty"), paste0(path,"/","RICH","/","Survey/","paperandpencil.sty"))
   file.copy(paste0(path.package("DieTryin"),"/","reference_chip.jpg"), paste0(path,"/","RICH","/","Survey/","reference_chip.jpg"))
+  file.copy(paste0(path.package("DieTryin"),"/","BLANK.jpg"), paste0(path,"/","RICH","/","SubsetContributions/GIDsByPID/","BLANK.jpg"))
+
 
 path <<- paste0(path,"/RICH")  
 }                                                   
