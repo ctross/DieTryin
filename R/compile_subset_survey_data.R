@@ -41,7 +41,7 @@ compile_subset_survey_data = function(path=path, format="json"){
    }
 
 #####################
-  if(format=="csv"){
+  if(format=="json"){
     files = list.files(path=paste0(path,"/","SubsetContributions/"), pattern="*.json")
     Basic = vector("list",length(files))
                               
