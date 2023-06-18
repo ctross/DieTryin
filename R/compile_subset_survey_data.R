@@ -47,13 +47,13 @@ compile_subset_survey_data = function(path=path, format="json"){
                               
  for(i in 1:length(files)){ 
   bob = readLines(paste0(path,"/","SubsetContributions","/",files[i]))       
-  Basic[[i]] = matrix(fromJSON(gsub("'", '"', bob)))
+  Basic[[i]] = matrix(jsonlite::fromJSON(gsub("'", '"', bob)))
    }
 
    }
  
  Data = matrix(NA, ncol=length(Basic[[1]]), nrow=length(files))
- colnames(Data) = names(fromJSON(gsub("'", '"', bob)))
+ colnames(Data) = names(jsonlite::fromJSON(gsub("'", '"', bob)))
  for(i in 1:length(files)){
    Data[i,] = unlist(Basic[[i]])
    }                         

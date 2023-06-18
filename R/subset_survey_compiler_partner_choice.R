@@ -3,6 +3,10 @@
 #' This is a small helper function to create suveys (PDFs) to collect data for PGG contributions and similar games.
 #'
 #' @param path Path to RICH folder.
+#' @param RID ID of researcher.
+#' @param day Day of interview.
+#' @param month Month of interview.
+#' @param year Year of interview.
 #' @param game_name Used to label PDF surveys.
 #' @param set_size Size of set of possible alters.
 #' @param token_color "color" of tokens placed. If data was entered manually, place whatever value was stored 

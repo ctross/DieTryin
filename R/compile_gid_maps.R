@@ -11,7 +11,7 @@ compile_gid_maps = function(path, mode="onlyfocal"){
    ################################### PGG style
   if(mode=="onlyfocal"){
        ## Now list games by PID
-       all_ds = list.files(paste0(path, "/SubsetContributions/"), pattern=".csv", full=TRUE)
+       all_ds = list.files(paste0(path, "/SubsetContributions/"), pattern=".csv", full.names=TRUE)
        res_list = list()
        Full_N = 8 
 
@@ -46,7 +46,7 @@ compile_gid_maps = function(path, mode="onlyfocal"){
    ################################### RICH style
         if(mode=="fullset"){
        ## Now list games by PID
-       all_ds = list.files(paste0(path, "/SubsetContributions/"), pattern=".csv", full=TRUE)
+       all_ds = list.files(paste0(path, "/SubsetContributions/"), pattern=".csv", full.names=TRUE)
        res_list = list()
        Full_N = 8 
 

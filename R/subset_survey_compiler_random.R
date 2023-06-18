@@ -4,6 +4,10 @@
 #'
 #' @param path Path to RICH folder.
 #' @param game_name Used to label PDF surveys.
+#' @param RID ID of researcher.
+#' @param day Day of interview.
+#' @param month Month of interview.
+#' @param year Year of interview.
 #' @param set_size Size of set of possible alters.
 #' @param token_color "color" of tokens placed. If data was entered manually, place whatever value was stored 
 #'  to indiciate a tie: e.g., "1"

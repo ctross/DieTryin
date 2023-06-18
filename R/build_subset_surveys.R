@@ -4,6 +4,10 @@
 #'
 #' @param path Path to RICH folder.
 #' @param pid ID code of focal recipient.
+#' @param RID ID of researcher.
+#' @param day Day of interview.
+#' @param month Month of interview.
+#' @param year Year of interview.
 #' @param id_set IDs of alter recipients (as vector).
 #' @param game_name Used to label PDF surveys.
 #' @param entry_type Pull from all files in SubsetData folder using: "random", "choice", or "predefined". 

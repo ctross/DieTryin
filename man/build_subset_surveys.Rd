@@ -18,7 +18,11 @@ build_subset_surveys(
   height = 8.5,
   width = 11,
   seed = NA,
-  gid_size = 4
+  gid_size = 4,
+  RID = "CR",
+  day = 1,
+  month = 3,
+  year = 2023
 )
 }
 \arguments{
@@ -57,6 +61,14 @@ alter appears in exactly the same number of games. Thus, we iterate randomizatio
 \item{seed}{Number to use in seeding the randomization process if used.}
 
 \item{gid_size}{Number of characters in hashcodes for the game IDs.}
+
+\item{RID}{ID of researcher.}
+
+\item{day}{Day of interview.}
+
+\item{month}{Month of interview.}
+
+\item{year}{Year of interview.}
 }
 \value{
 A file folder, SubsetSurveys, filled with PDFs of sub-surveys to run, and a second folder, SubsetContributions, 

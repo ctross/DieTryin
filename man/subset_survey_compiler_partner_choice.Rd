@@ -13,7 +13,11 @@ subset_survey_compiler_partner_choice(
   width = 11,
   seed = 123,
   gid_size = 4,
-  game_name = "Choice"
+  game_name = "Choice",
+  RID = "CR",
+  day = 1,
+  month = 3,
+  year = 2023
 )
 }
 \arguments{
@@ -35,6 +39,14 @@ to indiciate a tie: e.g., "1"}
 \item{gid_size}{Number of characters in hashcodes for the game IDs.}
 
 \item{game_name}{Used to label PDF surveys.}
+
+\item{RID}{ID of researcher.}
+
+\item{day}{Day of interview.}
+
+\item{month}{Month of interview.}
+
+\item{year}{Year of interview.}
 }
 \value{
 A file folder, SubsetSurveys, filled with PDFs of sub-surveys to run, and a second folder, SubsetContributions, 
