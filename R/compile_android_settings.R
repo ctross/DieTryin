@@ -7,6 +7,7 @@
 #' can give to anyone on the roster, set to "fullset".
 #' @param entryMode Set to "permanent" so that data cant be changed once saved. Set to "temporary" if saved data are allowed to be overwritten.
 #' @param photoNumber The app allows up to 9 total targets when set to "threelines", and 6 targets when set to "twolines". Three people per line.
+#' @param quietMode Set to "fifty" for some inspirational 50 cents quotes on start-up. Set to "dull" if you wanna be boring.
 #' @export
 #'
 compile_android_settings = function(path, photoMode="onlyfocal", entryMode="permanent", photoNumber="twolines", quietMode="fifty"){

@@ -8,7 +8,8 @@ compile_android_settings(
   path,
   photoMode = "onlyfocal",
   entryMode = "permanent",
-  photoNumber = "twolines"
+  photoNumber = "twolines",
+  quietMode = "fifty"
 )
 }
 \arguments{
@@ -20,6 +21,8 @@ can give to anyone on the roster, set to "fullset".}
 \item{entryMode}{Set to "permanent" so that data cant be changed once saved. Set to "temporary" if saved data are allowed to be overwritten.}
 
 \item{photoNumber}{The app allows up to 9 total targets when set to "threelines", and 6 targets when set to "twolines". Three people per line.}
+
+\item{quietMode}{Set to "fifty" for some inspirational 50 cents quotes on start-up. Set to "dull" if you wanna be boring.}
 }
 \description{
 This is a small helper function to create suveys JSON files that guide the app behavior.
