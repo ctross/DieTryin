@@ -9,13 +9,14 @@
 #' @param photoNumber The app allows up to 9 total targets when set to "threelines", and 6 targets when set to "twolines". Three people per line.
 #' @export
 #'
-compile_android_settings = function(path, photoMode="onlyfocal", entryMode="permanent", photoNumber="twolines"){
+compile_android_settings = function(path, photoMode="onlyfocal", entryMode="permanent", photoNumber="twolines", quietMode="fifty"){
    ################################### PGG style
          billy = c(paste0("'","photoMode","':'", photoMode,"',"))
          bob = c(paste0("'","entryMode","':'", entryMode,"',"))
-         dole = c(paste0("'","photoNumber","':'", photoNumber,"'"))
+         dole = c(paste0("'","photoNumber","':'", photoNumber,"',"))
+         fifty = c(paste0("'","quietMode","':'", quietMode,"'"))
 
-         billy = paste0("{",billy,bob,dole,"}")
+         billy = paste0("{",billy,bob,dole,fifty,"}")
 
          print(billy)
 
