@@ -10,6 +10,8 @@
 #' @param 
 #' Mu The scalar on the goods provided to the public pot.
 #' @param 
+#' Game While ame to inlcude? "All" for all games.
+#' @param 
 #' NA_Payout What value is assigned to NAs?
 #' @export
 #' @examples
@@ -18,8 +20,13 @@
 #'                    }
 
 
-calculate_PGG_payouts = function(path, K=5, B=20, Mu=2, NA_Payout=10){
+calculate_PGG_payouts = function(path, K=5, B=20, Mu=2, Game="All", NA_Payout=10){
   d = read.csv(paste0(path,"/Results/","SubsetContributions-SummaryTable.csv"))
+
+  if(Game != "All"){
+  d = d[which(d$Game==Game),]
+    }
+  
   d_AID = d[,which(colnames(d) %in% paste0("AID",1:K))]
   d_public = d[,which(colnames(d) %in% paste0("Offer",1:K))]
   d_public[is.na(d_public)] = NA_Payout
