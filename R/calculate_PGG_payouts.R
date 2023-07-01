@@ -38,7 +38,7 @@ calculate_PGG_payouts = function(path, K=5, B=20, Mu=2, NA_Payout=10){
 
   colnames(d_payout) = c("ID", "Payout")
 
-  print(d_payout)
+  return(d_payout)
   write.csv(d_payout, paste0(path,"/Results/PGG_Payouts.csv"))
 } 
 
