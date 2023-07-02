@@ -20,8 +20,8 @@
 #'                    }
 
 
-calculate_PGG_payouts = function(path, K=5, B=20, Mu=2, Game="All", NA_Payout=10){
-  d = read.csv(paste0(path,"/Results/","SubsetContributions-SummaryTable.csv"))
+calculate_PGG_payouts = function(path, sub_path="/Results/", K=5, B=20, Mu=2, Game="All", NA_Payout=10){
+  d = read.csv(paste0(path,sub_path,"SubsetContributions-SummaryTable.csv"))
 
   if(Game != "All"){
   d = d[which(d$Game==Game),]
