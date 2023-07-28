@@ -17,6 +17,7 @@ downsize = function(path=path, scaler=2){
    imgRaw = imager::load.image(to_read[i])
    img = imager::resize(imgRaw,round(imager::width(imgRaw)/scaler),round(imager::height(imgRaw)/scaler))
 
-   imager::save.image(img, paste0(path_imgs_small,to_save[i]), quality = 0.9)
+   out_path = gsub(" ", "", paste0(path_imgs_small,to_save[i]), fixed = TRUE)
+   imager::save.image(img, out_path, quality = 0.9)
    }
 }
