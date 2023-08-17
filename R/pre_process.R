@@ -28,7 +28,7 @@
 #' filled[[1]] = pre_process(path=path, ID="QQQ", game="Blank", panels=c("A","B"))
 #'                    }
 
-pre_process = function (path, ID, game = "Blank", panels = c("A", "B"), pre_processed = FALSE, automate = FALSE, reference = NULL, d_x = 20, d_y = 20) 
+pre_process = function (path, ID, game = "Blank", panels = c("A", "B"), pre_processed = FALSE, automate = FALSE, reference = NULL, d_x = 20, d_y = 20, plot_corners=TRUE) 
 {
     blank_photos_to_read = paste0(game, "_", ID, "_", panels, ".jpg")
     blank_path = paste0(path, "/ResultsPhotosSmall/", blank_photos_to_read)
@@ -38,7 +38,7 @@ pre_process = function (path, ID, game = "Blank", panels = c("A", "B"), pre_proc
      blank_locs = grab_points(blank_path, pre_processed = pre_processed)
     }
     if(automate == TRUE){
-     blank_locs = grab_points_automatic(path_imgs = blank_path, path_refset = reference, d_x = d_x, d_y = d_y)    
+     blank_locs = grab_points_automatic(path_imgs = blank_path, path_refset = reference, d_x = d_x, d_y = d_y, plot_corners=plot_corners)    
     }
 
     return(list(blank_images, blank_locs))
