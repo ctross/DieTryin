@@ -110,7 +110,8 @@ classify = function(
                       alert_mode="off",
                       automate = TRUE,
                       d_x = 20, 
-                      d_y = 20
+                      d_y = 20,
+                      plot_corners=TRUE
     ){
 N_all <<- length(questions) + 1 
 N_all = length(questions) + 1
@@ -119,14 +120,14 @@ if(revise == FALSE){
 ################################### And now a batch process script for Likert data
 
 filled2 = vector("list", N_all)
-filled2[[1]] = pre_process(path=path, ID=PID, game="Blank", panels=panels, automate =  automate, reference = paste0(path,"/ReferenceChip"), d_x = d_x, d_y = d_y)
+filled2[[1]] = pre_process(path=path, ID=PID, game="Blank", panels=panels, automate =  automate, reference = paste0(path,"/ReferenceChip"), d_x = d_x, d_y = d_y, plot_corners=plot_corners)
 
 game_names_list <<- questions
 game_names_list = game_names_list
 
 for(i in 1:(N_all-1)){
  print(game_names_list[i])
- filled2[[i+1]] = pre_process(path=path, ID=PID, game=game_names_list[i], panels=panels, automate =  automate, reference = paste0(path,"/ReferenceChip"), d_x = d_x, d_y = d_y)
+ filled2[[i+1]] = pre_process(path=path, ID=PID, game=game_names_list[i], panels=panels, automate =  automate, reference = paste0(path,"/ReferenceChip"), d_x = d_x, d_y = d_y, plot_corners=plot_corners)
 }
 
 game_images_all = vector("list", N_all)
