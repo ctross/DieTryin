@@ -42,11 +42,11 @@
     for (i in 1:length(imgs)) {
         imgs[[i]] = imager::load.image(path_imgs[i])
      
-        if(dim(imgs[[i]])[1] > dim(imgs[[i]])[2]) {
-                imgs[[i]] = imager::imrotate(imgs[[i]], 90)
-            }
+      #  if(dim(imgs[[i]])[1] > dim(imgs[[i]])[2]) {
+      #         imgs[[i]] = imager::imrotate(imgs[[i]], 90)
+      #     }
 
-            locs[[i]] = grabPointAuto(img = imgs[[i]], ref_set = refset, d_x = d_x, d_y = d_y)
+        locs[[i]] = grabPointAuto(img = imgs[[i]], ref_set = refset, d_x = d_x, d_y = d_y)
 
 
        print(paste("image", i, "processed"))
