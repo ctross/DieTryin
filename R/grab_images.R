@@ -14,6 +14,6 @@ grab_images = function(path_imgs){
 
  #    if(dim(imgs[[i]])[1]>dim(imgs[[i]])[2]){
  #      imgs[[i]] = imager::imrotate(imgs[[i]],90)}
- #     }
+      }
  return(imgs)
 }
