@@ -20,8 +20,8 @@ grab_points = function(path_imgs, pre_processed=FALSE){
 
      if(pre_processed==FALSE){
 
-      if(dim(imgs[[i]])[1]>dim(imgs[[i]])[2]){
-        imgs[[i]] = imager::imrotate(imgs[[i]],90)}
+     # if(dim(imgs[[i]])[1]>dim(imgs[[i]])[2]){
+     #  imgs[[i]] = imager::imrotate(imgs[[i]],90)}
 
       loc1 = imager::grabPoint(imgs[[i]])  
       loc2 = imager::grabPoint(imgs[[i]])  
