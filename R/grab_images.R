@@ -12,8 +12,8 @@ grab_images = function(path_imgs){
  for(i in 1:length(imgs)){
   imgs[[i]] = imager::load.image(path_imgs[i])
 
-     if(dim(imgs[[i]])[1]>dim(imgs[[i]])[2]){
-    imgs[[i]] = imager::imrotate(imgs[[i]],90)}
-  }
+ #    if(dim(imgs[[i]])[1]>dim(imgs[[i]])[2]){
+ #      imgs[[i]] = imager::imrotate(imgs[[i]],90)}
+ #     }
  return(imgs)
 }
