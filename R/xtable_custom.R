@@ -11,7 +11,9 @@
 #'   xtable_custom(x)
 #'                    }
 
-xtable_custom = function(x, ...) xtable::xtable(x, ..., align = make_align_string(x))
+xtable_custom = function(x, ...) {
+  xtable::xtable(x, ..., align = make_align_string(x))
+  }
 
 
 
