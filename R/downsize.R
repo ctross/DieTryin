@@ -19,5 +19,6 @@ downsize = function(path=path, scaler=2){
 
    out_path = gsub(" ", "", paste0(path_imgs_small,to_save[i]), fixed = TRUE)
    imager::save.image(img, out_path, quality = 0.9)
+    print(paste0("Printed image ", i, " of ", length(to_read)))
    }
 }
