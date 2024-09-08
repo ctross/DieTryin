@@ -10,7 +10,7 @@ In order to replicate our workflow from the BRM paper exactly, you will need to 
 
 A raw version of the R code described below can be found [here](https://github.com/ctross/DieTryin/blob/master/Workflow.R)
   
-[**DieTryin**](https://github.com/ctross/DieTryin) is part of an ecosystem of tools for contemporary social network analysis. [**STRAND**](https://github.com/ctross/STRAND) is a companion package designed to allow users to specify complex Bayesian social network models using a simple, lm() style, syntax. **ResolveR** (currently under development) is a package for semi-supervised data cleaning, de-duplication, and record linkage.
+[**DieTryin**](https://github.com/ctross/DieTryin) is part of an ecosystem of tools for contemporary social network analysis. [**STRAND**](https://github.com/ctross/STRAND) is a companion package designed to allow users to specify complex Bayesian social network models using a simple, lm() style, syntax. 
 
 Data Collection with DieTryinCam
 ------
